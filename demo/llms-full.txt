@@ -121,3 +121,18 @@ Single IIFE build (styles included) for drop-in use, plus ESM/CJS builds and Typ
 ## License
 
 MIT © Iurii Rogulia (https://iurii.rogulia.fi)
+
+<!-- platforms:start -->
+## Install guides by platform
+
+- [WordPress](https://halloween.js.org/wordpress/): where to paste the snippet in WordPress and WooCommerce
+- [Shopify](https://halloween.js.org/shopify/): where to paste the snippet in Shopify
+- [Webflow](https://halloween.js.org/webflow/): where to paste the snippet in Webflow
+- [Squarespace](https://halloween.js.org/squarespace/): where to paste the snippet in Squarespace
+- [Wix](https://halloween.js.org/wix/): where to paste the snippet in Wix
+- [Tilda](https://halloween.js.org/tilda/): where to paste the snippet in Tilda
+- [Ghost](https://halloween.js.org/ghost/): where to paste the snippet in Ghost
+- [Blogger](https://halloween.js.org/blogger/): where to paste the snippet in Blogger
+- [Google Tag Manager](https://halloween.js.org/google-tag-manager/): where to paste the snippet in Google Tag Manager
+- [Framer](https://halloween.js.org/framer/): where to paste the snippet in Framer
+<!-- platforms:end -->

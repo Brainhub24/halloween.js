@@ -90,7 +90,7 @@ describe('demo install/body block structure', () => {
     expect(labelId).toBeTruthy();
     const label = document.getElementById(labelId!);
     expect(label).not.toBeNull();
-    expect(label!.textContent).toMatch(/body/i);
+    expect(label!.textContent?.trim()).toBeTruthy();
   });
 });
 
@@ -195,5 +195,64 @@ describe('demo install tabs keyboard navigation', () => {
     tabNpm.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
     expect(tabScript.getAttribute('aria-selected')).toBe('true');
     expect(document.activeElement).toBe(tabScript);
+  });
+});
+
+describe('demo paste-only snippet', () => {
+  function pasteScriptBody(): string {
+    const value = byId<HTMLTextAreaElement>('paste-example').value;
+    const match = /^<script src="[^"]+"><\/script>\n<script>\n([\s\S]*)\n<\/script>$/.exec(value);
+    if (!match)
+      throw new Error('paste-only output is not the library tag plus one inline <script>');
+    return match[1];
+  }
+
+  it('mirrors the body classes of the <body> tag output', () => {
+    loadDemo();
+    const bodyTag = byId<HTMLTextAreaElement>('body-example').value;
+    const classes = /class="([^"]+)"/.exec(bodyTag)![1].split(' ');
+    const paste = byId<HTMLTextAreaElement>('paste-example').value;
+    for (const name of classes) expect(paste).toContain(`"${name}"`);
+  });
+
+  it('applies classes, season attributes and color to <body> when it runs after load', () => {
+    loadDemo();
+    byId<HTMLInputElement>('cfg-tombstones').checked = false;
+    byId<HTMLSelectElement>('cfg-season-start-month').value = '09';
+    byId<HTMLInputElement>('cfg-color-enabled').checked = true;
+    byId<HTMLInputElement>('cfg-color').value = '#ff6b00';
+    for (const id of [
+      'cfg-tombstones',
+      'cfg-season-start-month',
+      'cfg-color-enabled',
+      'cfg-color',
+    ]) {
+      byId(id).dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    new Function(pasteScriptBody())();
+    expect(document.body.classList.contains('halloween')).toBe(true);
+    expect(document.body.classList.contains('halloween-eyes')).toBe(true);
+    expect(document.body.classList.contains('halloween-tombstones')).toBe(false);
+    expect(document.body.getAttribute('data-halloween-start')).toBe('18-09');
+    expect(document.body.style.getPropertyValue('--halloween-color')).toBe('#ff6b00');
+  });
+
+  it('waits for DOMContentLoaded while the document is still loading', () => {
+    loadDemo();
+    Object.defineProperty(document, 'readyState', { value: 'loading', configurable: true });
+    document.body.className = '';
+    new Function(pasteScriptBody())();
+    expect(document.body.classList.contains('halloween')).toBe(false);
+    document.dispatchEvent(new Event('DOMContentLoaded'));
+    expect(document.body.classList.contains('halloween')).toBe(true);
+    delete (document as unknown as { readyState?: string }).readyState;
+  });
+
+  it('copies the paste-only snippet value', () => {
+    loadDemo();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    byId<HTMLButtonElement>('copy-paste-btn').click();
+    expect(writeText).toHaveBeenCalledWith(byId<HTMLTextAreaElement>('paste-example').value);
   });
 });

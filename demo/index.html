@@ -457,24 +457,68 @@
             </details>
 
             <div class="control-group body-output-group">
-              <h3 id="body-output-heading">Your &lt;body&gt; tag</h3>
+              <h3 id="body-output-heading">Turn it on</h3>
               <p class="live-body-copy">
-                These controls update your <code>&lt;body&gt;</code> classes and attributes below —
-                the <code>&lt;script&gt;</code> tag itself never changes.
+                These controls update the code below — the library <code>&lt;script&gt;</code> tag
+                itself never changes. Use the <code>&lt;body&gt;</code> tag if you can edit it, and
+                Paste-only on Wix, Tilda, Webflow, Google Tag Manager and other builders. Paste-only
+                includes the library script, so it is the whole install.
               </p>
-              <div class="code-block body-output-block">
-                <textarea
-                  id="body-example"
-                  class="body-output"
-                  readonly
-                  wrap="soft"
-                  spellcheck="false"
-                  rows="1"
-                  aria-labelledby="body-output-heading"
-                ></textarea>
-                <button type="button" class="copy-btn" id="copy-body-btn" data-label="Copy">
-                  Copy
+
+              <div class="tabs" role="tablist" aria-label="Where you paste it">
+                <button
+                  role="tab"
+                  id="tab-body"
+                  aria-selected="true"
+                  aria-controls="panel-body"
+                  type="button"
+                >
+                  &lt;body&gt; tag
                 </button>
+                <button
+                  role="tab"
+                  id="tab-paste"
+                  aria-selected="false"
+                  aria-controls="panel-paste"
+                  tabindex="-1"
+                  type="button"
+                >
+                  Paste-only
+                </button>
+              </div>
+
+              <div id="panel-body" role="tabpanel" aria-labelledby="tab-body" tabindex="0">
+                <div class="code-block body-output-block">
+                  <textarea
+                    id="body-example"
+                    class="body-output"
+                    readonly
+                    wrap="soft"
+                    spellcheck="false"
+                    rows="1"
+                    aria-labelledby="body-output-heading"
+                  ></textarea>
+                  <button type="button" class="copy-btn" id="copy-body-btn" data-label="Copy">
+                    Copy
+                  </button>
+                </div>
+              </div>
+
+              <div id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" tabindex="0" hidden>
+                <div class="code-block body-output-block">
+                  <textarea
+                    id="paste-example"
+                    class="body-output"
+                    readonly
+                    wrap="soft"
+                    spellcheck="false"
+                    rows="1"
+                    aria-labelledby="body-output-heading"
+                  ></textarea>
+                  <button type="button" class="copy-btn" id="copy-paste-btn" data-label="Copy">
+                    Copy
+                  </button>
+                </div>
               </div>
 
               <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>

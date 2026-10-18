@@ -47,6 +47,9 @@
     // "normal" intentionally has no class — it's the library default.
   };
 
+  const CDN_SCRIPT_TAG =
+    '<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"><\/script>';
+
   const pad2 = (n) => String(n).padStart(2, '0');
 
   function el(id) {
@@ -77,6 +80,7 @@
   const colorError = el('cfg-color-error');
   const scriptExample = el('script-example');
   const bodyExample = el('body-example');
+  const pasteExample = el('paste-example');
   const copyStatus = el('copy-status');
   const previewFrame = el('preview-frame');
 
@@ -185,6 +189,39 @@
     return `<body ${attrs.join(' ')}>`;
   }
 
+  // For platforms that don't expose <body> (Wix, Tilda, GTM, Squarespace…):
+  // the same classes and attributes, applied from a script instead. It waits
+  // for DOMContentLoaded because a script in <head> runs before document.body
+  // exists, and applies immediately when injected after the page has loaded.
+  // Includes the library <script> so one copy-paste is the whole install.
+  function buildPasteMarkup(state, classes) {
+    const lines = [`document.body.classList.add(${classes.map((c) => `"${c}"`).join(', ')});`];
+    if (state.seasonStart !== SEASON_DEFAULTS.start) {
+      lines.push(`document.body.setAttribute("data-halloween-start", "${state.seasonStart}");`);
+    }
+    if (state.seasonEnd !== SEASON_DEFAULTS.end) {
+      lines.push(`document.body.setAttribute("data-halloween-end", "${state.seasonEnd}");`);
+    }
+    if (state.colorEnabled && state.color) {
+      lines.push(`document.body.style.setProperty("--halloween-color", "${state.color}");`);
+    }
+    return [
+      CDN_SCRIPT_TAG,
+      '<script>',
+      '(function () {',
+      '  function apply() {',
+      ...lines.map((line) => `    ${line}`),
+      '  }',
+      '  if (document.readyState === "loading") {',
+      '    document.addEventListener("DOMContentLoaded", apply);',
+      '  } else {',
+      '    apply();',
+      '  }',
+      '})();',
+      '<\/script>',
+    ].join('\n');
+  }
+
   // ---- iframe messaging ----
 
   const PREVIEW_ORIGIN = window.location.origin;
@@ -258,8 +295,10 @@
   // *measures* height and writes it back once, so it can't retrigger itself
   // and cannot loop.
   function resizeBodyTextarea() {
-    bodyExample.style.height = 'auto';
-    bodyExample.style.height = `${bodyExample.scrollHeight}px`;
+    [bodyExample, pasteExample].forEach((area) => {
+      area.style.height = 'auto';
+      area.style.height = `${area.scrollHeight}px`;
+    });
   }
 
   window.addEventListener('resize', resizeBodyTextarea);
@@ -272,10 +311,10 @@
     currentState = readState();
     const classes = buildClasses(currentState);
 
-    scriptExample.textContent =
-      '<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"><\/script>';
+    scriptExample.textContent = CDN_SCRIPT_TAG;
     const bodyMarkup = buildBodyMarkup(currentState, classes);
     bodyExample.value = bodyMarkup;
+    pasteExample.value = buildPasteMarkup(currentState, classes);
     resizeBodyTextarea();
 
     // currentState.color is already null for anything that doesn't match
@@ -331,37 +370,48 @@
     sendStateToPreview(currentState);
   });
 
-  // ---- tabs (Script tag / npm) ----
+  // ---- tabs (WAI-ARIA tablist, shared by every tab group on the page) ----
 
-  const tabs = [el('tab-script'), el('tab-npm')];
-  const panels = { 'tab-script': el('panel-script'), 'tab-npm': el('panel-npm') };
+  function setupTabs(tabs, panels) {
+    function selectTab(tab) {
+      tabs.forEach((t) => {
+        const selected = t === tab;
+        t.setAttribute('aria-selected', String(selected));
+        t.tabIndex = selected ? 0 : -1;
+        panels[t.id].hidden = !selected;
+      });
+      tab.focus();
+      resizeBodyTextarea();
+    }
 
-  function selectTab(tab) {
-    tabs.forEach((t) => {
-      const selected = t === tab;
-      t.setAttribute('aria-selected', String(selected));
-      t.tabIndex = selected ? 0 : -1;
-      panels[t.id].hidden = !selected;
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          const next =
+            event.key === 'ArrowRight'
+              ? (i + 1) % tabs.length
+              : (i - 1 + tabs.length) % tabs.length;
+          event.preventDefault();
+          selectTab(tabs[next]);
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          selectTab(tabs[0]);
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          selectTab(tabs[tabs.length - 1]);
+        }
+      });
     });
-    tab.focus();
   }
 
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => selectTab(tab));
-    tab.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-        const next =
-          event.key === 'ArrowRight' ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
-        event.preventDefault();
-        selectTab(tabs[next]);
-      } else if (event.key === 'Home') {
-        event.preventDefault();
-        selectTab(tabs[0]);
-      } else if (event.key === 'End') {
-        event.preventDefault();
-        selectTab(tabs[tabs.length - 1]);
-      }
-    });
+  setupTabs([el('tab-script'), el('tab-npm')], {
+    'tab-script': el('panel-script'),
+    'tab-npm': el('panel-npm'),
+  });
+  setupTabs([el('tab-body'), el('tab-paste')], {
+    'tab-body': el('panel-body'),
+    'tab-paste': el('panel-paste'),
   });
 
   // ---- copy buttons ----
@@ -409,4 +459,5 @@
     'npm import line',
   );
   setupCopyButton('copy-body-btn', () => bodyExample.value, 'Body markup');
+  setupCopyButton('copy-paste-btn', () => pasteExample.value, 'Paste-only snippet');
 })();

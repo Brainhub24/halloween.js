@@ -21,3 +21,18 @@ By default it only runs in a ~2 week season window around Halloween (18 Oct – 
 - Bundle size: under 10 KB gzipped
 - Dependencies: none
 - Formats: ESM, CJS, and IIFE (CDN script tag) builds, with TypeScript types included
+
+<!-- platforms:start -->
+## Install guides by platform
+
+- [WordPress](https://halloween.js.org/wordpress/): where to paste the snippet in WordPress and WooCommerce
+- [Shopify](https://halloween.js.org/shopify/): where to paste the snippet in Shopify
+- [Webflow](https://halloween.js.org/webflow/): where to paste the snippet in Webflow
+- [Squarespace](https://halloween.js.org/squarespace/): where to paste the snippet in Squarespace
+- [Wix](https://halloween.js.org/wix/): where to paste the snippet in Wix
+- [Tilda](https://halloween.js.org/tilda/): where to paste the snippet in Tilda
+- [Ghost](https://halloween.js.org/ghost/): where to paste the snippet in Ghost
+- [Blogger](https://halloween.js.org/blogger/): where to paste the snippet in Blogger
+- [Google Tag Manager](https://halloween.js.org/google-tag-manager/): where to paste the snippet in Google Tag Manager
+- [Framer](https://halloween.js.org/framer/): where to paste the snippet in Framer
+<!-- platforms:end -->

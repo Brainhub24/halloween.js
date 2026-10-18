@@ -37,50 +37,38 @@ After the script tag, the same imperative API is available as `Halloween.pageEff
 
 ### Platform guides
 
-The same script tag works everywhere — only where you paste it, and how you set the `halloween` body class, changes per platform.
-
-#### WordPress
-
-- Without plugins: **Appearance → Theme Editor → header.php**, paste the script tag right before `</head>`. Only works on themes that allow file editing (not on WordPress.com's basic plan or block themes with editing disabled).
-- With a "Insert Headers and Footers"-type plugin (any popular one works): paste the same script tag into its **Header** field, no theme editing needed.
-- Add `class="halloween"` to `<body>` via your theme's body class filter, or add a small custom-HTML block with `<script>document.body.classList.add("halloween")</script>`.
+On site builders and CMSs you usually can't edit `<body>`, and a script in `<head>` runs before `document.body` exists. This snippet works anywhere: it loads the library and adds the classes once the page is ready, whether it is pasted in the head, in the footer or injected later by a tag manager. It adds to the existing body classes instead of replacing them.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
+<script>
+(function () {
+  function apply() {
+    document.body.classList.add("halloween", "halloween-screen-left-top", "halloween-screen-right-bottom", "halloween-eyes", "halloween-witches", "halloween-spider-drop", "halloween-tombstones");
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
 ```
 
-#### Webflow
+Pick your own corners, effects, intensity, color and season in the [playground](https://halloween.js.org/#playground) (the **Paste-only** tab generates this whole snippet). Step-by-step guides with the exact menu path:
 
-- **Project Settings → Custom Code → Head Code** applies the script site-wide; use a specific page's **Page Settings → Custom Code** to scope it to one page instead.
-- Webflow doesn't expose the `<body>` tag for editing directly — add the master class from the same Custom Code panel (Footer Code) instead:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
-<script>document.body.classList.add("halloween");</script>
-```
-
-#### Shopify
-
-- **Online Store → Themes → Edit Code → theme.liquid**, paste the script tag right before `</head>`.
-- Shopify's `theme.liquid` gives you the `<body>` tag directly, so add the class there:
-
-```html
-<body class="halloween">
-```
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
-```
-
-#### Squarespace
-
-- **Settings → Advanced → Code Injection → Header**, paste the script tag. Code Injection only exposes header/footer, not `<body>` itself.
-- Add the master class from the same Header field instead:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
-<script>document.body.classList.add("halloween");</script>
-```
+| Platform | Where to paste it | Guide |
+| --- | --- | --- |
+| WordPress, WooCommerce | Footer field of a header/footer code plugin | [guide](https://halloween.js.org/wordpress/) |
+| Shopify | `theme.liquid`, just above `</body>` | [guide](https://halloween.js.org/shopify/) |
+| Webflow | Site settings → Custom code → Footer code | [guide](https://halloween.js.org/webflow/) |
+| Squarespace | Code Injection → Footer | [guide](https://halloween.js.org/squarespace/) |
+| Wix | Settings → Advanced → Custom Code, Body - end | [guide](https://halloween.js.org/wix/) |
+| Tilda | T123 (Embed HTML Code) block on the page | [guide](https://halloween.js.org/tilda/) |
+| Ghost | Settings → Advanced → Code injection → Site footer | [guide](https://halloween.js.org/ghost/) |
+| Blogger | Theme → Edit HTML, above `</body>` | [guide](https://halloween.js.org/blogger/) |
+| Google Tag Manager | Custom HTML tag, All Pages trigger | [guide](https://halloween.js.org/google-tag-manager/) |
+| Framer | Site Settings → Custom Code → End of `<body>` tag | [guide](https://halloween.js.org/framer/) |
 
 ## The master switch
 
