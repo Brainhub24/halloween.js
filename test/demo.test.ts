@@ -256,3 +256,129 @@ describe('demo paste-only snippet', () => {
     expect(writeText).toHaveBeenCalledWith(byId<HTMLTextAreaElement>('paste-example').value);
   });
 });
+
+describe('demo credit link controls', () => {
+  function setBadge(enabled: boolean, placement = '') {
+    const toggle = byId<HTMLInputElement>('cfg-badge-enabled');
+    toggle.checked = enabled;
+    toggle.dispatchEvent(new Event('input', { bubbles: true }));
+    const radio = document.querySelector<HTMLInputElement>(
+      `input[name="cfg-badge-placement"][value="${placement}"]`,
+    )!;
+    radio.checked = true;
+    radio.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  it('is off by default: no badge class in either output', () => {
+    loadDemo();
+    expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain('halloween-badge');
+    expect(byId<HTMLTextAreaElement>('paste-example').value).not.toContain('halloween-badge');
+  });
+
+  it('adds halloween-badge when enabled, with no placement class for the default', () => {
+    loadDemo();
+    setBadge(true);
+    const body = byId<HTMLTextAreaElement>('body-example').value;
+    expect(body).toContain('halloween-badge');
+    expect(body).not.toMatch(/halloween-badge-(left|right)/);
+  });
+
+  it('adds the chosen placement class to both outputs', () => {
+    loadDemo();
+    setBadge(true, 'right');
+    for (const id of ['body-example', 'paste-example']) {
+      expect(byId<HTMLTextAreaElement>(id).value).toContain('halloween-badge-right');
+    }
+  });
+
+  it('disables the placement radios while the badge is off and enables them when on', () => {
+    loadDemo();
+    const radios = () =>
+      Array.from(document.querySelectorAll<HTMLInputElement>('input[name="cfg-badge-placement"]'));
+    expect(radios().every((r) => r.disabled)).toBe(true);
+    setBadge(true);
+    expect(radios().every((r) => !r.disabled)).toBe(true);
+  });
+
+  it('ignores the placement while the badge is off', () => {
+    loadDemo();
+    setBadge(false, 'left');
+    expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain('halloween-badge');
+  });
+
+  describe('colors', () => {
+    function setColors(opts: {
+      text?: string;
+      border?: string;
+      bg?: string;
+      transparent?: boolean;
+    }) {
+      const fire = (id: string, value?: string, checked?: boolean) => {
+        const input = byId<HTMLInputElement>(id);
+        if (value !== undefined) input.value = value;
+        if (checked !== undefined) input.checked = checked;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      };
+      fire('cfg-badge-colors-enabled', undefined, true);
+      if (opts.text) fire('cfg-badge-text', opts.text);
+      if (opts.border) fire('cfg-badge-border', opts.border);
+      if (opts.bg) fire('cfg-badge-bg', opts.bg);
+      if (opts.transparent) byId<HTMLButtonElement>('cfg-badge-bg-transparent').click();
+    }
+
+    it('adds no style for the badge by default or while the badge is off', () => {
+      loadDemo();
+      setColors({ text: '#112233' });
+      expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain('--halloween-badge');
+      setBadge(true);
+      expect(byId<HTMLTextAreaElement>('body-example').value).toContain(
+        '--halloween-badge-color: #112233',
+      );
+    });
+
+    it('merges badge colors into the single style attribute with the spider color', () => {
+      loadDemo();
+      setBadge(true);
+      setColors({ text: '#112233', border: '#445566', bg: '#778899' });
+      const body = byId<HTMLTextAreaElement>('body-example').value;
+      expect(body.match(/style="/g)).toHaveLength(1);
+      expect(body).toContain('--halloween-badge-color: #112233');
+      expect(body).toContain('--halloween-badge-border-color: #445566');
+      expect(body).toContain('--halloween-badge-bg: #778899');
+    });
+
+    it('leaves the background out by default and after "Transparent"', () => {
+      loadDemo();
+      setBadge(true);
+      setColors({ text: '#112233' });
+      const body = () => byId<HTMLTextAreaElement>('body-example').value;
+      expect(body()).not.toContain('--halloween-badge-bg');
+      setColors({ bg: '#778899' });
+      expect(body()).toContain('--halloween-badge-bg: #778899');
+      setColors({ transparent: true });
+      expect(body()).not.toContain('--halloween-badge-bg');
+      expect(byId<HTMLInputElement>('cfg-badge-bg').value).toBe('transparent');
+      expect(byId('cfg-badge-bg-picker').classList.contains('is-transparent')).toBe(true);
+    });
+
+    it('writes the colors into the paste-only script', () => {
+      loadDemo();
+      setBadge(true);
+      setColors({ border: '#445566' });
+      expect(byId<HTMLTextAreaElement>('paste-example').value).toContain(
+        'document.body.style.setProperty("--halloween-badge-border-color", "#445566");',
+      );
+    });
+
+    it('flags an invalid hex and omits it from the output', () => {
+      loadDemo();
+      setBadge(true);
+      setColors({ text: 'nope' });
+      expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain(
+        '--halloween-badge-color',
+      );
+      expect(byId<HTMLInputElement>('cfg-badge-text').getAttribute('aria-invalid')).toBe('true');
+      expect(byId('cfg-badge-colors-error').textContent).not.toBe('');
+    });
+  });
+});

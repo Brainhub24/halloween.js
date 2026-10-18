@@ -203,24 +203,23 @@
             <summary>No-code platform guides (WordPress, Webflow, Shopify, Squarespace)</summary>
             <ul>
               <li>
-                <strong>WordPress</strong> — Theme Editor → header.php, or any "Insert Headers and
-                Footers"-type plugin.
+                <strong>WordPress</strong> — a header/footer code plugin such as WPCode, in its
+                Footer field.
               </li>
               <li>
-                <strong>Webflow</strong> — Project Settings → Custom Code → Head Code (or Page
-                Settings for one page).
+                <strong>Webflow</strong> — Site settings → Custom code → Footer code (or Page
+                settings for one page).
               </li>
               <li>
-                <strong>Shopify</strong> — Edit Code → theme.liquid, paste before
-                <code>&lt;/head&gt;</code>.
+                <strong>Shopify</strong> — Edit code → theme.liquid, just above
+                <code>&lt;/body&gt;</code>.
               </li>
-              <li><strong>Squarespace</strong> — Settings → Advanced → Code Injection → Header.</li>
+              <li><strong>Squarespace</strong> — Settings → Advanced → Code Injection → Footer.</li>
             </ul>
             <p>
-              Paste the same script tag from the "Script tag" panel above, then add
-              <code>class="halloween"</code> to <code>&lt;body&gt;</code> (or
-              <code>document.body.classList.add("halloween")</code> where the platform doesn't
-              expose <code>&lt;body&gt;</code> directly). Full steps in the
+              Use the <strong>Paste-only</strong> tab below: it is one snippet that loads the
+              library and adds the classes once the page is ready, so it works in a header or a
+              footer field and does not need access to <code>&lt;body&gt;</code>. Full steps in the
               <a href="https://github.com/rogulia/halloween.js#platform-guides">README</a>.
             </p>
           </details>
@@ -435,6 +434,135 @@
               </div>
               <p class="field-error" id="cfg-color-error" role="alert"></p>
             </fieldset>
+
+            <details class="control-group season-details">
+              <summary>Credit link (optional)</summary>
+              <div class="season-fields">
+                <label class="switch-row">
+                  <input type="checkbox" id="cfg-badge-enabled" />
+                  <span>Show a small link to halloween.js</span>
+                </label>
+                <div class="badge-placement is-disabled" id="badge-placement">
+                  <p class="badge-placement-label" id="badge-end-label">Bottom of the page</p>
+                  <div class="segmented" role="group" aria-labelledby="badge-end-label">
+                    <label class="segmented-option">
+                      <input
+                        type="radio"
+                        name="cfg-badge-placement"
+                        id="cfg-badge-pos-left"
+                        value="left"
+                      />
+                      <span>Left</span>
+                    </label>
+                    <label class="segmented-option">
+                      <input
+                        type="radio"
+                        name="cfg-badge-placement"
+                        id="cfg-badge-pos-center"
+                        value=""
+                        checked
+                      />
+                      <span>Center</span>
+                    </label>
+                    <label class="segmented-option">
+                      <input
+                        type="radio"
+                        name="cfg-badge-placement"
+                        id="cfg-badge-pos-right"
+                        value="right"
+                      />
+                      <span>Right</span>
+                    </label>
+                  </div>
+                </div>
+                <label class="switch-row badge-colors-switch">
+                  <input type="checkbox" id="cfg-badge-colors-enabled" />
+                  <span>Custom link colors</span>
+                </label>
+                <div class="badge-colors is-disabled" id="badge-colors">
+                  <div class="badge-color-row">
+                    <span class="badge-color-label">Text</span>
+                    <div class="color-row">
+                      <input
+                        type="color"
+                        id="cfg-badge-text-picker"
+                        value="#2a1b05"
+                        aria-label="Text color"
+                      />
+                      <label class="visually-hidden" for="cfg-badge-text">Text color (hex)</label>
+                      <input
+                        type="text"
+                        id="cfg-badge-text"
+                        value="#2a1b05"
+                        maxlength="7"
+                        spellcheck="false"
+                        autocomplete="off"
+                        aria-describedby="cfg-badge-colors-error"
+                      />
+                    </div>
+                  </div>
+                  <div class="badge-color-row">
+                    <span class="badge-color-label">Border</span>
+                    <div class="color-row">
+                      <input
+                        type="color"
+                        id="cfg-badge-border-picker"
+                        value="#a2670f"
+                        aria-label="Border color"
+                      />
+                      <label class="visually-hidden" for="cfg-badge-border"
+                        >Border color (hex)</label
+                      >
+                      <input
+                        type="text"
+                        id="cfg-badge-border"
+                        value="#a2670f"
+                        maxlength="7"
+                        spellcheck="false"
+                        autocomplete="off"
+                        aria-describedby="cfg-badge-colors-error"
+                      />
+                    </div>
+                  </div>
+                  <div class="badge-color-row">
+                    <span class="badge-color-label">Background</span>
+                    <div class="color-row">
+                      <input
+                        type="color"
+                        id="cfg-badge-bg-picker"
+                        value="#fff8e7"
+                        aria-label="Background color"
+                      />
+                      <label class="visually-hidden" for="cfg-badge-bg"
+                        >Background color (hex)</label
+                      >
+                      <input
+                        type="text"
+                        id="cfg-badge-bg"
+                        value="transparent"
+                        maxlength="11"
+                        spellcheck="false"
+                        autocomplete="off"
+                        aria-describedby="cfg-badge-colors-error"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      class="badge-transparent-btn"
+                      id="cfg-badge-bg-transparent"
+                    >
+                      Make background transparent
+                    </button>
+                  </div>
+                  <p class="field-error" id="cfg-badge-colors-error" role="alert"></p>
+                </div>
+                <p class="field-note">
+                  It sits at the bottom of the page, so it never covers a chat widget or banner. To
+                  put it in your own footer, add <code>data-halloween-badge-slot</code> to that
+                  element.
+                </p>
+              </div>
+            </details>
 
             <details class="control-group season-details">
               <summary>Advanced · Active season</summary>

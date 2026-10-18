@@ -28,7 +28,19 @@
     subtle: 'halloween-intensity-subtle',
     party: 'halloween-intensity-party',
   };
+  const BADGE_CLASS = 'halloween-badge';
+  const BADGE_PLACEMENT_CLASSES = {
+    left: 'halloween-badge-left',
+    right: 'halloween-badge-right',
+  };
+  const BADGE_COLOR_VARS = {
+    text: '--halloween-badge-color',
+    border: '--halloween-badge-border-color',
+    bg: '--halloween-badge-bg',
+  };
   const ALL_MANAGED_CLASSES = [
+    BADGE_CLASS,
+    ...Object.values(BADGE_PLACEMENT_CLASSES),
     ...Object.values(CORNER_CLASSES),
     ...Object.values(EFFECT_CLASSES),
     ...Object.values(INTENSITY_CLASSES),
@@ -51,6 +63,19 @@
     if (!isBoolMap(payload.corners, ['lt', 'rt', 'lb', 'rb'])) return false;
     if (!isBoolMap(payload.effects, ['eyes', 'witches', 'spiderDrop', 'tombstones'])) return false;
     if (!VALID_INTENSITIES.has(payload.intensity)) return false;
+    if (!payload.badge || typeof payload.badge.enabled !== 'boolean') return false;
+    const colors = payload.badge.colors;
+    if (!colors || typeof colors !== 'object') return false;
+    for (const key of Object.keys(BADGE_COLOR_VARS)) {
+      const value = colors[key];
+      if (value !== null && !(typeof value === 'string' && HEX_PATTERN.test(value))) return false;
+    }
+    if (
+      payload.badge.placement !== '' &&
+      !Object.prototype.hasOwnProperty.call(BADGE_PLACEMENT_CLASSES, payload.badge.placement)
+    ) {
+      return false;
+    }
     if (
       payload.color !== null &&
       !(typeof payload.color === 'string' && HEX_PATTERN.test(payload.color))
@@ -60,6 +85,8 @@
     if (!VALID_THEMES.has(payload.theme)) return false;
     return true;
   }
+
+  let lastBadgeKey = null;
 
   function applyState(payload) {
     const desired = new Set();
@@ -72,6 +99,12 @@
     if (payload.effects.spiderDrop) desired.add(EFFECT_CLASSES.spiderDrop);
     if (payload.effects.tombstones) desired.add(EFFECT_CLASSES.tombstones);
     if (INTENSITY_CLASSES[payload.intensity]) desired.add(INTENSITY_CLASSES[payload.intensity]);
+    if (payload.badge.enabled) {
+      desired.add(BADGE_CLASS);
+      if (BADGE_PLACEMENT_CLASSES[payload.badge.placement]) {
+        desired.add(BADGE_PLACEMENT_CLASSES[payload.badge.placement]);
+      }
+    }
 
     // Only ever toggles classes from ALL_MANAGED_CLASSES — "halloween"
     // itself and the season data attributes (both set once in preview.html)
@@ -87,7 +120,23 @@
       document.body.style.removeProperty('--halloween-color');
     }
 
+    Object.entries(BADGE_COLOR_VARS).forEach(([key, cssVar]) => {
+      const value = payload.badge.colors[key];
+      if (value) document.body.style.setProperty(cssVar, value);
+      else document.body.style.removeProperty(cssVar);
+    });
+
     document.documentElement.setAttribute('data-theme', payload.theme);
+
+    // The badge sits at the end of the page, which can be below the fold of
+    // this small preview (notably on phones) — bring it into view whenever
+    // it is turned on or moved, so the choice is visible.
+    const badgeKey = payload.badge.enabled ? payload.badge.placement : null;
+    if (badgeKey !== null && badgeKey !== lastBadgeKey) {
+      // setTimeout, not rAF: rAF is paused while this iframe is off-screen.
+      setTimeout(() => window.scrollTo(0, document.documentElement.scrollHeight), 50);
+    }
+    lastBadgeKey = badgeKey;
   }
 
   // Forces a full stop-then-restart of every ambient effect and screen

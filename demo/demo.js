@@ -41,6 +41,18 @@
     spiderDrop: 'halloween-spider-drop',
     tombstones: 'halloween-tombstones',
   };
+  // Value of the placement <select> -> body class; '' is the default (centered) and adds nothing beyond the on/off class.
+  const BADGE_PLACEMENT_CLASSES = {
+    left: 'halloween-badge-left',
+    right: 'halloween-badge-right',
+  };
+  // The badge's own custom properties — the only ones the badge color
+  // controls ever write, here and in preview.js.
+  const BADGE_COLOR_VARS = {
+    text: '--halloween-badge-color',
+    border: '--halloween-badge-border-color',
+    bg: '--halloween-badge-bg',
+  };
   const INTENSITY_CLASSES = {
     subtle: 'halloween-intensity-subtle',
     party: 'halloween-intensity-party',
@@ -71,6 +83,15 @@
     colorEnabled: el('cfg-color-enabled'),
     colorPicker: el('cfg-color-picker'),
     colorText: el('cfg-color'),
+    badgeEnabled: el('cfg-badge-enabled'),
+    badgeColorsEnabled: el('cfg-badge-colors-enabled'),
+    badgeText: el('cfg-badge-text'),
+    badgeTextPicker: el('cfg-badge-text-picker'),
+    badgeBorder: el('cfg-badge-border'),
+    badgeBorderPicker: el('cfg-badge-border-picker'),
+    badgeBg: el('cfg-badge-bg'),
+    badgeBgPicker: el('cfg-badge-bg-picker'),
+    badgeBgTransparent: el('cfg-badge-bg-transparent'),
     sDay: el('cfg-season-start-day'),
     sMonth: el('cfg-season-start-month'),
     eDay: el('cfg-season-end-day'),
@@ -129,6 +150,46 @@
     return 'normal';
   }
 
+  const badgePlacementRadios = document.querySelectorAll('input[name="cfg-badge-placement"]');
+  const badgePlacementGroup = el('badge-placement');
+  const badgeColorsGroup = el('badge-colors');
+  const badgeColorsError = el('cfg-badge-colors-error');
+  const badgeColorControls = [
+    cfg.badgeText,
+    cfg.badgeTextPicker,
+    cfg.badgeBorder,
+    cfg.badgeBorderPicker,
+    cfg.badgeBgTransparent,
+  ];
+
+  function getBadgePlacement() {
+    const checked = document.querySelector('input[name="cfg-badge-placement"]:checked');
+    return checked ? checked.value : '';
+  }
+
+  function isBadgeBgTransparent() {
+    return cfg.badgeBg.value.trim().toLowerCase() === 'transparent';
+  }
+
+  function hexOrNull(input) {
+    const raw = input.value.trim();
+    return HEX_PATTERN.test(raw) ? raw.toLowerCase() : null;
+  }
+
+  // Colors only apply with the badge on AND "Custom link colors" on; an
+  // invalid hex or a transparent background yields null (= leave the
+  // library default).
+  function readBadgeColors() {
+    if (!cfg.badgeEnabled.checked || !cfg.badgeColorsEnabled.checked) {
+      return { text: null, border: null, bg: null };
+    }
+    return {
+      text: hexOrNull(cfg.badgeText),
+      border: hexOrNull(cfg.badgeBorder),
+      bg: isBadgeBgTransparent() ? null : hexOrNull(cfg.badgeBg),
+    };
+  }
+
   function normalizedColor() {
     const raw = cfg.colorText.value.trim();
     if (!HEX_PATTERN.test(raw)) return null;
@@ -150,6 +211,11 @@
         tombstones: cfg.tombstones.checked,
       },
       intensity: getIntensity(),
+      badge: {
+        enabled: cfg.badgeEnabled.checked,
+        placement: getBadgePlacement(),
+        colors: readBadgeColors(),
+      },
       seasonStart: `${cfg.sDay.value}-${cfg.sMonth.value}`,
       seasonEnd: `${cfg.eDay.value}-${cfg.eMonth.value}`,
       colorEnabled: cfg.colorEnabled.checked,
@@ -170,6 +236,12 @@
     if (state.effects.spiderDrop) classes.push(EFFECT_CLASSES.spiderDrop);
     if (state.effects.tombstones) classes.push(EFFECT_CLASSES.tombstones);
     if (INTENSITY_CLASSES[state.intensity]) classes.push(INTENSITY_CLASSES[state.intensity]);
+    if (state.badge.enabled) {
+      classes.push('halloween-badge');
+      if (BADGE_PLACEMENT_CLASSES[state.badge.placement]) {
+        classes.push(BADGE_PLACEMENT_CLASSES[state.badge.placement]);
+      }
+    }
     return classes;
   }
 
@@ -183,9 +255,12 @@
     if (state.seasonEnd !== SEASON_DEFAULTS.end) {
       attrs.push(`data-halloween-end="${state.seasonEnd}"`);
     }
-    if (state.colorEnabled && state.color) {
-      attrs.push(`style="--halloween-color: ${state.color}"`);
-    }
+    const styles = [];
+    if (state.colorEnabled && state.color) styles.push(`--halloween-color: ${state.color}`);
+    Object.entries(state.badge.colors).forEach(([key, value]) => {
+      if (value) styles.push(`${BADGE_COLOR_VARS[key]}: ${value}`);
+    });
+    if (styles.length > 0) attrs.push(`style="${styles.join('; ')}"`);
     return `<body ${attrs.join(' ')}>`;
   }
 
@@ -205,6 +280,11 @@
     if (state.colorEnabled && state.color) {
       lines.push(`document.body.style.setProperty("--halloween-color", "${state.color}");`);
     }
+    Object.entries(state.badge.colors).forEach(([key, value]) => {
+      if (value) {
+        lines.push(`document.body.style.setProperty("${BADGE_COLOR_VARS[key]}", "${value}");`);
+      }
+    });
     return [
       CDN_SCRIPT_TAG,
       '<script>',
@@ -238,6 +318,7 @@
       corners: state.corners,
       effects: state.effects,
       intensity: state.intensity,
+      badge: state.badge,
       color: state.colorEnabled ? state.color : null,
       theme: previewTheme,
     };
@@ -309,6 +390,36 @@
 
   function render() {
     currentState = readState();
+    badgePlacementRadios.forEach((radio) => {
+      radio.disabled = !currentState.badge.enabled;
+    });
+    badgePlacementGroup.classList.toggle('is-disabled', !currentState.badge.enabled);
+    const colorsActive = currentState.badge.enabled && cfg.badgeColorsEnabled.checked;
+    cfg.badgeColorsEnabled.disabled = !currentState.badge.enabled;
+    badgeColorControls.forEach((control) => {
+      control.disabled = !colorsActive;
+    });
+    cfg.badgeBg.disabled = !colorsActive;
+    cfg.badgeBgPicker.disabled = !colorsActive;
+    badgeColorsGroup.classList.toggle('is-disabled', !colorsActive);
+    cfg.badgeBgPicker.classList.toggle('is-transparent', isBadgeBgTransparent());
+    const badgeInputs = [
+      [cfg.badgeText, 'text'],
+      [cfg.badgeBorder, 'border'],
+      [cfg.badgeBg, 'bg'],
+    ];
+    let badgeColorInvalid = false;
+    badgeInputs.forEach(([input, key]) => {
+      const invalid =
+        colorsActive &&
+        !(key === 'bg' && isBadgeBgTransparent()) &&
+        currentState.badge.colors[key] === null;
+      input.setAttribute('aria-invalid', String(invalid));
+      badgeColorInvalid = badgeColorInvalid || invalid;
+    });
+    badgeColorsError.textContent = badgeColorInvalid
+      ? 'Enter valid hex colors, e.g. #f4b342 or #f60.'
+      : '';
     const classes = buildClasses(currentState);
 
     scriptExample.textContent = CDN_SCRIPT_TAG;
@@ -329,7 +440,7 @@
     sendStateToPreview(currentState);
   }
 
-  Object.values(cfg).forEach((control) => {
+  [...Object.values(cfg), ...badgePlacementRadios].forEach((control) => {
     control.addEventListener('input', render);
   });
 
@@ -346,6 +457,29 @@
     if (HEX_PATTERN.test(value) && value.length === 7) {
       cfg.colorPicker.value = value;
     }
+  });
+
+  // Same picker <-> hex field sync as the spider color above, for each badge
+  // color: the picker always writes a full 6-digit hex; the text field only
+  // pushes into the picker when it is a valid 6-digit hex.
+  [
+    [cfg.badgeTextPicker, cfg.badgeText],
+    [cfg.badgeBorderPicker, cfg.badgeBorder],
+    [cfg.badgeBgPicker, cfg.badgeBg],
+  ].forEach(([picker, text]) => {
+    picker.addEventListener('input', () => {
+      text.value = picker.value;
+      render();
+    });
+    text.addEventListener('input', () => {
+      const value = text.value.trim();
+      if (HEX_PATTERN.test(value) && value.length === 7) picker.value = value;
+    });
+  });
+
+  cfg.badgeBgTransparent.addEventListener('click', () => {
+    cfg.badgeBg.value = 'transparent';
+    render();
   });
 
   render();

@@ -192,6 +192,37 @@ body.halloween-intensity-party {
   --halloween-preset-screen-corner-size: 140px;
   --halloween-preset-page-opacity: 1;
 }
+
+/* Opt-in credit link — see badge.ts. A normal block (not part of the fixed
+   layer) at the end of <body>, so it never overlaps anything. Left/center/
+   right is picked with a body class; the side margins and max-width keep it
+   inside a 320px screen, and the bottom margin clears a phone's home bar.
+   --halloween-badge-push is set by badge.ts on short pages so the link
+   sits at the bottom of the screen instead of right under the content. */
+.halloween-badge-link {
+  display: block;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin: calc(16px + var(--halloween-badge-push, 0px)) auto calc(16px + env(safe-area-inset-bottom, 0px));
+  padding: 6px 14px;
+  border: 1px solid var(--halloween-badge-border-color, color-mix(in srgb, currentColor 30%, transparent));
+  border-radius: 999px;
+  background: var(--halloween-badge-bg, transparent);
+  font: var(--halloween-badge-font, 13px/1.4 system-ui, sans-serif);
+  color: var(--halloween-badge-color, inherit);
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  opacity: var(--halloween-badge-opacity, 0.9);
+  /* Above the effects layer, so a screen-corner web never paints over the link. */
+  position: relative;
+  z-index: var(--halloween-badge-z-index, calc(var(--halloween-page-z-index, 999) + 1));
+}
+.halloween-badge-link:hover,
+.halloween-badge-link:focus-visible { opacity: 1; text-decoration: underline; }
+
+body.halloween-badge-left .halloween-badge-link { margin-left: 16px; margin-right: auto; }
+body.halloween-badge-right .halloween-badge-link { margin-left: auto; margin-right: 16px; }
 `;
 
 export function injectStyles() {

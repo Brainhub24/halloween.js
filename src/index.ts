@@ -9,6 +9,7 @@ import { injectStyles, applyColorOverride } from './styles';
 import { watchReducedMotion } from './dom';
 import { CONFIG, isWithinSeason, getSeasonWindow } from './config';
 import { ensureScreenCorners, removeScreenCorners } from './screen-corners';
+import { syncBadge, removeBadge } from './badge';
 
 // Optional manual sync: re-runs the same class-driven logic trySync() runs
 // automatically (on load, on body class changes, on reduced-motion changes).
@@ -76,6 +77,7 @@ function trySync() {
   if (!active) {
     stopAllPageEffects();
     removeScreenCorners();
+    removeBadge();
     return;
   }
 
@@ -83,6 +85,7 @@ function trySync() {
   applyColorOverride(CONFIG.color);
   syncPageEffectsFromBody();
   ensureScreenCorners();
+  syncBadge();
 }
 
 function autoInit() {
