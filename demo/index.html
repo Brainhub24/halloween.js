@@ -34,11 +34,12 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#f3ebd9" />
+    <meta name="theme-color" content="#faf5ec" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./demo.css" />
+    <script src="./site.js"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -73,665 +74,781 @@
       data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
     ></script>
   </head>
-  <body>
+  <body class="halloween" data-halloween-start="01-01" data-halloween-end="31-12">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <div class="header-inner">
-        <a class="wordmark" href="#top">halloween<span class="wordmark-dot">.js</span></a>
-        <nav class="site-nav" aria-label="Primary">
-          <a
-            href="https://www.npmjs.com/package/halloween.js"
-            aria-label="npm"
-            class="site-nav-icon"
-          >
-            <svg viewBox="0 0 24 24" width="38" height="38" fill="currentColor" aria-hidden="true">
+      <div class="container header-inner">
+        <a class="wordmark" href="#top">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/">Docs</a>
+          <a href="/contribute/">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
-              />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/rogulia/halloween.js"
-            aria-label="GitHub"
-            class="site-nav-icon"
-          >
-            <svg viewBox="0 0 16 16" width="28" height="28" fill="currentColor" aria-hidden="true">
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
               <path
                 d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-              />
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
             </svg>
-          </a>
-        </nav>
+          </button>
+        </div>
       </div>
     </header>
 
     <main id="main">
       <section class="hero" id="top">
-        <p class="eyebrow">Halloween effects, minus the framework</p>
-        <h1>Make your site haunted in one script tag.</h1>
-        <p class="hero-copy">
-          Screen-corner webs, blinking eyes, flying witches, a dropping spider and a rising
-          tombstone. Zero dependencies, seasonal by default.
-        </p>
-        <ul class="proof-points">
-          <li>Zero dependencies</li>
-          <li>Under 10&nbsp;KB gzip</li>
-          <li>Reduced-motion aware</li>
-          <li>CDN&nbsp;+&nbsp;npm</li>
-        </ul>
-        <div class="hero-badges">
-          <a href="https://www.npmjs.com/package/halloween.js"
-            ><img src="https://img.shields.io/npm/v/halloween.js.svg" alt="npm version"
-          /></a>
-          <a href="https://bundlejs.com/?q=halloween.js"
-            ><img src="https://deno.bundlejs.com/badge?q=halloween.js" alt="bundle size"
-          /></a>
-          <a href="https://github.com/rogulia/halloween.js/blob/main/LICENSE"
-            ><img src="https://img.shields.io/npm/l/halloween.js.svg" alt="license"
-          /></a>
-          <a href="https://www.npmjs.com/package/halloween.js"
-            ><img src="https://img.shields.io/npm/dt/halloween.js.svg" alt="npm downloads"
-          /></a>
-          <a href="https://www.jsdelivr.com/package/npm/halloween.js"
-            ><img src="https://img.shields.io/jsdelivr/npm/hy/halloween.js.svg" alt="jsDelivr hits"
-          /></a>
-          <a href="https://github.com/rogulia/halloween.js"
-            ><img
-              src="https://img.shields.io/github/stars/rogulia/halloween.js.svg?style=flat"
-              alt="GitHub stars"
-          /></a>
+        <div class="container">
+          <p class="eyebrow">Halloween effects, minus the framework</p>
+          <h1>Make your site haunted<br />in one script tag.</h1>
+          <p class="lead">
+            Screen-corner webs, blinking eyes, flying witches, a dropping spider and a rising
+            tombstone. Zero dependencies, seasonal by default.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#playground">Build your setup</a>
+            <a class="btn btn-secondary" href="/platforms/">Find your platform</a>
+          </div>
+          <p class="hero-note">
+            Switches on by itself every year, 18 October to 2 November. Install once and forget it.
+          </p>
+          <ul class="hero-proof">
+            <li>Zero dependencies</li>
+            <li>Under 10&nbsp;KB gzip</li>
+            <li>Reduced-motion aware</li>
+            <li>CDN&nbsp;+&nbsp;npm</li>
+          </ul>
+          <div class="badges">
+            <a href="https://www.npmjs.com/package/halloween.js"
+              ><img src="https://img.shields.io/npm/v/halloween.js.svg" alt="npm version"
+            /></a>
+            <a href="https://bundlejs.com/?q=halloween.js"
+              ><img src="https://deno.bundlejs.com/badge?q=halloween.js" alt="bundle size"
+            /></a>
+            <a href="https://github.com/rogulia/halloween.js/blob/main/LICENSE"
+              ><img src="https://img.shields.io/npm/l/halloween.js.svg" alt="license"
+            /></a>
+            <a href="https://www.npmjs.com/package/halloween.js"
+              ><img src="https://img.shields.io/npm/dt/halloween.js.svg" alt="npm downloads"
+            /></a>
+            <a href="https://www.jsdelivr.com/package/npm/halloween.js"
+              ><img
+                src="https://img.shields.io/jsdelivr/npm/hy/halloween.js.svg"
+                alt="jsDelivr hits"
+            /></a>
+            <a href="https://github.com/rogulia/halloween.js"
+              ><img
+                src="https://img.shields.io/github/stars/rogulia/halloween.js.svg?style=flat"
+                alt="GitHub stars"
+            /></a>
+          </div>
         </div>
       </section>
 
-      <section class="playground" id="playground">
-        <div class="section-head">
-          <h2>Build your Halloween setup</h2>
-          <p>Every change updates the live preview instantly.</p>
-        </div>
-
-        <div class="control-group install-group" id="install">
-          <h3>Install</h3>
-
-          <div class="tabs" role="tablist" aria-label="Install method">
-            <button
-              role="tab"
-              id="tab-script"
-              aria-selected="true"
-              aria-controls="panel-script"
-              type="button"
-            >
-              Script tag
-            </button>
-            <button
-              role="tab"
-              id="tab-npm"
-              aria-selected="false"
-              aria-controls="panel-npm"
-              tabindex="-1"
-              type="button"
-            >
-              npm
-            </button>
-          </div>
-
-          <div id="panel-script" role="tabpanel" aria-labelledby="tab-script" tabindex="0">
-            <div class="code-block">
-              <pre><code id="script-example"></code></pre>
-              <button type="button" class="copy-btn" id="copy-script-btn" data-label="Copy">
-                Copy
-              </button>
-            </div>
-          </div>
-
-          <div id="panel-npm" role="tabpanel" aria-labelledby="tab-npm" tabindex="0" hidden>
-            <div class="code-block">
-              <pre><code id="npm-install-example">npm install halloween.js</code></pre>
-              <button type="button" class="copy-btn" id="copy-npm-install-btn" data-label="Copy">
-                Copy
-              </button>
-            </div>
-            <div class="code-block">
-              <pre><code id="npm-import-example">import "halloween.js";</code></pre>
-              <button type="button" class="copy-btn" id="copy-npm-import-btn" data-label="Copy">
-                Copy
-              </button>
-            </div>
-          </div>
-
-          <details class="control-group season-details">
-            <summary>No-code platform guides (WordPress, Webflow, Shopify, Squarespace)</summary>
-            <ul>
-              <li>
-                <strong>WordPress</strong> — a header/footer code plugin such as WPCode, in its
-                Footer field.
-              </li>
-              <li>
-                <strong>Webflow</strong> — Site settings → Custom code → Footer code (or Page
-                settings for one page).
-              </li>
-              <li>
-                <strong>Shopify</strong> — Edit code → theme.liquid, just above
-                <code>&lt;/body&gt;</code>.
-              </li>
-              <li><strong>Squarespace</strong> — Settings → Advanced → Code Injection → Footer.</li>
-            </ul>
+      <section class="section section--tint" id="playground">
+        <div class="container">
+          <div class="section-head">
+            <h2>Build your Halloween setup</h2>
             <p>
-              Use the <strong>Paste-only</strong> tab below: it is one snippet that loads the
-              library and adds the classes once the page is ready, so it works in a header or a
-              footer field and does not need access to <code>&lt;body&gt;</code>. Full steps in the
-              <a href="https://github.com/rogulia/halloween.js#platform-guides">README</a>.
+              This page is the preview: every change you make here happens on it right now, and the
+              code on the right updates with it. Here the season is forced open so you can see
+              everything. On your site it follows the real window.
             </p>
-          </details>
-        </div>
+          </div>
 
-        <div class="playground-grid">
-          <div class="controls-card">
-            <fieldset class="control-group">
-              <legend>Screen webs</legend>
-              <div class="corner-picker">
-                <label class="corner-option">
-                  <input type="checkbox" id="cfg-corner-lt" checked />
-                  <span class="corner-box" aria-hidden="true">🕸️</span>
-                  <span class="visually-hidden">Top left</span>
-                </label>
-                <label class="corner-option">
-                  <input type="checkbox" id="cfg-corner-rt" />
-                  <span class="corner-box" aria-hidden="true">🕸️</span>
-                  <span class="visually-hidden">Top right</span>
-                </label>
-                <label class="corner-option">
-                  <input type="checkbox" id="cfg-corner-lb" />
-                  <span class="corner-box" aria-hidden="true">🕸️</span>
-                  <span class="visually-hidden">Bottom left</span>
-                </label>
-                <label class="corner-option">
-                  <input type="checkbox" id="cfg-corner-rb" checked />
-                  <span class="corner-box" aria-hidden="true">🕸️</span>
-                  <span class="visually-hidden">Bottom right</span>
-                </label>
-              </div>
-            </fieldset>
+          <div class="playground">
+            <div class="card card--raised controls-card">
+              <div class="step-label"><b>1</b> Choose effects</div>
 
-            <fieldset class="control-group">
-              <legend>Ambient effects</legend>
-              <div class="toggle-cards">
-                <label class="toggle-card">
-                  <input type="checkbox" id="cfg-eyes" checked />
-                  <span class="toggle-glyph" aria-hidden="true">
-                    <svg viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1 15C4 3 17 1 23 11C20 20 8 24 1 15Z"
-                        fill="#f2a441"
-                        stroke="rgba(18,10,3,0.5)"
-                        stroke-width="0.75"
-                      />
-                      <path
-                        d="M11.5 6C13.2 6 13.4 9.5 12.5 13C13.4 16.5 13.2 20 11.5 20C9.8 20 9.6 16.5 10.5 13C9.6 9.5 9.8 6 11.5 6Z"
-                        fill="#0a0a0a"
-                      />
-                      <ellipse
-                        cx="8.5"
-                        cy="8"
-                        rx="1.1"
-                        ry="1.6"
-                        fill="#fff8ec"
-                        opacity="0.85"
-                        transform="rotate(-25 8.5 8)"
-                      />
-                    </svg>
-                  </span>
-                  <span class="toggle-text">Blinking eyes</span>
-                </label>
-                <label class="toggle-card">
-                  <input type="checkbox" id="cfg-witches" checked />
-                  <span class="toggle-glyph" aria-hidden="true">
-                    <svg viewBox="0 0 1122 1402" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                        d="M 815 136 L 808 134 L 771 146 L 725 186 L 724 191 L 714 199 L 712 204 L 703 213 L 684 239 L 671 250 L 639 233 L 583 194 L 572 189 L 564 190 L 562 193 L 564 205 L 574 222 L 583 233 L 613 261 L 649 285 L 651 288 L 633 306 L 623 311 L 600 317 L 588 324 L 578 336 L 575 344 L 577 344 L 584 333 L 596 326 L 610 323 L 616 324 L 597 340 L 582 348 L 567 351 L 553 351 L 544 349 L 528 349 L 519 351 L 500 347 L 487 348 L 486 351 L 484 348 L 476 350 L 469 355 L 466 354 L 454 362 L 455 363 L 470 355 L 480 354 L 483 351 L 483 354 L 501 357 L 506 359 L 508 363 L 512 362 L 533 373 L 547 377 L 563 378 L 563 380 L 547 381 L 514 372 L 491 372 L 477 376 L 468 381 L 451 400 L 442 403 L 431 400 L 423 392 L 419 382 L 419 371 L 416 386 L 421 400 L 435 411 L 455 411 L 441 425 L 423 433 L 404 434 L 386 429 L 375 429 L 366 432 L 379 433 L 409 449 L 389 457 L 377 469 L 371 485 L 372 502 L 374 502 L 373 494 L 377 481 L 386 472 L 399 466 L 409 465 L 417 472 L 435 479 L 453 480 L 443 492 L 434 497 L 426 499 L 401 498 L 393 501 L 384 510 L 381 520 L 382 527 L 385 517 L 394 509 L 407 508 L 418 511 L 406 513 L 395 518 L 385 527 L 382 534 L 374 540 L 364 540 L 353 533 L 358 539 L 367 545 L 373 546 L 384 541 L 395 529 L 407 523 L 444 523 L 465 516 L 467 517 L 457 532 L 453 544 L 448 552 L 435 562 L 424 565 L 410 565 L 398 561 L 388 553 L 392 560 L 401 569 L 418 578 L 413 582 L 408 592 L 408 603 L 410 601 L 411 602 L 411 610 L 417 619 L 418 617 L 413 608 L 413 601 L 417 592 L 425 584 L 435 580 L 468 575 L 480 568 L 488 558 L 501 547 L 503 548 L 498 554 L 487 580 L 479 591 L 463 604 L 451 609 L 440 610 L 439 612 L 458 612 L 472 609 L 483 604 L 497 594 L 498 602 L 500 603 L 502 592 L 518 568 L 537 551 L 538 553 L 532 565 L 533 583 L 523 595 L 516 599 L 516 601 L 525 596 L 535 584 L 542 591 L 538 583 L 538 576 L 544 563 L 560 548 L 570 542 L 572 543 L 558 586 L 542 626 L 522 650 L 477 712 L 448 746 L 439 753 L 419 760 L 402 763 L 396 767 L 365 779 L 365 782 L 370 783 L 350 793 L 351 795 L 360 796 L 378 789 L 380 790 L 361 808 L 361 810 L 368 810 L 401 788 L 417 783 L 418 786 L 416 790 L 407 798 L 405 802 L 404 810 L 406 811 L 415 805 L 424 794 L 445 782 L 464 756 L 519 705 L 569 654 L 614 560 L 625 578 L 624 583 L 631 591 L 635 611 L 635 630 L 633 638 L 626 650 L 610 666 L 569 695 L 547 717 L 531 743 L 525 761 L 523 776 L 517 786 L 505 794 L 489 795 L 491 800 L 500 808 L 507 811 L 517 811 L 522 820 L 514 832 L 505 837 L 495 838 L 495 840 L 502 846 L 511 850 L 535 850 L 541 856 L 541 862 L 539 864 L 441 892 L 436 886 L 429 885 L 424 889 L 416 891 L 410 896 L 364 878 L 319 870 L 292 870 L 266 873 L 229 882 L 200 892 L 143 922 L 127 927 L 126 929 L 154 930 L 112 953 L 111 955 L 143 954 L 106 977 L 83 988 L 83 990 L 100 988 L 106 985 L 118 985 L 126 981 L 132 981 L 144 977 L 148 978 L 129 991 L 129 993 L 135 994 L 112 1009 L 95 1023 L 105 1021 L 118 1013 L 123 1013 L 136 1007 L 137 1008 L 133 1012 L 123 1018 L 119 1023 L 122 1024 L 149 1010 L 162 1006 L 165 1007 L 103 1047 L 69 1066 L 86 1066 L 116 1060 L 155 1044 L 156 1045 L 148 1052 L 143 1060 L 160 1062 L 146 1071 L 179 1067 L 215 1055 L 218 1056 L 201 1069 L 173 1086 L 171 1089 L 217 1080 L 257 1067 L 304 1044 L 347 1015 L 379 983 L 420 924 L 441 924 L 446 919 L 447 912 L 590 871 L 633 902 L 694 939 L 663 944 L 643 951 L 609 969 L 549 1007 L 522 1020 L 515 1022 L 501 1021 L 494 1013 L 485 1008 L 473 1007 L 466 1010 L 442 1027 L 404 1044 L 405 1048 L 408 1048 L 450 1033 L 458 1033 L 460 1035 L 459 1041 L 452 1053 L 440 1065 L 422 1077 L 417 1084 L 417 1096 L 422 1117 L 428 1132 L 433 1136 L 438 1130 L 442 1105 L 451 1096 L 480 1082 L 521 1053 L 544 1041 L 589 1026 L 618 1019 L 621 1020 L 566 1095 L 542 1121 L 526 1130 L 521 1130 L 509 1125 L 497 1126 L 491 1129 L 486 1134 L 465 1167 L 440 1192 L 440 1194 L 444 1196 L 477 1166 L 486 1161 L 491 1163 L 492 1172 L 489 1183 L 480 1202 L 469 1218 L 469 1226 L 488 1253 L 497 1262 L 505 1266 L 508 1264 L 509 1260 L 502 1237 L 503 1225 L 531 1192 L 556 1151 L 582 1123 L 610 1100 L 682 1048 L 762 987 L 819 956 L 831 948 L 841 937 L 845 926 L 845 918 L 839 902 L 808 863 L 779 835 L 763 822 L 765 820 L 864 793 L 872 800 L 876 800 L 878 798 L 883 799 L 890 796 L 894 791 L 899 794 L 903 790 L 907 781 L 1056 739 L 1065 733 L 1066 726 L 1063 720 L 1060 718 L 1054 718 L 904 761 L 883 756 L 856 763 L 850 763 L 834 749 L 820 732 L 765 652 L 761 620 L 758 612 L 758 601 L 763 592 L 775 587 L 784 579 L 790 570 L 795 554 L 794 540 L 788 530 L 762 508 L 760 483 L 754 467 L 744 459 L 719 454 L 709 450 L 705 446 L 704 439 L 711 421 L 719 414 L 741 422 L 748 422 L 753 418 L 755 407 L 762 403 L 762 398 L 767 393 L 766 387 L 777 381 L 777 376 L 771 363 L 771 354 L 779 351 L 833 371 L 855 377 L 884 382 L 898 382 L 902 380 L 902 377 L 896 371 L 882 361 L 781 310 L 777 296 L 779 229 L 783 221 L 784 196 L 786 184 L 790 174 L 806 158 L 808 161 L 819 166 L 816 176 L 832 194 L 835 192 L 829 166 L 828 149 Z M 190 1038 L 162 1054 L 155 1054 L 188 1037 Z M 726 652 L 728 655 L 731 669 L 744 688 L 758 704 L 827 771 L 832 777 L 832 780 L 740 806 L 730 799 L 731 796 L 729 794 L 703 783 L 682 770 L 676 758 L 677 748 L 689 731 L 689 721 L 699 693 L 712 670 Z M 510 503 L 491 514 L 479 525 L 478 524 L 490 511 L 496 507 L 507 502 Z M 464 463 L 450 471 L 440 474 L 426 473 L 412 465 L 448 465 L 460 462 Z M 504 396 L 484 398 L 473 401 L 461 407 L 458 406 L 466 398 L 476 393 L 491 392 Z M 530 354 L 549 353 L 573 358 L 568 360 L 554 361 L 540 358 Z"
-                      />
-                    </svg>
-                  </span>
-                  <span class="toggle-text">Flying witches</span>
-                </label>
-                <label class="toggle-card">
-                  <input type="checkbox" id="cfg-spider-drop" checked />
-                  <span class="toggle-glyph" aria-hidden="true">
-                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M19,11 L26,8 L31,10" />
-                        <path d="M20,14 L28,13 L32,16" />
-                        <path d="M20,17 L28,19 L31,23" />
-                        <path d="M19,20 L25,25 L28,29" />
-                        <path d="M13,11 L6,8 L1,10" />
-                        <path d="M12,14 L4,13 L0,16" />
-                        <path d="M12,17 L4,19 L1,23" />
-                        <path d="M13,20 L7,25 L4,29" />
-                      </g>
-                      <ellipse cx="16" cy="19" rx="7" ry="6.2" fill="currentColor" />
-                      <circle cx="16" cy="10.5" r="4.2" fill="currentColor" />
-                    </svg>
-                  </span>
-                  <span class="toggle-text">Dropping spider</span>
-                </label>
-                <label class="toggle-card">
-                  <input type="checkbox" id="cfg-tombstones" checked />
-                  <span class="toggle-glyph" aria-hidden="true">
-                    <svg viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="3" y="72" width="58" height="7" rx="2" fill="#8f8779" />
-                      <path
-                        d="M7 76 L7 26 C7 10 17 3 32 3 C47 3 57 10 57 26 L57 76 Z"
-                        fill="#c9c2b8"
-                        stroke="currentColor"
-                        stroke-width="1.2"
-                        stroke-opacity="0.45"
-                      />
-                      <path
-                        d="M19 30 L25 42 L21 53"
-                        stroke="currentColor"
-                        stroke-width="1"
-                        fill="none"
-                        opacity="0.22"
-                      />
-                      <path
-                        d="M45 26 L41 36"
-                        stroke="currentColor"
-                        stroke-width="1"
-                        fill="none"
-                        opacity="0.22"
-                      />
-                      <text
-                        x="32"
-                        y="45"
-                        text-anchor="middle"
-                        font-family="Georgia,'Times New Roman',serif"
-                        font-weight="700"
-                        font-size="19"
-                        fill="#efe8dc"
-                        opacity="0.55"
-                      >
-                        RIP
-                      </text>
-                      <text
-                        x="32"
-                        y="44"
-                        text-anchor="middle"
-                        font-family="Georgia,'Times New Roman',serif"
-                        font-weight="700"
-                        font-size="19"
-                        fill="#4f473b"
-                        opacity="0.8"
-                      >
-                        RIP
-                      </text>
-                    </svg>
-                  </span>
-                  <span class="toggle-text">Rising tombstone</span>
-                </label>
-              </div>
-            </fieldset>
-
-            <fieldset class="control-group">
-              <legend>Intensity</legend>
-              <div class="segmented">
-                <label class="segmented-option">
-                  <input
-                    type="radio"
-                    name="cfg-intensity"
-                    id="cfg-intensity-subtle"
-                    value="subtle"
-                  />
-                  <span>Subtle</span>
-                </label>
-                <label class="segmented-option">
-                  <input
-                    type="radio"
-                    name="cfg-intensity"
-                    id="cfg-intensity-normal"
-                    value="normal"
-                    checked
-                  />
-                  <span>Normal</span>
-                </label>
-                <label class="segmented-option">
-                  <input type="radio" name="cfg-intensity" id="cfg-intensity-party" value="party" />
-                  <span>Party</span>
-                </label>
-              </div>
-            </fieldset>
-
-            <fieldset class="control-group">
-              <legend>Color</legend>
-              <label class="switch-row">
-                <input type="checkbox" id="cfg-color-enabled" />
-                <span>Custom color</span>
-              </label>
-              <div class="color-row">
-                <input
-                  type="color"
-                  id="cfg-color-picker"
-                  value="#f4b342"
-                  aria-label="Pick spider &amp; web color"
-                />
-                <label class="visually-hidden" for="cfg-color">Spider &amp; web color (hex)</label>
-                <input
-                  type="text"
-                  id="cfg-color"
-                  value="#f4b342"
-                  maxlength="7"
-                  spellcheck="false"
-                  autocomplete="off"
-                  placeholder="#f4b342"
-                  aria-describedby="cfg-color-error"
-                />
-              </div>
-              <p class="field-error" id="cfg-color-error" role="alert"></p>
-            </fieldset>
-
-            <details class="control-group season-details">
-              <summary>Credit link (optional)</summary>
-              <div class="season-fields">
-                <label class="switch-row">
-                  <input type="checkbox" id="cfg-badge-enabled" />
-                  <span>Show a small link to halloween.js</span>
-                </label>
-                <div class="badge-placement is-disabled" id="badge-placement">
-                  <p class="badge-placement-label" id="badge-end-label">Bottom of the page</p>
-                  <div class="segmented" role="group" aria-labelledby="badge-end-label">
-                    <label class="segmented-option">
-                      <input
-                        type="radio"
-                        name="cfg-badge-placement"
-                        id="cfg-badge-pos-left"
-                        value="left"
-                      />
-                      <span>Left</span>
-                    </label>
-                    <label class="segmented-option">
-                      <input
-                        type="radio"
-                        name="cfg-badge-placement"
-                        id="cfg-badge-pos-center"
-                        value=""
-                        checked
-                      />
-                      <span>Center</span>
-                    </label>
-                    <label class="segmented-option">
-                      <input
-                        type="radio"
-                        name="cfg-badge-placement"
-                        id="cfg-badge-pos-right"
-                        value="right"
-                      />
-                      <span>Right</span>
-                    </label>
-                  </div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-title">Screen webs</legend>
+                <p class="hint">Click a corner to toggle it.</p>
+                <div class="corner-picker">
+                  <label
+                    ><input type="checkbox" id="cfg-corner-lt" checked /><span aria-hidden="true"
+                      >🕸️</span
+                    ><span class="visually-hidden">Top left</span></label
+                  >
+                  <label
+                    ><input type="checkbox" id="cfg-corner-rt" /><span aria-hidden="true">🕸️</span
+                    ><span class="visually-hidden">Top right</span></label
+                  >
+                  <label
+                    ><input type="checkbox" id="cfg-corner-lb" /><span aria-hidden="true">🕸️</span
+                    ><span class="visually-hidden">Bottom left</span></label
+                  >
+                  <label
+                    ><input type="checkbox" id="cfg-corner-rb" checked /><span aria-hidden="true"
+                      >🕸️</span
+                    ><span class="visually-hidden">Bottom right</span></label
+                  >
                 </div>
-                <label class="switch-row badge-colors-switch">
-                  <input type="checkbox" id="cfg-badge-colors-enabled" />
-                  <span>Custom link colors</span>
-                </label>
-                <div class="badge-colors is-disabled" id="badge-colors">
-                  <div class="badge-color-row">
-                    <span class="badge-color-label">Text</span>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset-title">Ambient effects</legend>
+                <p class="hint">They run in a fixed layer and never move your content.</p>
+                <div class="toggle-grid">
+                  <label class="toggle"
+                    ><input type="checkbox" id="cfg-eyes" checked /><span
+                      class="glyph"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 24 26" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M1 15C4 3 17 1 23 11C20 20 8 24 1 15Z"
+                          fill="#f2a441"
+                          stroke="rgba(18,10,3,0.5)"
+                          stroke-width="0.75"
+                        />
+                        <path
+                          d="M11.5 6C13.2 6 13.4 9.5 12.5 13C13.4 16.5 13.2 20 11.5 20C9.8 20 9.6 16.5 10.5 13C9.6 9.5 9.8 6 11.5 6Z"
+                          fill="#0a0a0a"
+                        />
+                        <ellipse
+                          cx="8.5"
+                          cy="8"
+                          rx="1.1"
+                          ry="1.6"
+                          fill="#fff8ec"
+                          opacity="0.85"
+                          transform="rotate(-25 8.5 8)"
+                        /></svg></span
+                    >Blinking eyes</label
+                  >
+                  <label class="toggle"
+                    ><input type="checkbox" id="cfg-witches" checked /><span
+                      class="glyph"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 1122 1402" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          d="M 815 136 L 808 134 L 771 146 L 725 186 L 724 191 L 714 199 L 712 204 L 703 213 L 684 239 L 671 250 L 639 233 L 583 194 L 572 189 L 564 190 L 562 193 L 564 205 L 574 222 L 583 233 L 613 261 L 649 285 L 651 288 L 633 306 L 623 311 L 600 317 L 588 324 L 578 336 L 575 344 L 577 344 L 584 333 L 596 326 L 610 323 L 616 324 L 597 340 L 582 348 L 567 351 L 553 351 L 544 349 L 528 349 L 519 351 L 500 347 L 487 348 L 486 351 L 484 348 L 476 350 L 469 355 L 466 354 L 454 362 L 455 363 L 470 355 L 480 354 L 483 351 L 483 354 L 501 357 L 506 359 L 508 363 L 512 362 L 533 373 L 547 377 L 563 378 L 563 380 L 547 381 L 514 372 L 491 372 L 477 376 L 468 381 L 451 400 L 442 403 L 431 400 L 423 392 L 419 382 L 419 371 L 416 386 L 421 400 L 435 411 L 455 411 L 441 425 L 423 433 L 404 434 L 386 429 L 375 429 L 366 432 L 379 433 L 409 449 L 389 457 L 377 469 L 371 485 L 372 502 L 374 502 L 373 494 L 377 481 L 386 472 L 399 466 L 409 465 L 417 472 L 435 479 L 453 480 L 443 492 L 434 497 L 426 499 L 401 498 L 393 501 L 384 510 L 381 520 L 382 527 L 385 517 L 394 509 L 407 508 L 418 511 L 406 513 L 395 518 L 385 527 L 382 534 L 374 540 L 364 540 L 353 533 L 358 539 L 367 545 L 373 546 L 384 541 L 395 529 L 407 523 L 444 523 L 465 516 L 467 517 L 457 532 L 453 544 L 448 552 L 435 562 L 424 565 L 410 565 L 398 561 L 388 553 L 392 560 L 401 569 L 418 578 L 413 582 L 408 592 L 408 603 L 410 601 L 411 602 L 411 610 L 417 619 L 418 617 L 413 608 L 413 601 L 417 592 L 425 584 L 435 580 L 468 575 L 480 568 L 488 558 L 501 547 L 503 548 L 498 554 L 487 580 L 479 591 L 463 604 L 451 609 L 440 610 L 439 612 L 458 612 L 472 609 L 483 604 L 497 594 L 498 602 L 500 603 L 502 592 L 518 568 L 537 551 L 538 553 L 532 565 L 533 583 L 523 595 L 516 599 L 516 601 L 525 596 L 535 584 L 542 591 L 538 583 L 538 576 L 544 563 L 560 548 L 570 542 L 572 543 L 558 586 L 542 626 L 522 650 L 477 712 L 448 746 L 439 753 L 419 760 L 402 763 L 396 767 L 365 779 L 365 782 L 370 783 L 350 793 L 351 795 L 360 796 L 378 789 L 380 790 L 361 808 L 361 810 L 368 810 L 401 788 L 417 783 L 418 786 L 416 790 L 407 798 L 405 802 L 404 810 L 406 811 L 415 805 L 424 794 L 445 782 L 464 756 L 519 705 L 569 654 L 614 560 L 625 578 L 624 583 L 631 591 L 635 611 L 635 630 L 633 638 L 626 650 L 610 666 L 569 695 L 547 717 L 531 743 L 525 761 L 523 776 L 517 786 L 505 794 L 489 795 L 491 800 L 500 808 L 507 811 L 517 811 L 522 820 L 514 832 L 505 837 L 495 838 L 495 840 L 502 846 L 511 850 L 535 850 L 541 856 L 541 862 L 539 864 L 441 892 L 436 886 L 429 885 L 424 889 L 416 891 L 410 896 L 364 878 L 319 870 L 292 870 L 266 873 L 229 882 L 200 892 L 143 922 L 127 927 L 126 929 L 154 930 L 112 953 L 111 955 L 143 954 L 106 977 L 83 988 L 83 990 L 100 988 L 106 985 L 118 985 L 126 981 L 132 981 L 144 977 L 148 978 L 129 991 L 129 993 L 135 994 L 112 1009 L 95 1023 L 105 1021 L 118 1013 L 123 1013 L 136 1007 L 137 1008 L 133 1012 L 123 1018 L 119 1023 L 122 1024 L 149 1010 L 162 1006 L 165 1007 L 103 1047 L 69 1066 L 86 1066 L 116 1060 L 155 1044 L 156 1045 L 148 1052 L 143 1060 L 160 1062 L 146 1071 L 179 1067 L 215 1055 L 218 1056 L 201 1069 L 173 1086 L 171 1089 L 217 1080 L 257 1067 L 304 1044 L 347 1015 L 379 983 L 420 924 L 441 924 L 446 919 L 447 912 L 590 871 L 633 902 L 694 939 L 663 944 L 643 951 L 609 969 L 549 1007 L 522 1020 L 515 1022 L 501 1021 L 494 1013 L 485 1008 L 473 1007 L 466 1010 L 442 1027 L 404 1044 L 405 1048 L 408 1048 L 450 1033 L 458 1033 L 460 1035 L 459 1041 L 452 1053 L 440 1065 L 422 1077 L 417 1084 L 417 1096 L 422 1117 L 428 1132 L 433 1136 L 438 1130 L 442 1105 L 451 1096 L 480 1082 L 521 1053 L 544 1041 L 589 1026 L 618 1019 L 621 1020 L 566 1095 L 542 1121 L 526 1130 L 521 1130 L 509 1125 L 497 1126 L 491 1129 L 486 1134 L 465 1167 L 440 1192 L 440 1194 L 444 1196 L 477 1166 L 486 1161 L 491 1163 L 492 1172 L 489 1183 L 480 1202 L 469 1218 L 469 1226 L 488 1253 L 497 1262 L 505 1266 L 508 1264 L 509 1260 L 502 1237 L 503 1225 L 531 1192 L 556 1151 L 582 1123 L 610 1100 L 682 1048 L 762 987 L 819 956 L 831 948 L 841 937 L 845 926 L 845 918 L 839 902 L 808 863 L 779 835 L 763 822 L 765 820 L 864 793 L 872 800 L 876 800 L 878 798 L 883 799 L 890 796 L 894 791 L 899 794 L 903 790 L 907 781 L 1056 739 L 1065 733 L 1066 726 L 1063 720 L 1060 718 L 1054 718 L 904 761 L 883 756 L 856 763 L 850 763 L 834 749 L 820 732 L 765 652 L 761 620 L 758 612 L 758 601 L 763 592 L 775 587 L 784 579 L 790 570 L 795 554 L 794 540 L 788 530 L 762 508 L 760 483 L 754 467 L 744 459 L 719 454 L 709 450 L 705 446 L 704 439 L 711 421 L 719 414 L 741 422 L 748 422 L 753 418 L 755 407 L 762 403 L 762 398 L 767 393 L 766 387 L 777 381 L 777 376 L 771 363 L 771 354 L 779 351 L 833 371 L 855 377 L 884 382 L 898 382 L 902 380 L 902 377 L 896 371 L 882 361 L 781 310 L 777 296 L 779 229 L 783 221 L 784 196 L 786 184 L 790 174 L 806 158 L 808 161 L 819 166 L 816 176 L 832 194 L 835 192 L 829 166 L 828 149 Z M 190 1038 L 162 1054 L 155 1054 L 188 1037 Z M 726 652 L 728 655 L 731 669 L 744 688 L 758 704 L 827 771 L 832 777 L 832 780 L 740 806 L 730 799 L 731 796 L 729 794 L 703 783 L 682 770 L 676 758 L 677 748 L 689 731 L 689 721 L 699 693 L 712 670 Z M 510 503 L 491 514 L 479 525 L 478 524 L 490 511 L 496 507 L 507 502 Z M 464 463 L 450 471 L 440 474 L 426 473 L 412 465 L 448 465 L 460 462 Z M 504 396 L 484 398 L 473 401 L 461 407 L 458 406 L 466 398 L 476 393 L 491 392 Z M 530 354 L 549 353 L 573 358 L 568 360 L 554 361 L 540 358 Z"
+                        /></svg></span
+                    >Flying witches</label
+                  >
+                  <label class="toggle"
+                    ><input type="checkbox" id="cfg-spider-drop" checked /><span
+                      class="glyph"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g
+                          stroke="currentColor"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M19,11 L26,8 L31,10" />
+                          <path d="M20,14 L28,13 L32,16" />
+                          <path d="M20,17 L28,19 L31,23" />
+                          <path d="M19,20 L25,25 L28,29" />
+                          <path d="M13,11 L6,8 L1,10" />
+                          <path d="M12,14 L4,13 L0,16" />
+                          <path d="M12,17 L4,19 L1,23" />
+                          <path d="M13,20 L7,25 L4,29" />
+                        </g>
+                        <ellipse cx="16" cy="19" rx="7" ry="6.2" fill="currentColor" />
+                        <circle cx="16" cy="10.5" r="4.2" fill="currentColor" /></svg></span
+                    >Dropping spider</label
+                  >
+                  <label class="toggle"
+                    ><input type="checkbox" id="cfg-tombstones" checked /><span
+                      class="glyph"
+                      aria-hidden="true"
+                      ><svg viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="72" width="58" height="7" rx="2" fill="#8f8779" />
+                        <path
+                          d="M7 76 L7 26 C7 10 17 3 32 3 C47 3 57 10 57 26 L57 76 Z"
+                          fill="#c9c2b8"
+                          stroke="currentColor"
+                          stroke-width="1.2"
+                          stroke-opacity="0.45"
+                        />
+                        <path
+                          d="M19 30 L25 42 L21 53"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          fill="none"
+                          opacity="0.22"
+                        />
+                        <path
+                          d="M45 26 L41 36"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          fill="none"
+                          opacity="0.22"
+                        />
+                        <text
+                          x="32"
+                          y="45"
+                          text-anchor="middle"
+                          font-family="Georgia,'Times New Roman',serif"
+                          font-weight="700"
+                          font-size="19"
+                          fill="#efe8dc"
+                          opacity="0.55"
+                        >
+                          RIP
+                        </text>
+                        <text
+                          x="32"
+                          y="44"
+                          text-anchor="middle"
+                          font-family="Georgia,'Times New Roman',serif"
+                          font-weight="700"
+                          font-size="19"
+                          fill="#4f473b"
+                          opacity="0.8"
+                        >
+                          RIP
+                        </text>
+                      </svg></span
+                    >Rising tombstone</label
+                  >
+                </div>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend class="fieldset-title">Intensity</legend>
+                <div class="segmented">
+                  <label
+                    ><input
+                      type="radio"
+                      name="cfg-intensity"
+                      id="cfg-intensity-subtle"
+                      value="subtle"
+                    /><span>Subtle</span></label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="cfg-intensity"
+                      id="cfg-intensity-normal"
+                      value="normal"
+                      checked
+                    /><span>Normal</span></label
+                  >
+                  <label
+                    ><input
+                      type="radio"
+                      name="cfg-intensity"
+                      id="cfg-intensity-party"
+                      value="party"
+                    /><span>Party</span></label
+                  >
+                </div>
+              </fieldset>
+
+              <div class="fieldset option-block" style="margin-top: var(--s-6)">
+                <details class="details">
+                  <summary>Color</summary>
+                  <div class="details-body">
+                    <label class="check-row"
+                      ><input type="checkbox" id="cfg-color-enabled" /> Custom spider &amp; web
+                      color</label
+                    >
                     <div class="color-row">
                       <input
                         type="color"
-                        id="cfg-badge-text-picker"
-                        value="#2a1b05"
-                        aria-label="Text color"
+                        id="cfg-color-picker"
+                        value="#f4b342"
+                        aria-label="Pick spider &amp; web color"
                       />
-                      <label class="visually-hidden" for="cfg-badge-text">Text color (hex)</label>
+                      <label class="visually-hidden" for="cfg-color"
+                        >Spider &amp; web color (hex)</label
+                      >
                       <input
+                        class="input input--mono"
                         type="text"
-                        id="cfg-badge-text"
-                        value="#2a1b05"
+                        id="cfg-color"
+                        value="#f4b342"
                         maxlength="7"
                         spellcheck="false"
                         autocomplete="off"
-                        aria-describedby="cfg-badge-colors-error"
+                        placeholder="#f4b342"
+                        aria-describedby="cfg-color-error"
                       />
+                    </div>
+                    <p class="field-error" id="cfg-color-error" role="alert"></p>
+                  </div>
+                </details>
+
+                <details class="details">
+                  <summary>Credit link</summary>
+                  <div class="details-body">
+                    <label class="check-row"
+                      ><input type="checkbox" id="cfg-badge-enabled" /> Show a small link to
+                      halloween.js</label
+                    >
+                    <div class="option-block is-disabled" id="badge-placement">
+                      <p class="fieldset-title" id="badge-end-label">Bottom of the page</p>
+                      <div class="segmented" role="group" aria-labelledby="badge-end-label">
+                        <label
+                          ><input
+                            type="radio"
+                            name="cfg-badge-placement"
+                            id="cfg-badge-pos-left"
+                            value="left"
+                          /><span>Left</span></label
+                        >
+                        <label
+                          ><input
+                            type="radio"
+                            name="cfg-badge-placement"
+                            id="cfg-badge-pos-center"
+                            value=""
+                            checked
+                          /><span>Center</span></label
+                        >
+                        <label
+                          ><input
+                            type="radio"
+                            name="cfg-badge-placement"
+                            id="cfg-badge-pos-right"
+                            value="right"
+                          /><span>Right</span></label
+                        >
+                      </div>
+                    </div>
+                    <label class="check-row option-block"
+                      ><input type="checkbox" id="cfg-badge-colors-enabled" /> Custom link
+                      colors</label
+                    >
+                    <div class="option-block is-disabled" id="badge-colors">
+                      <div class="color-field">
+                        <p class="fieldset-title">Text</p>
+                        <div class="color-row">
+                          <input
+                            type="color"
+                            id="cfg-badge-text-picker"
+                            value="#2a1b05"
+                            aria-label="Text color"
+                          />
+                          <label class="visually-hidden" for="cfg-badge-text"
+                            >Text color (hex)</label
+                          >
+                          <input
+                            class="input input--mono"
+                            type="text"
+                            id="cfg-badge-text"
+                            value="#2a1b05"
+                            maxlength="7"
+                            spellcheck="false"
+                            autocomplete="off"
+                            aria-describedby="cfg-badge-colors-error"
+                          />
+                        </div>
+                      </div>
+                      <div class="color-field">
+                        <p class="fieldset-title">Border</p>
+                        <div class="color-row">
+                          <input
+                            type="color"
+                            id="cfg-badge-border-picker"
+                            value="#a2670f"
+                            aria-label="Border color"
+                          />
+                          <label class="visually-hidden" for="cfg-badge-border"
+                            >Border color (hex)</label
+                          >
+                          <input
+                            class="input input--mono"
+                            type="text"
+                            id="cfg-badge-border"
+                            value="#a2670f"
+                            maxlength="7"
+                            spellcheck="false"
+                            autocomplete="off"
+                            aria-describedby="cfg-badge-colors-error"
+                          />
+                        </div>
+                      </div>
+                      <div class="color-field">
+                        <p class="fieldset-title">Background</p>
+                        <div class="color-row">
+                          <input
+                            type="color"
+                            id="cfg-badge-bg-picker"
+                            value="#fff8e7"
+                            aria-label="Background color"
+                          />
+                          <label class="visually-hidden" for="cfg-badge-bg"
+                            >Background color (hex)</label
+                          >
+                          <input
+                            class="input input--mono"
+                            type="text"
+                            id="cfg-badge-bg"
+                            value="transparent"
+                            maxlength="11"
+                            spellcheck="false"
+                            autocomplete="off"
+                            aria-describedby="cfg-badge-colors-error"
+                          />
+                          <button
+                            type="button"
+                            class="btn btn-secondary btn--sm"
+                            id="cfg-badge-bg-transparent"
+                          >
+                            Make transparent
+                          </button>
+                        </div>
+                      </div>
+                      <p class="field-error" id="cfg-badge-colors-error" role="alert"></p>
+                    </div>
+                    <p class="hint">
+                      It sits at the bottom of the page, so it never covers a chat widget or banner.
+                      To put it in your own footer, add <code>data-halloween-badge-slot</code> to
+                      that element.
+                    </p>
+                  </div>
+                </details>
+
+                <details class="details">
+                  <summary>Active season</summary>
+                  <div class="details-body">
+                    <p class="hint">
+                      Default is 18 October to 2 November, every year. Change it only if you need
+                      another window. This changes the code you copy, not this page.
+                    </p>
+                    <div class="color-row">
+                      <label class="visually-hidden" for="cfg-season-start-day">Start day</label>
+                      <select class="select" id="cfg-season-start-day"></select>
+                      <label class="visually-hidden" for="cfg-season-start-month"
+                        >Start month</label
+                      >
+                      <select class="select" id="cfg-season-start-month"></select>
+                      <span class="muted">to</span>
+                      <label class="visually-hidden" for="cfg-season-end-day">End day</label>
+                      <select class="select" id="cfg-season-end-day"></select>
+                      <label class="visually-hidden" for="cfg-season-end-month">End month</label>
+                      <select class="select" id="cfg-season-end-month"></select>
                     </div>
                   </div>
-                  <div class="badge-color-row">
-                    <span class="badge-color-label">Border</span>
-                    <div class="color-row">
-                      <input
-                        type="color"
-                        id="cfg-badge-border-picker"
-                        value="#a2670f"
-                        aria-label="Border color"
-                      />
-                      <label class="visually-hidden" for="cfg-badge-border"
-                        >Border color (hex)</label
-                      >
-                      <input
-                        type="text"
-                        id="cfg-badge-border"
-                        value="#a2670f"
-                        maxlength="7"
-                        spellcheck="false"
-                        autocomplete="off"
-                        aria-describedby="cfg-badge-colors-error"
-                      />
-                    </div>
-                  </div>
-                  <div class="badge-color-row">
-                    <span class="badge-color-label">Background</span>
-                    <div class="color-row">
-                      <input
-                        type="color"
-                        id="cfg-badge-bg-picker"
-                        value="#fff8e7"
-                        aria-label="Background color"
-                      />
-                      <label class="visually-hidden" for="cfg-badge-bg"
-                        >Background color (hex)</label
-                      >
-                      <input
-                        type="text"
-                        id="cfg-badge-bg"
-                        value="transparent"
-                        maxlength="11"
-                        spellcheck="false"
-                        autocomplete="off"
-                        aria-describedby="cfg-badge-colors-error"
-                      />
-                    </div>
+                </details>
+              </div>
+            </div>
+
+            <div class="playground-preview">
+              <div class="card card--raised" id="install">
+                <div class="step-label"><b>2</b> Copy the code</div>
+                <div class="callout">
+                  <strong>Install once, then leave it.</strong> The effects switch on by themselves
+                  every year from 18 October to 2 November and stay off the rest of the time. There
+                  is nothing to remove afterwards. Installed earlier? You will see nothing until 18
+                  October. That is expected, not a bug.
+                </div>
+
+                <div
+                  class="tabs"
+                  role="tablist"
+                  aria-label="Install method"
+                  style="margin-top: var(--s-5)"
+                >
+                  <button
+                    role="tab"
+                    id="tab-paste"
+                    aria-selected="true"
+                    aria-controls="panel-paste"
+                    type="button"
+                  >
+                    Any website
+                  </button>
+                  <button
+                    role="tab"
+                    id="tab-npm"
+                    aria-selected="false"
+                    aria-controls="panel-npm"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    npm project
+                  </button>
+                </div>
+
+                <div id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" tabindex="0">
+                  <p class="hint">
+                    One snippet, library included. Paste it into the footer or custom-code field of
+                    your site or builder. That is the whole install.
+                  </p>
+                  <div class="code-block">
+                    <pre><code id="paste-example"></code></pre>
                     <button
                       type="button"
-                      class="badge-transparent-btn"
-                      id="cfg-badge-bg-transparent"
+                      class="btn btn-secondary btn--sm"
+                      id="copy-paste-btn"
+                      data-label="Copy"
                     >
-                      Make background transparent
+                      Copy
                     </button>
                   </div>
-                  <p class="field-error" id="cfg-badge-colors-error" role="alert"></p>
                 </div>
-                <p class="field-note">
-                  It sits at the bottom of the page, so it never covers a chat widget or banner. To
-                  put it in your own footer, add <code>data-halloween-badge-slot</code> to that
-                  element.
-                </p>
-              </div>
-            </details>
 
-            <details class="control-group season-details">
-              <summary>Advanced · Active season</summary>
-              <div class="season-fields">
-                <div class="season-pair">
-                  <label class="visually-hidden" for="cfg-season-start-day">Start day</label>
-                  <select id="cfg-season-start-day"></select>
-                  <label class="visually-hidden" for="cfg-season-start-month">Start month</label>
-                  <select id="cfg-season-start-month"></select>
-                  <span class="season-to">to</span>
-                  <label class="visually-hidden" for="cfg-season-end-day">End day</label>
-                  <select id="cfg-season-end-day"></select>
-                  <label class="visually-hidden" for="cfg-season-end-month">End month</label>
-                  <select id="cfg-season-end-month"></select>
+                <div id="panel-npm" role="tabpanel" aria-labelledby="tab-npm" tabindex="0" hidden>
+                  <p class="hint">For projects with a bundler. Three short steps.</p>
+                  <div class="stack">
+                    <p class="fieldset-title">1. Install</p>
+                    <div class="code-block">
+                      <pre><code id="npm-install-example">npm install halloween.js</code></pre>
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn--sm"
+                        id="copy-npm-install-btn"
+                        data-label="Copy"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <p class="fieldset-title">2. Import it once in your entry file</p>
+                    <div class="code-block">
+                      <pre><code id="npm-import-example">import "halloween.js";</code></pre>
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn--sm"
+                        id="copy-npm-import-btn"
+                        data-label="Copy"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <p class="fieldset-title">3. Turn it on</p>
+                    <div class="code-block code-block--wrap">
+                      <pre><code id="npm-activate-example"></code></pre>
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn--sm"
+                        id="copy-npm-activate-btn"
+                        data-label="Copy"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <p class="field-note">
-                  Default is 18 Oct – 2 Nov. Leave it as-is unless you need a different window.
-                </p>
-              </div>
-            </details>
 
-            <div class="control-group body-output-group">
-              <h3 id="body-output-heading">Turn it on</h3>
-              <p class="live-body-copy">
-                These controls update the code below — the library <code>&lt;script&gt;</code> tag
-                itself never changes. Use the <code>&lt;body&gt;</code> tag if you can edit it, and
-                Paste-only on Wix, Tilda, Webflow, Google Tag Manager and other builders. Paste-only
-                includes the library script, so it is the whole install.
+                <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="platforms">
+        <div class="container">
+          <div class="section-head">
+            <h2>Works on any platform</h2>
+            <p>Pick yours for click-by-click steps. Any builder with a custom-code field works.</p>
+          </div>
+          <div class="tiles">
+            <a class="card tile" href="/platforms/wordpress/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/wordpress"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>WordPress</span></a
+            >
+            <a class="card tile" href="/platforms/shopify/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/shopify"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Shopify</span></a
+            >
+            <a class="card tile" href="/platforms/webflow/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/webflow"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Webflow</span></a
+            >
+            <a class="card tile" href="/platforms/squarespace/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/squarespace"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Squarespace</span></a
+            >
+            <a class="card tile" href="/platforms/wix/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/wix"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Wix</span></a
+            >
+            <a class="card tile" href="/platforms/tilda/"
+              ><span class="plogo"
+                ><img
+                  src="https://tilda.cc/favicon.ico"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Tilda</span></a
+            >
+            <a class="card tile" href="/platforms/ghost/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/ghost"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Ghost</span></a
+            >
+            <a class="card tile" href="/platforms/blogger/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/blogger"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Blogger</span></a
+            >
+            <a class="card tile" href="/platforms/google-tag-manager/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/googletagmanager"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Google Tag Manager</span></a
+            >
+            <a class="card tile" href="/platforms/framer/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/framer"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>Framer</span></a
+            >
+            <a class="card tile" href="/platforms/html/"
+              ><span class="plogo"
+                ><img
+                  src="https://cdn.simpleicons.org/html5"
+                  alt=""
+                  width="28"
+                  height="28"
+                  loading="lazy" /></span
+              ><span>HTML website</span></a
+            >
+            <a class="card tile" href="/platforms/ai-assistant/"
+              ><span class="plogo" aria-hidden="true"
+                ><span style="font-size: 28px; line-height: 1">🤖</span></span
+              ><span>AI assistant</span></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tint">
+        <div class="container">
+          <div class="section-head">
+            <h2>Built to stay out of the way</h2>
+            <p>Safe defaults, so it never gets in a visitor's way.</p>
+          </div>
+          <div class="grid">
+            <div class="card">
+              <h3>No layout changes</h3>
+              <p>
+                Ambient effects render in a fixed overlay layer. Nothing else on the page shifts or
+                resizes.
               </p>
-
-              <div class="tabs" role="tablist" aria-label="Where you paste it">
-                <button
-                  role="tab"
-                  id="tab-body"
-                  aria-selected="true"
-                  aria-controls="panel-body"
-                  type="button"
-                >
-                  &lt;body&gt; tag
-                </button>
-                <button
-                  role="tab"
-                  id="tab-paste"
-                  aria-selected="false"
-                  aria-controls="panel-paste"
-                  tabindex="-1"
-                  type="button"
-                >
-                  Paste-only
-                </button>
-              </div>
-
-              <div id="panel-body" role="tabpanel" aria-labelledby="tab-body" tabindex="0">
-                <div class="code-block body-output-block">
-                  <textarea
-                    id="body-example"
-                    class="body-output"
-                    readonly
-                    wrap="soft"
-                    spellcheck="false"
-                    rows="1"
-                    aria-labelledby="body-output-heading"
-                  ></textarea>
-                  <button type="button" class="copy-btn" id="copy-body-btn" data-label="Copy">
-                    Copy
-                  </button>
-                </div>
-              </div>
-
-              <div id="panel-paste" role="tabpanel" aria-labelledby="tab-paste" tabindex="0" hidden>
-                <div class="code-block body-output-block">
-                  <textarea
-                    id="paste-example"
-                    class="body-output"
-                    readonly
-                    wrap="soft"
-                    spellcheck="false"
-                    rows="1"
-                    aria-labelledby="body-output-heading"
-                  ></textarea>
-                  <button type="button" class="copy-btn" id="copy-paste-btn" data-label="Copy">
-                    Copy
-                  </button>
-                </div>
-              </div>
-
-              <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
             </div>
-          </div>
-
-          <div class="preview-card">
-            <div class="preview-toolbar">
-              <span class="preview-label">Live preview</span>
-              <span class="preview-badge">Season forced open for preview</span>
-              <button id="replay-btn" type="button" class="btn-ghost">Replay</button>
-              <button
-                id="theme-toggle"
-                type="button"
-                class="btn-ghost"
-                aria-label="Switch preview to dark theme"
-              >
-                <span aria-hidden="true">☀️</span>
-              </button>
+            <div class="card">
+              <h3>Seasonal by default</h3>
+              <p>
+                Only runs in a window around Halloween, every year, unless you widen or override it.
+              </p>
             </div>
-            <iframe
-              id="preview-frame"
-              title="halloween.js live preview"
-              src="./preview.html"
-            ></iframe>
+            <div class="card">
+              <h3>Accessible motion</h3>
+              <p>Respects <code>prefers-reduced-motion</code> live, without a page reload.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="credibility">
-        <div class="credibility-item">
-          <h3>No layout changes</h3>
+      <section class="section" aria-label="Contribute">
+        <div class="container container--prose cta-band">
+          <h2>Open source, MIT licensed</h2>
           <p>
-            Ambient effects render in a fixed overlay layer — nothing else on the page shifts or
-            resizes.
+            Add your own Halloween effect or fix something you spotted. Starter issues are labelled.
           </p>
+          <div class="btn-row" style="justify-content: center">
+            <a class="btn btn-primary" href="/contribute/">How to contribute</a>
+            <a class="btn btn-secondary" href="https://github.com/rogulia/halloween.js"
+              >Star the repo</a
+            >
+          </div>
         </div>
-        <div class="credibility-item">
-          <h3>Seasonal by default</h3>
-          <p>Only runs in a window around Halloween unless you widen or override it.</p>
-        </div>
-        <div class="credibility-item">
-          <h3>Accessible motion</h3>
-          <p>Respects <code>prefers-reduced-motion</code> live, without a page reload.</p>
-        </div>
-      </section>
-
-      <section class="contribute-cta" aria-label="Contribute">
-        <a href="https://github.com/rogulia/halloween.js/blob/main/CONTRIBUTING.md"
-          >Open source. Add your own Halloween effect →</a
-        >
       </section>
     </main>
 
     <footer class="site-footer">
-      <p><a href="https://iurii.rogulia.fi">Built by Iurii Rogulia</a></p>
-      <p class="footer-links">
-        <a href="https://github.com/rogulia/halloween.js"
-          ><svg class="footer-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"
-            /></svg
-          >GitHub repository</a
-        >
-        ·
-        <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
-          ><svg
-            class="footer-icon footer-icon-stroke"
-            viewBox="0 0 24 24"
-            stroke-width="1"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M1.5 8v7L12 22.5 22.5 15V8L12 1.5 1.5 8Z" />
-            <path d="M1.5 8 12 15.5 22.5 8" />
-            <path d="M1.5 15 12 8.5 22.5 15" />
-            <path d="M12 8.5v-7" />
-            <path d="M12 15.5v7" /></svg
-          >CodePen demo</a
-        >
-        ·
-        <a href="https://opensource.org/licenses/MIT">MIT License</a>
-      </p>
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
     </footer>
 
+    <script src="./dist/halloween.iife.js"></script>
     <script src="./demo.js" defer></script>
   </body>
 </html>

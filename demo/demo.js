@@ -1,7 +1,7 @@
-// Parent page controller. Never loads halloween.js itself — the library
-// only runs inside preview.html, so the fixed ambient-effects layer never
-// overlaps this configurator's own UI. All state lives here; the iframe is
-// a dumb renderer driven entirely by postMessage.
+// Playground controller. The page itself is the preview: halloween.js runs on
+// this page's <body>, which has the season forced open via data attributes in
+// index.html, and the controls below toggle its public classes directly. The
+// season selects never touch the page — they only change the generated code.
 (() => {
   'use strict';
 
@@ -99,11 +99,9 @@
   };
 
   const colorError = el('cfg-color-error');
-  const scriptExample = el('script-example');
-  const bodyExample = el('body-example');
   const pasteExample = el('paste-example');
+  const npmActivateExample = el('npm-activate-example');
   const copyStatus = el('copy-status');
-  const previewFrame = el('preview-frame');
 
   // ---- season day/month selects ----
 
@@ -245,32 +243,15 @@
     return classes;
   }
 
-  // ---- build the generated <body> markup text ----
-
-  function buildBodyMarkup(state, classes) {
-    const attrs = [`class="${classes.join(' ')}"`];
-    if (state.seasonStart !== SEASON_DEFAULTS.start) {
-      attrs.push(`data-halloween-start="${state.seasonStart}"`);
-    }
-    if (state.seasonEnd !== SEASON_DEFAULTS.end) {
-      attrs.push(`data-halloween-end="${state.seasonEnd}"`);
-    }
-    const styles = [];
-    if (state.colorEnabled && state.color) styles.push(`--halloween-color: ${state.color}`);
-    Object.entries(state.badge.colors).forEach(([key, value]) => {
-      if (value) styles.push(`${BADGE_COLOR_VARS[key]}: ${value}`);
-    });
-    if (styles.length > 0) attrs.push(`style="${styles.join('; ')}"`);
-    return `<body ${attrs.join(' ')}>`;
-  }
-
-  // For platforms that don't expose <body> (Wix, Tilda, GTM, Squarespace…):
-  // the same classes and attributes, applied from a script instead. It waits
-  // for DOMContentLoaded because a script in <head> runs before document.body
-  // exists, and applies immediately when injected after the page has loaded.
-  // Includes the library <script> so one copy-paste is the whole install.
-  function buildPasteMarkup(state, classes) {
-    const lines = [`document.body.classList.add(${classes.map((c) => `"${c}"`).join(', ')});`];
+  // The lines that switch the library on: the same classes, attributes and
+  // custom properties for both outputs. The class list goes one name per
+  // line so a long list stays readable instead of one very wide line.
+  function buildActivationLines(state, classes) {
+    const lines = [
+      'document.body.classList.add(',
+      ...classes.map((c, i) => `   "${c}"${i < classes.length - 1 ? ',' : ''}`),
+      ');',
+    ];
     if (state.seasonStart !== SEASON_DEFAULTS.start) {
       lines.push(`document.body.setAttribute("data-halloween-start", "${state.seasonStart}");`);
     }
@@ -285,12 +266,21 @@
         lines.push(`document.body.style.setProperty("${BADGE_COLOR_VARS[key]}", "${value}");`);
       }
     });
+    return lines;
+  }
+
+  // For any site or builder: a script applies the classes once the page is
+  // ready. It waits for DOMContentLoaded because a script in <head> runs
+  // before document.body exists, and applies immediately when injected after
+  // the page has loaded. Includes the library <script> so one copy-paste is
+  // the whole install.
+  function buildPasteMarkup(state, classes) {
     return [
       CDN_SCRIPT_TAG,
       '<script>',
       '(function () {',
       '  function apply() {',
-      ...lines.map((line) => `    ${line}`),
+      ...buildActivationLines(state, classes).map((line) => `    ${line}`),
       '  }',
       '  if (document.readyState === "loading") {',
       '    document.addEventListener("DOMContentLoaded", apply);',
@@ -302,87 +292,40 @@
     ].join('\n');
   }
 
-  // ---- iframe messaging ----
-
-  const PREVIEW_ORIGIN = window.location.origin;
-  // sendStateToPreview() is always safe to call; it just skips the actual
-  // postMessage until "ready" arrives, at which point the ready handler
-  // below sends whatever the current state is at that moment (never a
-  // stale pre-ready snapshot).
-  let previewReady = false;
-  let previewTheme = 'light';
-
-  function sendStateToPreview(state) {
-    if (!previewReady) return;
-    const payload = {
-      corners: state.corners,
-      effects: state.effects,
-      intensity: state.intensity,
-      badge: state.badge,
-      color: state.colorEnabled ? state.color : null,
-      theme: previewTheme,
-    };
-    previewFrame.contentWindow.postMessage(
-      { type: 'halloween-preview:state', payload },
-      PREVIEW_ORIGIN,
-    );
+  // For a bundled project, after `import "halloween.js"`: just the activation.
+  function buildNpmActivation(state, classes) {
+    return buildActivationLines(state, classes).join('\n');
   }
 
-  // Two-way ready handshake, immune to load order — this is the actual
-  // protection against the lost-ready race, not a timer. The iframe can
-  // finish loading (e.g. served from cache) before this deferred script
-  // even runs and attaches its own listener, so a "ready" sent from inside
-  // the iframe at that exact moment would be lost with nothing to receive
-  // it. Instead the PARENT pings from two points that between them cover
-  // both possible orderings:
-  //  1. immediately, right after the listener below is attached — catches
-  //     "the iframe was already fully loaded by the time we got here";
-  //  2. on the iframe element's own `load` event — catches "the iframe
-  //     finishes loading after we started listening". By the time `load`
-  //     fires, preview.js's message listener (registered as its very first
-  //     statement) is guaranteed to already be attached, since `load` only
-  //     fires once every script in the iframe, deferred or not, has run.
-  // preview.js answers every valid ping with "ready", and separately still
-  // sends one proactive "ready" of its own on its own load as a second,
-  // independent safety net. Both a repeated ping and a repeated ready are
-  // harmless no-ops: sendStateToPreview() just re-sends the current state,
-  // which the iframe applies idempotently (plain classList.toggle / style
-  // property writes, nothing additive).
-  function pingPreview() {
-    if (!previewFrame.contentWindow) return;
-    previewFrame.contentWindow.postMessage({ type: 'halloween-preview:ping' }, PREVIEW_ORIGIN);
-  }
-  pingPreview();
-  previewFrame.addEventListener('load', pingPreview);
+  // ---- apply the state to this page ----
 
-  window.addEventListener('message', (event) => {
-    if (event.source !== previewFrame.contentWindow) return;
-    if (event.origin !== PREVIEW_ORIGIN) return;
-    const data = event.data;
-    if (!data || typeof data !== 'object') return;
-    if (data.type === 'halloween-preview:ready') {
-      previewReady = true;
-      sendStateToPreview(currentState);
+  // The only classes this playground ever adds to or removes from the page's
+  // own <body>. "halloween" and the season attributes live in index.html and
+  // are never touched here, so the page keeps running outside the season.
+  const ALL_MANAGED_CLASSES = [
+    'halloween-badge',
+    ...Object.values(BADGE_PLACEMENT_CLASSES),
+    ...Object.values(CORNER_CLASSES),
+    ...Object.values(EFFECT_CLASSES),
+    ...Object.values(INTENSITY_CLASSES),
+  ];
+
+  function applyToPage(state, classes) {
+    const desired = new Set(classes);
+    ALL_MANAGED_CLASSES.forEach((cls) => {
+      document.body.classList.toggle(cls, desired.has(cls));
+    });
+    if (state.colorEnabled && state.color) {
+      document.body.style.setProperty('--halloween-color', state.color);
+    } else {
+      document.body.style.removeProperty('--halloween-color');
     }
-  });
-
-  // ---- body textarea auto-resize ----
-
-  // Grows the readonly body textarea to fit its wrapped content, so it never
-  // shows its own internal scrollbar. Resetting height to "auto" first is
-  // required before reading scrollHeight — otherwise scrollHeight would just
-  // reflect the previous (already-grown) height and the box could never
-  // shrink back down when the body markup gets shorter. This only ever
-  // *measures* height and writes it back once, so it can't retrigger itself
-  // and cannot loop.
-  function resizeBodyTextarea() {
-    [bodyExample, pasteExample].forEach((area) => {
-      area.style.height = 'auto';
-      area.style.height = `${area.scrollHeight}px`;
+    Object.entries(BADGE_COLOR_VARS).forEach(([key, cssVar]) => {
+      const value = state.badge.colors[key];
+      if (value) document.body.style.setProperty(cssVar, value);
+      else document.body.style.removeProperty(cssVar);
     });
   }
-
-  window.addEventListener('resize', resizeBodyTextarea);
 
   // ---- render: single update path ----
 
@@ -422,11 +365,8 @@
       : '';
     const classes = buildClasses(currentState);
 
-    scriptExample.textContent = CDN_SCRIPT_TAG;
-    const bodyMarkup = buildBodyMarkup(currentState, classes);
-    bodyExample.value = bodyMarkup;
-    pasteExample.value = buildPasteMarkup(currentState, classes);
-    resizeBodyTextarea();
+    pasteExample.textContent = buildPasteMarkup(currentState, classes);
+    npmActivateExample.textContent = buildNpmActivation(currentState, classes);
 
     // currentState.color is already null for anything that doesn't match
     // HEX_PATTERN — including an empty field. With Custom color on, an
@@ -437,7 +377,7 @@
     cfg.colorText.setAttribute('aria-invalid', String(colorInvalid));
     colorError.textContent = colorInvalid ? 'Enter a valid hex color, e.g. #f4b342 or #f60.' : '';
 
-    sendStateToPreview(currentState);
+    applyToPage(currentState, classes);
   }
 
   [...Object.values(cfg), ...badgePlacementRadios].forEach((control) => {
@@ -484,26 +424,6 @@
 
   render();
 
-  // ---- replay ----
-
-  el('replay-btn').addEventListener('click', () => {
-    if (!previewReady) return;
-    previewFrame.contentWindow.postMessage({ type: 'halloween-preview:replay' }, PREVIEW_ORIGIN);
-  });
-
-  // ---- preview theme ----
-
-  const themeToggle = el('theme-toggle');
-  themeToggle.addEventListener('click', () => {
-    previewTheme = previewTheme === 'dark' ? 'light' : 'dark';
-    themeToggle.setAttribute(
-      'aria-label',
-      previewTheme === 'dark' ? 'Switch preview to light theme' : 'Switch preview to dark theme',
-    );
-    themeToggle.querySelector('span').textContent = previewTheme === 'dark' ? '🌙' : '☀️';
-    sendStateToPreview(currentState);
-  });
-
   // ---- tabs (WAI-ARIA tablist, shared by every tab group on the page) ----
 
   function setupTabs(tabs, panels) {
@@ -515,7 +435,6 @@
         panels[t.id].hidden = !selected;
       });
       tab.focus();
-      resizeBodyTextarea();
     }
 
     tabs.forEach((tab, i) => {
@@ -539,13 +458,9 @@
     });
   }
 
-  setupTabs([el('tab-script'), el('tab-npm')], {
-    'tab-script': el('panel-script'),
-    'tab-npm': el('panel-npm'),
-  });
-  setupTabs([el('tab-body'), el('tab-paste')], {
-    'tab-body': el('panel-body'),
+  setupTabs([el('tab-paste'), el('tab-npm')], {
     'tab-paste': el('panel-paste'),
+    'tab-npm': el('panel-npm'),
   });
 
   // ---- copy buttons ----
@@ -581,7 +496,7 @@
     });
   }
 
-  setupCopyButton('copy-script-btn', () => scriptExample.textContent, 'Script tag');
+  setupCopyButton('copy-paste-btn', () => pasteExample.textContent, 'Snippet');
   setupCopyButton(
     'copy-npm-install-btn',
     () => el('npm-install-example').textContent,
@@ -592,6 +507,5 @@
     () => el('npm-import-example').textContent,
     'npm import line',
   );
-  setupCopyButton('copy-body-btn', () => bodyExample.value, 'Body markup');
-  setupCopyButton('copy-paste-btn', () => pasteExample.value, 'Paste-only snippet');
+  setupCopyButton('copy-npm-activate-btn', () => npmActivateExample.textContent, 'Activation code');
 })();

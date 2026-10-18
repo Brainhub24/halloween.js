@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contribute — halloween.js</title>
+    <meta
+      name="description"
+      content="How to contribute to halloween.js: ideas and artwork, new effects, bug fixes and docs. What a pull request needs, how to run the checks and what to expect from review."
+    />
+    <link rel="canonical" href="https://halloween.js.org/contribute/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Contribute — halloween.js" />
+    <meta
+      property="og:description"
+      content="How to contribute to halloween.js: ideas and artwork, new effects, bug fixes and docs. What a pull request needs, how to run the checks and what to expect from review."
+    />
+    <meta property="og:url" content="https://halloween.js.org/contribute/" />
+    <meta property="og:image" content="https://halloween.js.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Contribute — halloween.js" />
+    <meta
+      name="twitter:description"
+      content="How to contribute to halloween.js: ideas and artwork, new effects, bug fixes and docs. What a pull request needs, how to run the checks and what to expect from review."
+    />
+    <meta name="twitter:image" content="https://halloween.js.org/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/site.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "halloween.js",
+            "item": "https://halloween.js.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contribute",
+            "item": "https://halloween.js.org/contribute/"
+          }
+        ]
+      }
+    </script>
+    <script
+      defer
+      src="https://u.rogulia.fi/script.js"
+      data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="/#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/">Docs</a>
+          <a href="/contribute/" aria-current="page">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">halloween.js</a> / Contribute
+        </nav>
+        <div class="doc">
+          <article class="doc-main">
+            <header class="stack">
+              <p class="eyebrow" style="margin: 0">Open source · MIT</p>
+              <h1 style="font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem)">
+                Contribute to halloween.js
+              </h1>
+              <p class="lead">
+                An idea, a drawing, a bug fix or a docs correction all help. Pick the level that
+                matches the time you have.
+              </p>
+            </header>
+
+            <div class="grid">
+              <a
+                class="card"
+                href="https://github.com/rogulia/halloween.js/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22"
+                style="display: block"
+                ><h3>Pick a starter issue</h3>
+                <p>Small, well-scoped tasks that are labelled for newcomers.</p></a
+              >
+              <a
+                class="card"
+                href="https://github.com/rogulia/halloween.js/issues/new?template=new_character.yml"
+                style="display: block"
+                ><h3>Propose a character</h3>
+                <p>Sketch or draw an SVG and open it as an issue. No code needed.</p></a
+              >
+              <a
+                class="card"
+                href="https://github.com/rogulia/halloween.js/issues/new?template=bug_report.yml"
+                style="display: block"
+                ><h3>Report a bug</h3>
+                <p>Tell us what broke and where. A page URL helps the most.</p></a
+              >
+            </div>
+
+            <p>
+              Thanks for considering a contribution. This doc covers how the project is put
+              together, what a PR needs to get merged, and what a new ambient effect actually costs
+              to add — so you can pick a contribution that fits the time you have.
+            </p>
+            <h2 id="ways-to-contribute">
+              Ways to contribute<a
+                class="anchor"
+                href="#ways-to-contribute"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>Pick the level that matches what you want to do:</p>
+            <ol class="bullets">
+              <li>
+                <strong>Art / character idea</strong> — you sketch or draw an SVG for a new
+                character (ghost, pumpkin, bat, whatever fits the theme) and open it as an issue
+                with the artwork attached. You don't need to touch any code — a maintainer can
+                complete the integration (level 2) if the idea and art fit the project.
+              </li>
+              <li>
+                <strong>A full new ambient effect</strong> — art plus the code to spawn, animate,
+                and theme it, wired into the library end-to-end. This is real integration work
+                across several files (see
+                <a href="#adding-a-new-effect">Adding a new effect</a> below) — budget more than
+                "one small PR" for it.
+              </li>
+              <li>
+                <strong>Everything else</strong> — bug fixes, accessibility improvements, docs,
+                tests, new color/season presets, demo improvements. Usually the smallest and fastest
+                kind of PR to review.
+              </li>
+            </ol>
+            <p>
+              If you're not sure which bucket your idea falls into, open an issue first and ask.
+            </p>
+            <h2 id="before-adding-a-new-effect-read-the-acceptance-criteria">
+              Before adding a new effect: read the acceptance criteria<a
+                class="anchor"
+                href="#before-adding-a-new-effect-read-the-acceptance-criteria"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>A new ambient effect (level 2) is only merged if it meets all of these:</p>
+            <ul class="bullets">
+              <li>
+                <strong>Fits the visual language.</strong> Halloween-themed, reads clearly at small
+                sizes, works as a silhouette/simple shape — not photorealistic or overly detailed.
+              </li>
+              <li>
+                <strong>Works on light and dark backgrounds.</strong> The demo's theme toggle must
+                not make the effect illegible or invisible in either mode.
+              </li>
+              <li>
+                <strong>Respects <code>prefers-reduced-motion</code>.</strong> All existing effects
+                stop spawning entirely when reduced motion is on (see
+                <code>prefersReducedMotion()</code> in
+                <a
+                  href="https://github.com/rogulia/halloween.js/blob/main/src/dom.ts"
+                  rel="noopener"
+                  ><code>src/dom.ts</code></a
+                >
+                and how <code>page-effects.ts</code> checks it) — a new effect must do the same, no
+                exceptions.
+              </li>
+              <li>
+                <strong>No meaningful bundle size regression.</strong> The library is
+                zero-dependency and under 10 KB gzipped. <code>npm run test:package</code> only
+                checks that the published bundle sizes are non-zero — it does not enforce a size
+                budget. Staying under budget is judged manually in review; check the built size
+                locally before opening a PR. A single reasonably-sized inline SVG plus a
+                spawn/animate function is the expected footprint.
+              </li>
+              <li>
+                <strong>No external resources.</strong> No network fetches, no external
+                fonts/scripts/images, no dependencies added to <code>package.json</code>. Everything
+                ships inline in the bundle, same as the four existing effects.
+              </li>
+              <li>
+                <strong>No SVG <code>id</code> collisions.</strong> IDs inside the SVG markup
+                (gradients, clip-paths, filters) must be unique across all effects, since multiple
+                effects' markup can be live in the DOM at once.
+              </li>
+              <li>
+                <strong>Original or compatibly-licensed art.</strong> You must own the artwork or it
+                must be licensed in a way that permits inclusion in an MIT-licensed project (public
+                domain, MIT, CC0, etc.). State the source/license in the PR description.
+              </li>
+              <li>
+                <strong>Maintainer discretion.</strong> A technically solid effect can still be
+                declined if it doesn't fit the project's direction (too many similar effects
+                already, doesn't match the aesthetic, etc.). If you want to avoid wasted work, open
+                an issue to check direction before investing time in a full implementation.
+              </li>
+            </ul>
+            <h2 id="adding-a-new-effect">
+              Adding a new effect<a
+                class="anchor"
+                href="#adding-a-new-effect"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              This touches more than one file — there isn't a single "effects config" to drop a new
+              entry into. As of this writing, a full ambient effect requires changes to:
+            </p>
+            <ul class="bullets">
+              <li>
+                <strong><code>src/svg.ts</code></strong> — the inline SVG markup for the new
+                character, exported as a constant (<code>currentColor</code> for anything that
+                should follow the theme's accent/ink color, same pattern as <code>WITCH_SVG</code>).
+              </li>
+              <li>
+                <strong><code>src/page-effects.ts</code></strong> — add the new name to the
+                <code>PageEffectName</code> union type, write a <code>spawn*()</code> function
+                (positioning, timing, Web Animations API keyframes — follow the pattern of
+                <code>spawnTombstone</code>/<code>spawnWitch</code>), and register it in the
+                <code>EFFECTS</code> map. Note: extending <code>PageEffectName</code> is a public
+                API surface change (it's re-exported from <code>src/index.ts</code>) — flag this in
+                your PR description so it gets the right semver treatment; it does not automatically
+                mean a major version bump.
+              </li>
+              <li>
+                <strong><code>src/styles.ts</code></strong> — CSS for the spawned element, sized via
+                the existing <code>--halloween-&lt;effect&gt;-width/height</code> custom-property +
+                preset-fallback pattern used by the other effects, plus entries in the intensity
+                presets if the effect's default size should scale with
+                <code>subtle</code>/<code>normal</code>/<code>party</code>.
+              </li>
+              <li>
+                <strong><code>demo/demo.js</code></strong> — add the effect to
+                <code>EFFECT_CLASSES</code> and wire its checkbox state into the class list, so it's
+                toggleable in the live demo.
+              </li>
+              <li>
+                <strong><code>demo/index.html</code></strong> — add the corresponding toggle row in
+                the Ambient Effects section.
+              </li>
+              <li>
+                <strong><code>test/page-effects.test.ts</code></strong> — cover
+                spawn/cleanup/reduced-motion behavior, matching the existing tests for the other
+                four effects.
+              </li>
+              <li>
+                <strong><code>test/demo.test.ts</code></strong> and
+                <strong><code>test/rename-guard.test.ts</code></strong> — both hardcode the current
+                effect names/classes (e.g. <code>halloween-tombstones</code>,
+                <code>.halloween-eyes-item</code>) rather than deriving them from a shared list, so
+                they'll need a matching new case for the effect you add.
+              </li>
+              <li>
+                <strong><code>README.md</code></strong> — mention the new effect wherever the
+                existing four are listed.
+              </li>
+            </ul>
+            <p>
+              If that's more than you want to take on, contributing just the art (level 1) and
+              letting a maintainer finish the wiring is a legitimate and welcome way to help.
+            </p>
+            <h2 id="local-development">
+              Local development<a
+                class="anchor"
+                href="#local-development"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>npm ci
+npm run demo:prepare   # build + copy dist into demo/dist for the local demo page</code></pre>
+            </div>
+            <p>
+              Then serve <code>demo/</code> with any static file server (<code>file://</code> won't
+              work — module/script loading is blocked by the browser's CORS policy for local files).
+            </p>
+            <p>
+              While iterating on the library itself, run <code>npm run dev</code> (<code
+                >tsup --watch</code
+              >) in a separate terminal — it rebuilds <code>dist/</code> on change, but does not
+              copy into <code>demo/dist</code>, so re-run <code>npm run demo:prepare</code> whenever
+              you want the demo to pick up a new build.
+            </p>
+            <h2 id="before-opening-a-pr">
+              Before opening a PR<a
+                class="anchor"
+                href="#before-opening-a-pr"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>Run the same check CI runs:</p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>npm run check</code></pre>
+            </div>
+            <p>
+              This runs, in order: Prettier format check, TypeScript typecheck, the Vitest suite,
+              the production build, and package/export/CDN-version consistency checks. All of it
+              must pass — CI runs the identical command on Node 22 and 24 for every PR.
+            </p>
+            <p>In your PR description, include:</p>
+            <ul class="bullets">
+              <li>What changed and why, in a sentence or two.</li>
+              <li>A screenshot or short screen recording for anything visual.</li>
+              <li>
+                Whether the change touches the public API (new exports, new
+                <code>PageEffectName</code> value, new config option).
+              </li>
+              <li>
+                Confirmation you checked the demo with <code>prefers-reduced-motion</code> enabled,
+                if the change affects an ambient effect.
+              </li>
+              <li>Art source/license, if you're contributing an SVG.</li>
+            </ul>
+            <h2 id="response-times">
+              Response times<a
+                class="anchor"
+                href="#response-times"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              We aim to give every new issue or PR a first response within a few days, and a
+              direction decision (fits / needs changes / not a fit) on new-effect PRs within a week.
+              If you haven't heard back in that window, it's fine to ping the issue/PR.
+            </p>
+            <h2 id="license">
+              License<a class="anchor" href="#license" aria-label="Link to this section">#</a>
+            </h2>
+            <p>
+              By contributing, you agree your contribution is licensed under the project's
+              <a href="https://github.com/rogulia/halloween.js/blob/main/LICENSE" rel="noopener"
+                >MIT License</a
+              >.
+            </p>
+
+            <h2 id="code-of-conduct">
+              Code of conduct<a
+                class="anchor"
+                href="#code-of-conduct"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <h3 id="our-pledge">
+              Our pledge<a class="anchor" href="#our-pledge" aria-label="Link to this section">#</a>
+            </h3>
+            <p>
+              We want participation in halloween.js — issues, pull requests, discussions, reviews —
+              to be a harassment-free experience for everyone, regardless of age, body size, visible
+              or invisible disability, ethnicity, sex characteristics, gender identity and
+              expression, level of experience, education, socio-economic status, nationality,
+              personal appearance, race, religion, or sexual identity and orientation.
+            </p>
+            <h3 id="expected-behavior">
+              Expected behavior<a
+                class="anchor"
+                href="#expected-behavior"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h3>
+            <ul class="bullets">
+              <li>Be respectful and constructive in feedback, especially in code review.</li>
+              <li>Assume good faith; disagreements about code or direction are normal and fine.</li>
+              <li>
+                Accept that a maintainer may decline a contribution for reasons unrelated to its
+                technical quality (project direction, scope, aesthetic fit).
+              </li>
+            </ul>
+            <h3 id="unacceptable-behavior">
+              Unacceptable behavior<a
+                class="anchor"
+                href="#unacceptable-behavior"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h3>
+            <ul class="bullets">
+              <li>Harassment, insults, or personal attacks, in public or private.</li>
+              <li>Trolling, deliberately derailing discussions, or sustained disruption.</li>
+              <li>Publishing others' private information without explicit permission.</li>
+              <li>
+                Any other conduct which could reasonably be considered inappropriate in a
+                professional setting.
+              </li>
+            </ul>
+            <h3 id="scope">
+              Scope<a class="anchor" href="#scope" aria-label="Link to this section">#</a>
+            </h3>
+            <p>
+              This applies within all project spaces (GitHub issues, pull requests, discussions) and
+              when representing the project in public spaces.
+            </p>
+            <h3 id="enforcement">
+              Enforcement<a class="anchor" href="#enforcement" aria-label="Link to this section"
+                >#</a
+              >
+            </h3>
+            <p>
+              Instances of unacceptable behavior may be reported to the maintainer at
+              <strong>iurii@rogulia.fi</strong>. All reports will be reviewed and handled with
+              discretion. The maintainer may remove, edit, or reject comments, commits, code,
+              issues, and other contributions not aligned with this Code of Conduct, and may
+              temporarily or permanently ban a contributor for behavior deemed inappropriate,
+              threatening, offensive, or harmful.
+            </p>
+            <h3 id="attribution">
+              Attribution<a class="anchor" href="#attribution" aria-label="Link to this section"
+                >#</a
+              >
+            </h3>
+            <p>
+              Adapted from the
+              <a href="https://www.contributor-covenant.org/" rel="noopener">Contributor Covenant</a
+              >, version 2.1.
+            </p>
+          </article>
+          <aside class="doc-aside" aria-label="Contribute">
+            <div class="card toc">
+              <h3>On this page</h3>
+              <ul>
+                <li><a href="#ways-to-contribute">Ways to contribute</a></li>
+                <li>
+                  <a href="#before-adding-a-new-effect-read-the-acceptance-criteria"
+                    >Before adding a new effect: read the acceptance criteria</a
+                  >
+                </li>
+                <li><a href="#adding-a-new-effect">Adding a new effect</a></li>
+                <li><a href="#local-development">Local development</a></li>
+                <li><a href="#before-opening-a-pr">Before opening a PR</a></li>
+                <li><a href="#response-times">Response times</a></li>
+                <li><a href="#license">License</a></li>
+                <li><a href="#code-of-conduct">Code of conduct</a></li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Links</h3>
+              <ul class="link-list" style="margin-top: var(--s-3)">
+                <li><a href="https://github.com/rogulia/halloween.js">GitHub repository</a></li>
+                <li><a href="https://github.com/rogulia/halloween.js/issues">Issues</a></li>
+                <li>
+                  <a href="https://github.com/rogulia/halloween.js/graphs/contributors"
+                    >Contributors</a
+                  >
+                </li>
+                <li>
+                  <a href="https://github.com/rogulia/halloween.js/blob/main/CONTRIBUTING.md"
+                    >CONTRIBUTING.md</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -6,52 +6,172 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/wordpress/</loc>
+    <loc>https://halloween.js.org/platforms/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/shopify/</loc>
+    <loc>https://halloween.js.org/platforms/wordpress/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/webflow/</loc>
+    <loc>https://halloween.js.org/platforms/shopify/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/squarespace/</loc>
+    <loc>https://halloween.js.org/platforms/webflow/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/wix/</loc>
+    <loc>https://halloween.js.org/platforms/squarespace/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/tilda/</loc>
+    <loc>https://halloween.js.org/platforms/wix/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/ghost/</loc>
+    <loc>https://halloween.js.org/platforms/tilda/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/blogger/</loc>
+    <loc>https://halloween.js.org/platforms/ghost/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/google-tag-manager/</loc>
+    <loc>https://halloween.js.org/platforms/blogger/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://halloween.js.org/framer/</loc>
+    <loc>https://halloween.js.org/platforms/google-tag-manager/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/platforms/framer/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/platforms/html/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/platforms/ai-assistant/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/getting-started/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/api/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/guides/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/getting-started/installation/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/getting-started/quick-start/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/master-switch/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/effects/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/screen-corners/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/intensity/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/season/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/color/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/size-and-opacity/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/badge/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/options/script-url-parameters/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/api/js-api/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/guides/how-it-works/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/guides/accessibility/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/docs/guides/troubleshooting/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://halloween.js.org/contribute/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

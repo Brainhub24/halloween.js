@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Options — halloween.js docs</title>
+    <meta
+      name="description"
+      content="Every class, attribute and CSS variable: the values it accepts and what it changes."
+    />
+    <link rel="canonical" href="https://halloween.js.org/docs/options/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Options — halloween.js docs" />
+    <meta
+      property="og:description"
+      content="Every class, attribute and CSS variable: the values it accepts and what it changes."
+    />
+    <meta property="og:url" content="https://halloween.js.org/docs/options/" />
+    <meta property="og:image" content="https://halloween.js.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Options — halloween.js docs" />
+    <meta
+      name="twitter:description"
+      content="Every class, attribute and CSS variable: the values it accepts and what it changes."
+    />
+    <meta name="twitter:image" content="https://halloween.js.org/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/site.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "halloween.js",
+            "item": "https://halloween.js.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Docs",
+            "item": "https://halloween.js.org/docs/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Options",
+            "item": "https://halloween.js.org/docs/options/"
+          }
+        ]
+      }
+    </script>
+    <script
+      defer
+      src="https://u.rogulia.fi/script.js"
+      data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="/#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/" aria-current="page">Docs</a>
+          <a href="/contribute/">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">halloween.js</a> / <a href="/docs/">Docs</a> / Options
+        </nav>
+        <header class="stack">
+          <h1 style="font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem)">Options</h1>
+          <p class="lead">
+            Every class, attribute and CSS variable: the values it accepts and what it changes.
+          </p>
+        </header>
+        <div class="grid" style="margin-top: var(--s-7)">
+          <a class="card" href="/docs/options/master-switch/" style="display: block"
+            ><h3>Master switch</h3>
+            <p>
+              The halloween body class turns the whole library on. Without it nothing runs. How it
+              combines with the season window.
+            </p></a
+          ><a class="card" href="/docs/options/effects/" style="display: block"
+            ><h3>Ambient effects</h3>
+            <p>
+              The four ambient effects (eyes, witches, spider-drop, tombstones). The class for each,
+              how it behaves, how often it appears and what limits it.
+            </p></a
+          ><a class="card" href="/docs/options/screen-corners/" style="display: block"
+            ><h3>Screen corners</h3>
+            <p>
+              Static spider webs fixed to the corners of the viewport. The four corner classes,
+              size, color, opacity and how they differ from ambient effects.
+            </p></a
+          ><a class="card" href="/docs/options/intensity/" style="display: block"
+            ><h3>Intensity</h3>
+            <p>
+              The subtle and party intensity classes. How they change spawn rate, simultaneous
+              effects, size and opacity, with the exact values.
+            </p></a
+          ><a class="card" href="/docs/options/season/" style="display: block"
+            ><h3>Season window</h3>
+            <p>
+              When halloween.js is active. The default 18 October to 2 November window, the start
+              and end attributes, accepted date formats, year-wrapping ranges and the fail-open
+              rule.
+            </p></a
+          ><a class="card" href="/docs/options/color/" style="display: block"
+            ><h3>Color</h3>
+            <p>
+              Change the color of webs, spiders, the witch and tombstones with --halloween-color.
+              Which elements follow it, which do not, and how it combines with the script URL
+              parameter.
+            </p></a
+          ><a class="card" href="/docs/options/size-and-opacity/" style="display: block"
+            ><h3>Size and opacity</h3>
+            <p>
+              CSS variables that resize each effect and dim the whole effects layer. Every variable,
+              its default and how it combines with the intensity classes.
+            </p></a
+          ><a class="card" href="/docs/options/badge/" style="display: block"
+            ><h3>Badge</h3>
+            <p>
+              The optional credit link. How to switch it on, align it left or right, place it inside
+              your footer, restyle it with CSS variables and what it does on short pages.
+            </p></a
+          ><a class="card" href="/docs/options/script-url-parameters/" style="display: block"
+            ><h3>Script URL parameters</h3>
+            <p>
+              The s, e and color query parameters on the script tag URL. When they work, when they
+              do not, and how they rank against body attributes.
+            </p></a
+          >
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -5,13 +5,24 @@
 // flags to rewrite them to package.json's version (wired into `npm version`
 // below); run with --check to fail CI/`npm run check` if a manual edit ever
 // lets them drift.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PIN_PATTERN = /halloween\.js@\d+\.\d+\.\d+/g;
 
-const FILES = ['demo/demo.js', 'README.md', 'demo/llms.txt', 'demo/llms-full.txt'];
+const docsFiles = readdirSync(new URL('../docs/', import.meta.url), { recursive: true })
+  .filter((f) => f.endsWith('.md'))
+  .map((f) => `docs/${f}`);
+
+const FILES = [
+  'demo/demo.js',
+  'README.md',
+  'demo/llms.txt',
+  'demo/llms-full.txt',
+  'demo/SKILL.md',
+  ...docsFiles,
+];
 
 const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 const target = `halloween.js@${version}`;

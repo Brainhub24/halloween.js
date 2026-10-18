@@ -25,14 +25,39 @@ By default it only runs in a ~2 week season window around Halloween (18 Oct – 
 <!-- platforms:start -->
 ## Install guides by platform
 
-- [WordPress](https://halloween.js.org/wordpress/): where to paste the snippet in WordPress and WooCommerce
-- [Shopify](https://halloween.js.org/shopify/): where to paste the snippet in Shopify
-- [Webflow](https://halloween.js.org/webflow/): where to paste the snippet in Webflow
-- [Squarespace](https://halloween.js.org/squarespace/): where to paste the snippet in Squarespace
-- [Wix](https://halloween.js.org/wix/): where to paste the snippet in Wix
-- [Tilda](https://halloween.js.org/tilda/): where to paste the snippet in Tilda
-- [Ghost](https://halloween.js.org/ghost/): where to paste the snippet in Ghost
-- [Blogger](https://halloween.js.org/blogger/): where to paste the snippet in Blogger
-- [Google Tag Manager](https://halloween.js.org/google-tag-manager/): where to paste the snippet in Google Tag Manager
-- [Framer](https://halloween.js.org/framer/): where to paste the snippet in Framer
+- [All platforms](https://halloween.js.org/platforms/): index of the guides below
+- [WordPress](https://halloween.js.org/platforms/wordpress/): where to paste the snippet in WordPress and WooCommerce
+- [Shopify](https://halloween.js.org/platforms/shopify/): where to paste the snippet in Shopify
+- [Webflow](https://halloween.js.org/platforms/webflow/): where to paste the snippet in Webflow
+- [Squarespace](https://halloween.js.org/platforms/squarespace/): where to paste the snippet in Squarespace
+- [Wix](https://halloween.js.org/platforms/wix/): where to paste the snippet in Wix
+- [Tilda](https://halloween.js.org/platforms/tilda/): where to paste the snippet in Tilda
+- [Ghost](https://halloween.js.org/platforms/ghost/): where to paste the snippet in Ghost
+- [Blogger](https://halloween.js.org/platforms/blogger/): where to paste the snippet in Blogger
+- [Google Tag Manager](https://halloween.js.org/platforms/google-tag-manager/): where to paste the snippet in Google Tag Manager
+- [Framer](https://halloween.js.org/platforms/framer/): where to paste the snippet in Framer
+- [HTML website](https://halloween.js.org/platforms/html/): where to paste the snippet in HTML website
+- [AI assistant](https://halloween.js.org/platforms/ai-assistant/): let an AI coding assistant install it from SKILL.md
 <!-- platforms:end -->
+
+<!-- docs:start -->
+## Documentation
+
+- [Documentation index](https://halloween.js.org/docs/): every page below is also available as Markdown at the same path with a .md ending
+- [Installation](https://halloween.js.org/docs/getting-started/installation.md): Install halloween.js from npm or load it with one script tag from a CDN. Formats, TypeScript types and why you should pin an exact version.
+- [Quick start](https://halloween.js.org/docs/getting-started/quick-start.md): Switch halloween.js on with body classes. A minimal example, a full example and a paste-anywhere snippet for site builders.
+- [Master switch](https://halloween.js.org/docs/options/master-switch.md): The halloween body class turns the whole library on. Without it nothing runs. How it combines with the season window.
+- [Ambient effects](https://halloween.js.org/docs/options/effects.md): The four ambient effects (eyes, witches, spider-drop, tombstones). The class for each, how it behaves, how often it appears and what limits it.
+- [Screen corners](https://halloween.js.org/docs/options/screen-corners.md): Static spider webs fixed to the corners of the viewport. The four corner classes, size, color, opacity and how they differ from ambient effects.
+- [Intensity](https://halloween.js.org/docs/options/intensity.md): The subtle and party intensity classes. How they change spawn rate, simultaneous effects, size and opacity, with the exact values.
+- [Season window](https://halloween.js.org/docs/options/season.md): When halloween.js is active. The default 18 October to 2 November window, the start and end attributes, accepted date formats, year-wrapping ranges and the fail-open rule.
+- [Color](https://halloween.js.org/docs/options/color.md): Change the color of webs, spiders, the witch and tombstones with --halloween-color. Which elements follow it, which do not, and how it combines with the script URL parameter.
+- [Size and opacity](https://halloween.js.org/docs/options/size-and-opacity.md): CSS variables that resize each effect and dim the whole effects layer. Every variable, its default and how it combines with the intensity classes.
+- [Badge](https://halloween.js.org/docs/options/badge.md): The optional credit link. How to switch it on, align it left or right, place it inside your footer, restyle it with CSS variables and what it does on short pages.
+- [Script URL parameters](https://halloween.js.org/docs/options/script-url-parameters.md): The s, e and color query parameters on the script tag URL. When they work, when they do not, and how they rank against body attributes.
+- [JS API](https://halloween.js.org/docs/api/js-api.md): The halloween and pageEffects exports. What they do, when you need them, and what they do not bypass. Includes the Halloween global for script-tag installs.
+- [How it works](https://halloween.js.org/docs/guides/how-it-works.md): What halloween.js does on your page. The two gates, what gets added to the DOM, when it re-checks, and why it never shifts your layout.
+- [Accessibility](https://halloween.js.org/docs/guides/accessibility.md): How halloween.js handles reduced motion, assistive technology and pointer events, and what to do about contrast and layering.
+- [Troubleshooting](https://halloween.js.org/docs/guides/troubleshooting.md): Nothing shows up? A checklist of the usual causes with how to confirm each one, from the season window to content blockers.
+- [SKILL.md](https://halloween.js.org/SKILL.md): instructions for AI coding assistants
+<!-- docs:end -->

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Size and opacity — halloween.js docs</title>
+    <meta
+      name="description"
+      content="CSS variables that resize each effect and dim the whole effects layer. Every variable, its default and how it combines with the intensity classes."
+    />
+    <link rel="canonical" href="https://halloween.js.org/docs/options/size-and-opacity/" />
+    <link rel="alternate" type="text/markdown" href="/docs/options/size-and-opacity.md" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Size and opacity — halloween.js docs" />
+    <meta
+      property="og:description"
+      content="CSS variables that resize each effect and dim the whole effects layer. Every variable, its default and how it combines with the intensity classes."
+    />
+    <meta property="og:url" content="https://halloween.js.org/docs/options/size-and-opacity/" />
+    <meta property="og:image" content="https://halloween.js.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Size and opacity — halloween.js docs" />
+    <meta
+      name="twitter:description"
+      content="CSS variables that resize each effect and dim the whole effects layer. Every variable, its default and how it combines with the intensity classes."
+    />
+    <meta name="twitter:image" content="https://halloween.js.org/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/site.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "halloween.js",
+            "item": "https://halloween.js.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Docs",
+            "item": "https://halloween.js.org/docs/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Options",
+            "item": "https://halloween.js.org/docs/options/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Size and opacity",
+            "item": "https://halloween.js.org/docs/options/size-and-opacity/"
+          }
+        ]
+      }
+    </script>
+    <script
+      defer
+      src="https://u.rogulia.fi/script.js"
+      data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="/#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/" aria-current="page">Docs</a>
+          <a href="/contribute/">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">halloween.js</a> / <a href="/docs/">Docs</a> /
+          <a href="/docs/options/">Options</a> / Size and opacity
+        </nav>
+        <div class="doc">
+          <article class="doc-main">
+            <header class="stack">
+              <p class="eyebrow" style="margin: 0">Options</p>
+              <h1 style="font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem)">Size and opacity</h1>
+              <p class="lead">
+                CSS variables that resize each effect and dim the whole effects layer. Every
+                variable, its default and how it combines with the intensity classes.
+              </p>
+              <div class="doc-tools">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn--sm"
+                  data-copy-md="/docs/options/size-and-opacity.md"
+                  data-label="Copy for LLM"
+                >
+                  <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 6V3.5" />
+                    <circle cx="12" cy="3" r="1" />
+                    <rect x="4" y="6" width="16" height="13" rx="3.5" />
+                    <path d="M2 11.5v3M22 11.5v3M9.5 16h5" />
+                    <circle cx="9" cy="11.5" r=".6" />
+                    <circle cx="15" cy="11.5" r=".6" />
+                  </svg>
+                  <span data-copy-md-text>Copy for LLM</span>
+                </button>
+                <a class="btn btn-secondary btn--sm" href="/docs/options/size-and-opacity.md"
+                  ><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="5" width="20" height="14" rx="3.5" />
+                    <path d="M6 15V9l2.5 3L11 9v6M17 9v6m-2-2 2 2 2-2" />
+                  </svg>
+                  View as Markdown</a
+                >
+                <span
+                  class="copy-status"
+                  role="status"
+                  aria-live="polite"
+                  data-copy-md-status
+                ></span>
+              </div>
+            </header>
+            <p>
+              Each effect's size, the size of the screen-corner webs and the opacity of the whole
+              effects layer are controlled with CSS custom properties. Set them on
+              <code>:root</code>, on <code>body</code> or on any element above the effects.
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>:root {
+  --halloween-witch-width: 140px;
+  --halloween-witch-height: 175px;
+  --halloween-page-opacity: 0.8;
+}</code></pre>
+            </div>
+            <h2 id="variables">
+              Variables<a class="anchor" href="#variables" aria-label="Link to this section">#</a>
+            </h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Controls</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--halloween-eyes-width</code></td>
+                    <td>Width of the blinking eyes</td>
+                    <td><code>64px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-eyes-height</code></td>
+                    <td>Height of the blinking eyes</td>
+                    <td><code>26px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-witch-width</code></td>
+                    <td>Width of the flying witch</td>
+                    <td><code>104px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-witch-height</code></td>
+                    <td>Height of the flying witch</td>
+                    <td><code>130px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-spider-drop-width</code></td>
+                    <td>Width of the dropping spider</td>
+                    <td><code>90px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-spider-drop-height</code></td>
+                    <td>Height of the dropping spider. The drop distance accounts for it</td>
+                    <td><code>90px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-tombstone-width</code></td>
+                    <td>Width of the rising tombstone</td>
+                    <td><code>76px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-tombstone-height</code></td>
+                    <td>Height of the rising tombstone</td>
+                    <td><code>96px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-screen-corner-size</code></td>
+                    <td>Width and height of each corner web (square)</td>
+                    <td><code>120px</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-page-opacity</code></td>
+                    <td>
+                      Opacity of the entire effects layer: ambient effects and corner webs together
+                    </td>
+                    <td><code>1</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-page-z-index</code></td>
+                    <td>Stacking order of the effects layer</td>
+                    <td><code>999</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Lengths accept any CSS length. Opacity is a number from 0 to 1. Each size can be set
+              independently of the others. The witch, for instance, can be wider without changing
+              its height.
+            </p>
+            <h2 id="order-of-precedence">
+              Order of precedence<a
+                class="anchor"
+                href="#order-of-precedence"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>For each size and for the opacity, the library uses the first value that exists:</p>
+            <ol class="bullets">
+              <li>Your own variable from the table.</li>
+              <li>
+                The value from the active <a href="/docs/options/intensity/">intensity</a> class.
+              </li>
+              <li>The default from the table.</li>
+            </ol>
+            <p>
+              So an explicit size is kept whichever intensity class is on the page. The intensity
+              class sets internal variables that start with <code>--halloween-preset-</code>. Do not
+              set those yourself. They are not a public interface.
+            </p>
+            <h2 id="layer-opacity-and-the-corner-webs">
+              Layer opacity and the corner webs<a
+                class="anchor"
+                href="#layer-opacity-and-the-corner-webs"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              <code>--halloween-page-opacity</code> multiplies with each element's own animation.
+              Ambient effects fade in and out by themselves, and the corner webs are drawn at 75
+              percent. The layer value dims everything on top of that. The
+              <code>subtle</code> intensity uses <code>0.65</code>.
+            </p>
+            <h2 id="not-configurable">
+              Not configurable<a
+                class="anchor"
+                href="#not-configurable"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              The timing, positions, movement ranges and the artwork of the effects are internal.
+              Only the values above and the <a href="/docs/options/effects/">classes</a> are public
+              options.
+            </p>
+            <nav class="pager" aria-label="Previous and next page">
+              <a class="pager-prev" href="/docs/options/color/"><span>Previous</span>Color</a
+              ><a class="pager-next" href="/docs/options/badge/"><span>Next</span>Badge</a>
+            </nav>
+          </article>
+          <aside class="doc-aside" aria-label="Documentation">
+            <div class="card toc">
+              <h3>On this page</h3>
+              <ul>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#order-of-precedence">Order of precedence</a></li>
+                <li>
+                  <a href="#layer-opacity-and-the-corner-webs">Layer opacity and the corner webs</a>
+                </li>
+                <li><a href="#not-configurable">Not configurable</a></li>
+              </ul>
+            </div>
+            <div class="card docs-nav">
+              <h3>Documentation</h3>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/getting-started/">Getting started</a></h4>
+                <ul>
+                  <li><a href="/docs/getting-started/installation/">Installation</a></li>
+                  <li><a href="/docs/getting-started/quick-start/">Quick start</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/options/">Options</a></h4>
+                <ul>
+                  <li><a href="/docs/options/master-switch/">Master switch</a></li>
+                  <li><a href="/docs/options/effects/">Ambient effects</a></li>
+                  <li><a href="/docs/options/screen-corners/">Screen corners</a></li>
+                  <li><a href="/docs/options/intensity/">Intensity</a></li>
+                  <li><a href="/docs/options/season/">Season window</a></li>
+                  <li><a href="/docs/options/color/">Color</a></li>
+                  <li>
+                    <a href="/docs/options/size-and-opacity/" aria-current="page"
+                      >Size and opacity</a
+                    >
+                  </li>
+                  <li><a href="/docs/options/badge/">Badge</a></li>
+                  <li><a href="/docs/options/script-url-parameters/">Script URL parameters</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/api/">API</a></h4>
+                <ul>
+                  <li><a href="/docs/api/js-api/">JS API</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/guides/">Guides</a></h4>
+                <ul>
+                  <li><a href="/docs/guides/how-it-works/">How it works</a></li>
+                  <li><a href="/docs/guides/accessibility/">Accessibility</a></li>
+                  <li><a href="/docs/guides/troubleshooting/">Troubleshooting</a></li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <script src="/docs.js" defer></script>
+  </body>
+</html>

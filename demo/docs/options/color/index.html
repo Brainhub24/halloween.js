@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color — halloween.js docs</title>
+    <meta
+      name="description"
+      content="Change the color of webs, spiders, the witch and tombstones with --halloween-color. Which elements follow it, which do not, and how it combines with the script URL parameter."
+    />
+    <link rel="canonical" href="https://halloween.js.org/docs/options/color/" />
+    <link rel="alternate" type="text/markdown" href="/docs/options/color.md" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Color — halloween.js docs" />
+    <meta
+      property="og:description"
+      content="Change the color of webs, spiders, the witch and tombstones with --halloween-color. Which elements follow it, which do not, and how it combines with the script URL parameter."
+    />
+    <meta property="og:url" content="https://halloween.js.org/docs/options/color/" />
+    <meta property="og:image" content="https://halloween.js.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Color — halloween.js docs" />
+    <meta
+      name="twitter:description"
+      content="Change the color of webs, spiders, the witch and tombstones with --halloween-color. Which elements follow it, which do not, and how it combines with the script URL parameter."
+    />
+    <meta name="twitter:image" content="https://halloween.js.org/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/site.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "halloween.js",
+            "item": "https://halloween.js.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Docs",
+            "item": "https://halloween.js.org/docs/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Options",
+            "item": "https://halloween.js.org/docs/options/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Color",
+            "item": "https://halloween.js.org/docs/options/color/"
+          }
+        ]
+      }
+    </script>
+    <script
+      defer
+      src="https://u.rogulia.fi/script.js"
+      data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="/#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/" aria-current="page">Docs</a>
+          <a href="/contribute/">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">halloween.js</a> / <a href="/docs/">Docs</a> /
+          <a href="/docs/options/">Options</a> / Color
+        </nav>
+        <div class="doc">
+          <article class="doc-main">
+            <header class="stack">
+              <p class="eyebrow" style="margin: 0">Options</p>
+              <h1 style="font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem)">Color</h1>
+              <p class="lead">
+                Change the color of webs, spiders, the witch and tombstones with --halloween-color.
+                Which elements follow it, which do not, and how it combines with the script URL
+                parameter.
+              </p>
+              <div class="doc-tools">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn--sm"
+                  data-copy-md="/docs/options/color.md"
+                  data-label="Copy for LLM"
+                >
+                  <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 6V3.5" />
+                    <circle cx="12" cy="3" r="1" />
+                    <rect x="4" y="6" width="16" height="13" rx="3.5" />
+                    <path d="M2 11.5v3M22 11.5v3M9.5 16h5" />
+                    <circle cx="9" cy="11.5" r=".6" />
+                    <circle cx="15" cy="11.5" r=".6" />
+                  </svg>
+                  <span data-copy-md-text>Copy for LLM</span>
+                </button>
+                <a class="btn btn-secondary btn--sm" href="/docs/options/color.md"
+                  ><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="5" width="20" height="14" rx="3.5" />
+                    <path d="M6 15V9l2.5 3L11 9v6M17 9v6m-2-2 2 2 2-2" />
+                  </svg>
+                  View as Markdown</a
+                >
+                <span
+                  class="copy-status"
+                  role="status"
+                  aria-live="polite"
+                  data-copy-md-status
+                ></span>
+              </div>
+            </header>
+            <p>
+              By default the decorations take the text color of your page, which looks right on both
+              light and dark sites without any configuration. One CSS variable overrides that.
+            </p>
+            <h2 id="halloween-color">
+              --halloween-color<a
+                class="anchor"
+                href="#halloween-color"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              Any valid CSS color is accepted: a hex value, <code>rgb()</code>, <code>hsl()</code>,
+              a named color or <code>var()</code> of your own token.
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>:root {
+  --halloween-color: #ff6b00;
+}</code></pre>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Value</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>not set (default)</td>
+                    <td>The color of the surrounding text, <code>currentColor</code></td>
+                  </tr>
+                  <tr>
+                    <td>Any CSS color</td>
+                    <td>All decorations listed below use it</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h2 id="what-follows-the-variable">
+              What follows the variable<a
+                class="anchor"
+                href="#what-follows-the-variable"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <ul class="bullets">
+              <li>
+                The spider webs in the <a href="/docs/options/screen-corners/">screen corners</a>.
+              </li>
+              <li>The spider and its thread (<code>halloween-spider-drop</code>).</li>
+              <li>The witch silhouette (<code>halloween-witches</code>).</li>
+              <li>The tombstone (<code>halloween-tombstones</code>).</li>
+            </ul>
+            <h2 id="what-does-not-follow-it">
+              What does not follow it<a
+                class="anchor"
+                href="#what-does-not-follow-it"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <ul class="bullets">
+              <li>
+                The eyes (<code>halloween-eyes</code>) keep a fixed amber with a dark outline. They
+                are a two-tone picture, not a single-color shape, so they look the same on every
+                background.
+              </li>
+              <li>The <a href="/docs/options/badge/">badge</a> has its own color variables.</li>
+            </ul>
+            <h2 id="where-to-set-it">
+              Where to set it<a
+                class="anchor"
+                href="#where-to-set-it"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              Set it in your stylesheet on <code>:root</code> or <code>body</code>, or inline on
+              <code>&lt;body&gt;</code>. If you load the script with a tag, you can also pass
+              <code>?color=</code> on its URL (see
+              <a href="/docs/options/script-url-parameters/">script URL parameters</a>).
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>&lt;body class="halloween halloween-witches" style="--halloween-color: #ff6b00"&gt;</code></pre>
+            </div>
+            <p>
+              When both a stylesheet value and <code>?color=</code> are present, the
+              <code>?color=</code> value wins on pages where it is used. It is written inline on
+              <code>&lt;body&gt;</code>, which sits closer to the decorations than
+              <code>:root</code>.
+            </p>
+            <p>
+              The library only ever sets the color. It never clears one that you set by another
+              means, even when a body class changes later.
+            </p>
+            <h2 id="related-variable">
+              Related variable<a
+                class="anchor"
+                href="#related-variable"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              <code>--halloween-page-z-index</code> places the effects layer above or below other
+              fixed elements. The default is <code>999</code>. Lower it to keep a modal or a cookie
+              banner on top.
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>:root {
+  --halloween-page-z-index: 500;
+}</code></pre>
+            </div>
+            <nav class="pager" aria-label="Previous and next page">
+              <a class="pager-prev" href="/docs/options/season/"
+                ><span>Previous</span>Season window</a
+              ><a class="pager-next" href="/docs/options/size-and-opacity/"
+                ><span>Next</span>Size and opacity</a
+              >
+            </nav>
+          </article>
+          <aside class="doc-aside" aria-label="Documentation">
+            <div class="card toc">
+              <h3>On this page</h3>
+              <ul>
+                <li><a href="#halloween-color">--halloween-color</a></li>
+                <li><a href="#what-follows-the-variable">What follows the variable</a></li>
+                <li><a href="#what-does-not-follow-it">What does not follow it</a></li>
+                <li><a href="#where-to-set-it">Where to set it</a></li>
+                <li><a href="#related-variable">Related variable</a></li>
+              </ul>
+            </div>
+            <div class="card docs-nav">
+              <h3>Documentation</h3>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/getting-started/">Getting started</a></h4>
+                <ul>
+                  <li><a href="/docs/getting-started/installation/">Installation</a></li>
+                  <li><a href="/docs/getting-started/quick-start/">Quick start</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/options/">Options</a></h4>
+                <ul>
+                  <li><a href="/docs/options/master-switch/">Master switch</a></li>
+                  <li><a href="/docs/options/effects/">Ambient effects</a></li>
+                  <li><a href="/docs/options/screen-corners/">Screen corners</a></li>
+                  <li><a href="/docs/options/intensity/">Intensity</a></li>
+                  <li><a href="/docs/options/season/">Season window</a></li>
+                  <li><a href="/docs/options/color/" aria-current="page">Color</a></li>
+                  <li><a href="/docs/options/size-and-opacity/">Size and opacity</a></li>
+                  <li><a href="/docs/options/badge/">Badge</a></li>
+                  <li><a href="/docs/options/script-url-parameters/">Script URL parameters</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/api/">API</a></h4>
+                <ul>
+                  <li><a href="/docs/api/js-api/">JS API</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/guides/">Guides</a></h4>
+                <ul>
+                  <li><a href="/docs/guides/how-it-works/">How it works</a></li>
+                  <li><a href="/docs/guides/accessibility/">Accessibility</a></li>
+                  <li><a href="/docs/guides/troubleshooting/">Troubleshooting</a></li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <script src="/docs.js" defer></script>
+  </body>
+</html>

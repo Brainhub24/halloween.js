@@ -9,7 +9,7 @@
 
 Zero-dependency Halloween screen-corner decorations and ambient page effects for any website.
 
-[Live demo](https://halloween.js.org/)
+[Live demo](https://halloween.js.org/) · [Documentation](https://halloween.js.org/docs/) · [Platform guides](https://halloween.js.org/platforms/)
 
 Want to contribute? See [CONTRIBUTING.md](CONTRIBUTING.md). Thanks to everyone who has — see the [contributors graph](https://github.com/rogulia/halloween.js/graphs/contributors).
 
@@ -59,16 +59,18 @@ Pick your own corners, effects, intensity, color and season in the [playground](
 
 | Platform | Where to paste it | Guide |
 | --- | --- | --- |
-| WordPress, WooCommerce | Footer field of a header/footer code plugin | [guide](https://halloween.js.org/wordpress/) |
-| Shopify | `theme.liquid`, just above `</body>` | [guide](https://halloween.js.org/shopify/) |
-| Webflow | Site settings → Custom code → Footer code | [guide](https://halloween.js.org/webflow/) |
-| Squarespace | Code Injection → Footer | [guide](https://halloween.js.org/squarespace/) |
-| Wix | Settings → Advanced → Custom Code, Body - end | [guide](https://halloween.js.org/wix/) |
-| Tilda | T123 (Embed HTML Code) block on the page | [guide](https://halloween.js.org/tilda/) |
-| Ghost | Settings → Advanced → Code injection → Site footer | [guide](https://halloween.js.org/ghost/) |
-| Blogger | Theme → Edit HTML, above `</body>` | [guide](https://halloween.js.org/blogger/) |
-| Google Tag Manager | Custom HTML tag, All Pages trigger | [guide](https://halloween.js.org/google-tag-manager/) |
-| Framer | Site Settings → Custom Code → End of `<body>` tag | [guide](https://halloween.js.org/framer/) |
+| WordPress, WooCommerce | Footer field of a header/footer code plugin | [guide](https://halloween.js.org/platforms/wordpress/) |
+| Shopify | `theme.liquid`, just above `</body>` | [guide](https://halloween.js.org/platforms/shopify/) |
+| Webflow | Site settings → Custom code → Footer code | [guide](https://halloween.js.org/platforms/webflow/) |
+| Squarespace | Code Injection → Footer | [guide](https://halloween.js.org/platforms/squarespace/) |
+| Wix | Settings → Advanced → Custom Code, Body - end | [guide](https://halloween.js.org/platforms/wix/) |
+| Tilda | T123 (Embed HTML Code) block on the page | [guide](https://halloween.js.org/platforms/tilda/) |
+| Ghost | Settings → Advanced → Code injection → Site footer | [guide](https://halloween.js.org/platforms/ghost/) |
+| Blogger | Theme → Edit HTML, above `</body>` | [guide](https://halloween.js.org/platforms/blogger/) |
+| Google Tag Manager | Custom HTML tag, All Pages trigger | [guide](https://halloween.js.org/platforms/google-tag-manager/) |
+| Framer | Site Settings → Custom Code → End of `<body>` tag | [guide](https://halloween.js.org/platforms/framer/) |
+| Plain HTML site | Just above `</body>` | [guide](https://halloween.js.org/platforms/html/) |
+| AI coding assistant | A ready prompt that follows [SKILL.md](https://halloween.js.org/SKILL.md) | [guide](https://halloween.js.org/platforms/ai-assistant/) |
 
 ## The master switch
 

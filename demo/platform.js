@@ -9,13 +9,13 @@
   button.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(snippet.textContent);
-      status.textContent = 'Snippet copied';
+      status.textContent = button.dataset.copied ?? 'Snippet copied';
       button.textContent = 'Copied';
       setTimeout(() => {
         button.textContent = button.dataset.label;
       }, 1500);
     } catch {
-      status.textContent = "Couldn't copy the snippet, copy it manually.";
+      status.textContent = "Couldn't copy, copy it manually.";
     }
   });
 })();

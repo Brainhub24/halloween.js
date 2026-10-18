@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Season window — halloween.js docs</title>
+    <meta
+      name="description"
+      content="When halloween.js is active. The default 18 October to 2 November window, the start and end attributes, accepted date formats, year-wrapping ranges and the fail-open rule."
+    />
+    <link rel="canonical" href="https://halloween.js.org/docs/options/season/" />
+    <link rel="alternate" type="text/markdown" href="/docs/options/season.md" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Season window — halloween.js docs" />
+    <meta
+      property="og:description"
+      content="When halloween.js is active. The default 18 October to 2 November window, the start and end attributes, accepted date formats, year-wrapping ranges and the fail-open rule."
+    />
+    <meta property="og:url" content="https://halloween.js.org/docs/options/season/" />
+    <meta property="og:image" content="https://halloween.js.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Season window — halloween.js docs" />
+    <meta
+      name="twitter:description"
+      content="When halloween.js is active. The default 18 October to 2 November window, the start and end attributes, accepted date formats, year-wrapping ranges and the fail-open rule."
+    />
+    <meta name="twitter:image" content="https://halloween.js.org/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/site.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "halloween.js",
+            "item": "https://halloween.js.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Docs",
+            "item": "https://halloween.js.org/docs/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Options",
+            "item": "https://halloween.js.org/docs/options/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Season window",
+            "item": "https://halloween.js.org/docs/options/season/"
+          }
+        ]
+      }
+    </script>
+    <script
+      defer
+      src="https://u.rogulia.fi/script.js"
+      data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="/#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/" aria-current="page">Docs</a>
+          <a href="/contribute/">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">halloween.js</a> / <a href="/docs/">Docs</a> /
+          <a href="/docs/options/">Options</a> / Season window
+        </nav>
+        <div class="doc">
+          <article class="doc-main">
+            <header class="stack">
+              <p class="eyebrow" style="margin: 0">Options</p>
+              <h1 style="font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem)">Season window</h1>
+              <p class="lead">
+                When halloween.js is active. The default 18 October to 2 November window, the start
+                and end attributes, accepted date formats, year-wrapping ranges and the fail-open
+                rule.
+              </p>
+              <div class="doc-tools">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn--sm"
+                  data-copy-md="/docs/options/season.md"
+                  data-label="Copy for LLM"
+                >
+                  <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 6V3.5" />
+                    <circle cx="12" cy="3" r="1" />
+                    <rect x="4" y="6" width="16" height="13" rx="3.5" />
+                    <path d="M2 11.5v3M22 11.5v3M9.5 16h5" />
+                    <circle cx="9" cy="11.5" r=".6" />
+                    <circle cx="15" cy="11.5" r=".6" />
+                  </svg>
+                  <span data-copy-md-text>Copy for LLM</span>
+                </button>
+                <a class="btn btn-secondary btn--sm" href="/docs/options/season.md"
+                  ><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="5" width="20" height="14" rx="3.5" />
+                    <path d="M6 15V9l2.5 3L11 9v6M17 9v6m-2-2 2 2 2-2" />
+                  </svg>
+                  View as Markdown</a
+                >
+                <span
+                  class="copy-status"
+                  role="status"
+                  aria-live="polite"
+                  data-copy-md-status
+                ></span>
+              </div>
+            </header>
+            <p>
+              By default the library does anything only between 18 October and 2 November, every
+              year. Outside that window it stays off, as if the <code>halloween</code> class were
+              not on the page. This is a feature: install the script once, leave it in the page, and
+              it switches itself on and off.
+            </p>
+            <div class="callout">
+              Installed before 18 October? You will see nothing until the season starts. That is
+              expected, not a bug, and there is nothing to hide or remove afterwards.
+            </div>
+            <h2 id="attributes">
+              Attributes<a class="anchor" href="#attributes" aria-label="Link to this section">#</a>
+            </h2>
+            <p>Change the window with two optional attributes on <code>&lt;body&gt;</code>.</p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>&lt;body
+  class="halloween halloween-eyes halloween-screen-left-top"
+  data-halloween-start="18-10"
+  data-halloween-end="02-11"
+&gt;</code></pre>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Attribute</th>
+                    <th>Meaning</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>data-halloween-start</code></td>
+                    <td>First day of the season, written as <code>DD-MM</code></td>
+                    <td><code>18-10</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>data-halloween-end</code></td>
+                    <td>
+                      Last day of the season, written as <code>DD-MM</code>. The whole day is
+                      included
+                    </td>
+                    <td><code>02-11</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Both are optional and resolved independently. Set only the one you need to change.
+            </p>
+            <h2 id="accepted-values">
+              Accepted values<a
+                class="anchor"
+                href="#accepted-values"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <ul class="bullets">
+              <li>
+                The format is day, a dash, month: <code>18-10</code>, <code>02-11</code>. One digit
+                is accepted as well, so <code>8-3</code> means 8 March.
+              </li>
+              <li>
+                Dates are checked against the real calendar. <code>31-04</code> is rejected because
+                April has 30 days.
+              </li>
+              <li>
+                <code>29-02</code> is accepted in every year. In a year that is not a leap year it
+                counts as 28 February.
+              </li>
+              <li>The year is never written. The window repeats every year.</li>
+              <li>A single day is possible: use the same value for start and end.</li>
+              <li>
+                A window can cross the new year. <code>25-12</code> to <code>05-01</code> is active
+                from 25 December to the end of 5 January.
+              </li>
+            </ul>
+            <h2 id="which-time-is-used">
+              Which time is used<a
+                class="anchor"
+                href="#which-time-is-used"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              The check uses the current date on the visitor's device, in the visitor's own time
+              zone. Visitors in different time zones can see the season start and end at slightly
+              different moments.
+            </p>
+            <h2 id="precedence">
+              Precedence<a class="anchor" href="#precedence" aria-label="Link to this section">#</a>
+            </h2>
+            <p>Each end of the window is resolved on its own, in this order:</p>
+            <ol class="bullets">
+              <li>
+                The <code>data-halloween-start</code> or <code>data-halloween-end</code> attribute
+                on <code>&lt;body&gt;</code>.
+              </li>
+              <li>
+                The <code>?s=</code> or <code>?e=</code> query parameter on the script URL. See
+                <a href="/docs/options/script-url-parameters/">script URL parameters</a>.
+              </li>
+              <li>The library default, <code>18-10</code> and <code>02-11</code>.</li>
+            </ol>
+            <p>
+              An attribute that is missing, empty, or only whitespace counts as not set and the next
+              source is used. When the attribute and the query parameter disagree, the attribute
+              wins.
+            </p>
+            <h2 id="invalid-values-fail-open">
+              Invalid values fail open<a
+                class="anchor"
+                href="#invalid-values-fail-open"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              A value that is not empty but cannot be read, such as <code>abc</code>,
+              <code>31-04</code> or <code>18/10</code>, does not switch the library off. If either
+              end is invalid, the library runs as if there were no season restriction at all, so a
+              typo can never silently disable it. If the effects are showing outside the dates you
+              wanted, check both values for typos.
+            </p>
+            <h2 id="when-it-is-checked">
+              When it is checked<a
+                class="anchor"
+                href="#when-it-is-checked"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              The season is checked when the page loads and again whenever the body classes or
+              either season attribute change. It is not checked continuously. A page that stays open
+              across midnight on the first or last day keeps its old state until something touches
+              <code>&lt;body&gt;</code> or you call <code>halloween()</code> (see the
+              <a href="/docs/api/js-api/">JS API</a>). Changing either attribute from your own
+              script triggers an immediate re-check.
+            </p>
+            <h2 id="testing-outside-the-season">
+              Testing outside the season<a
+                class="anchor"
+                href="#testing-outside-the-season"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>To see the effects today, set a window that includes today.</p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>&lt;body class="halloween halloween-eyes" data-halloween-start="01-01" data-halloween-end="31-12"&gt;</code></pre>
+            </div>
+            <p>
+              Remove the override before you publish, or the effects will run all year. The
+              <a href="/#playground">playground</a> generates the snippet with your dates.
+            </p>
+            <nav class="pager" aria-label="Previous and next page">
+              <a class="pager-prev" href="/docs/options/intensity/"
+                ><span>Previous</span>Intensity</a
+              ><a class="pager-next" href="/docs/options/color/"><span>Next</span>Color</a>
+            </nav>
+          </article>
+          <aside class="doc-aside" aria-label="Documentation">
+            <div class="card toc">
+              <h3>On this page</h3>
+              <ul>
+                <li><a href="#attributes">Attributes</a></li>
+                <li><a href="#accepted-values">Accepted values</a></li>
+                <li><a href="#which-time-is-used">Which time is used</a></li>
+                <li><a href="#precedence">Precedence</a></li>
+                <li><a href="#invalid-values-fail-open">Invalid values fail open</a></li>
+                <li><a href="#when-it-is-checked">When it is checked</a></li>
+                <li><a href="#testing-outside-the-season">Testing outside the season</a></li>
+              </ul>
+            </div>
+            <div class="card docs-nav">
+              <h3>Documentation</h3>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/getting-started/">Getting started</a></h4>
+                <ul>
+                  <li><a href="/docs/getting-started/installation/">Installation</a></li>
+                  <li><a href="/docs/getting-started/quick-start/">Quick start</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/options/">Options</a></h4>
+                <ul>
+                  <li><a href="/docs/options/master-switch/">Master switch</a></li>
+                  <li><a href="/docs/options/effects/">Ambient effects</a></li>
+                  <li><a href="/docs/options/screen-corners/">Screen corners</a></li>
+                  <li><a href="/docs/options/intensity/">Intensity</a></li>
+                  <li><a href="/docs/options/season/" aria-current="page">Season window</a></li>
+                  <li><a href="/docs/options/color/">Color</a></li>
+                  <li><a href="/docs/options/size-and-opacity/">Size and opacity</a></li>
+                  <li><a href="/docs/options/badge/">Badge</a></li>
+                  <li><a href="/docs/options/script-url-parameters/">Script URL parameters</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/api/">API</a></h4>
+                <ul>
+                  <li><a href="/docs/api/js-api/">JS API</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/guides/">Guides</a></h4>
+                <ul>
+                  <li><a href="/docs/guides/how-it-works/">How it works</a></li>
+                  <li><a href="/docs/guides/accessibility/">Accessibility</a></li>
+                  <li><a href="/docs/guides/troubleshooting/">Troubleshooting</a></li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <script src="/docs.js" defer></script>
+  </body>
+</html>

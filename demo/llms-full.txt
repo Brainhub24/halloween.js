@@ -1,14 +1,54 @@
 # halloween.js
 
-Zero-dependency Halloween screen-corner decorations and ambient page effects for any website.
+> Zero-dependency Halloween decorations and ambient page effects for any website. Screen-corner spider webs, blinking eyes, flying witches, a dropping spider and a rising tombstone — all class-driven, no build step required. Under 10 KB gzipped, MIT licensed, free.
 
-Live demo: https://halloween.js.org/
-GitHub: https://github.com/rogulia/halloween.js
-npm: https://www.npmjs.com/package/halloween.js
-License: MIT
-Author: Iurii Rogulia (https://iurii.rogulia.fi)
+Install via npm (`npm install halloween.js`, `import "halloween.js"`) or via a single CDN script tag (`<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>`) — works on plain HTML sites, WordPress, and any bundler-based project.
 
-## Install
+The library is controlled entirely through HTML classes on `<body>`: add the `halloween` class to turn it on, then add effect classes (`halloween-eyes`, `halloween-witches`, `halloween-spider-drop`, `halloween-tombstones`, `halloween-screen-left-top`, `halloween-screen-right-top`, `halloween-screen-left-bottom`, `halloween-screen-right-bottom`) to opt into specific ambient effects and screen-corner webs. No JavaScript call is required — it watches `<body>`'s classes and re-syncs automatically.
+
+By default it only runs in a ~2 week season window around Halloween (18 Oct – 2 Nov), overridable via `data-halloween-start`/`data-halloween-end` attributes on `<body>`. It respects `prefers-reduced-motion` live, has zero runtime dependencies, and renders in a fixed overlay layer that never shifts page layout.
+
+- [Live demo and interactive playground](https://halloween.js.org/): build a configuration and copy the generated HTML/script tag
+- [GitHub repository](https://github.com/rogulia/halloween.js): full README, source code, issue tracker
+- [npm package](https://www.npmjs.com/package/halloween.js): install instructions, version history
+- [Full reference](https://halloween.js.org/llms-full.txt): complete class reference, intensity presets, color customization, JS API, in plain text
+
+## Key facts
+
+- License: MIT
+- Author: Iurii Rogulia (https://iurii.rogulia.fi)
+- Package name: `halloween.js`
+- Bundle size: under 10 KB gzipped
+- Dependencies: none
+- Formats: ESM, CJS, and IIFE (CDN script tag) builds, with TypeScript types included
+
+This file contains the complete documentation as plain text. Instructions for AI coding assistants: https://halloween.js.org/SKILL.md
+
+---
+
+# Installation
+
+https://halloween.js.org/docs/getting-started/installation/
+
+Install halloween.js from npm or load it with one script tag from a CDN. Formats, TypeScript types and why you should pin an exact version.
+
+halloween.js ships as one small file with no dependencies. Its styles are inside the bundle, so there is no separate CSS file to load. Pick the way that matches your site.
+
+## Script tag from a CDN
+
+The simplest way, with no build step. It works on plain HTML, WordPress, site builders and anything else where you can add a script.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
+```
+
+The script starts on its own as soon as it loads. After it loads, the browser global `Halloween` is available with `Halloween.halloween` and `Halloween.pageEffects` (see the [JS API](/docs/api/js-api/)).
+
+Always pin an exact version, like `@1.0.3` above. jsDelivr caches an npm version forever, so a pinned URL can never change under you. A URL without a version, or with a range, can start serving a different build on the day a new release is published.
+
+On a site builder you usually cannot edit the `<body>` tag, and a script placed in `<head>` runs before `document.body` exists. The [platform guides](/platforms/) show a snippet that works anywhere.
+
+## npm
 
 ```bash
 npm install halloween.js
@@ -18,69 +58,372 @@ npm install halloween.js
 import halloween, { pageEffects } from "halloween.js";
 ```
 
-A plain `import` runs the library's auto-init side effect immediately — it starts watching `<body>` for the master `halloween` class as soon as the module loads, no separate init call needed. TypeScript types ship with the package.
+A plain `import` already switches the library on: importing the module starts watching `<body>` for the `halloween` class. You do not need to call anything. Call `halloween()` or `pageEffects.start()` only in the cases described in the [JS API](/docs/api/js-api/).
 
-For a no-build-step site (WordPress Theme Editor header, any "custom HTML/scripts" plugin, plain HTML), a single script tag is the simplest way to install it — no npm, no bundler, no separate CSS file:
+## Package formats
+
+| Format | File | Use it for |
+| --- | --- | --- |
+| ESM | `dist/halloween.js` | `import` in bundlers and modern Node tooling |
+| CommonJS | `dist/halloween.cjs` | `require()` |
+| IIFE | `dist/halloween.iife.js` | The CDN script tag. Exposes the global `Halloween` |
+| Types | `dist/halloween.d.ts` for ESM, `dist/halloween.d.cts` for CJS | TypeScript, no extra package needed |
+
+The whole library is under 10 KB gzipped and has zero runtime dependencies.
+
+## Install is not activation
+
+Loading the library does nothing visible by itself. It switches on only when `<body>` carries the `halloween` class and today is inside the [season window](/docs/options/season/). Continue with the [quick start](/docs/getting-started/quick-start/).
+
+> Installed the script before 18 October? You will see nothing until the season starts. That is expected, not a bug. Leave the script in place: it turns on by itself every year.
+
+---
+
+# Quick start
+
+https://halloween.js.org/docs/getting-started/quick-start/
+
+Switch halloween.js on with body classes. A minimal example, a full example and a paste-anywhere snippet for site builders.
+
+halloween.js is controlled by CSS classes on `<body>`. There is no configuration object and nothing to call. The library watches `<body>` and reacts whenever its classes change.
+
+## The minimal setup
+
+Load the library, then add the master class and at least one effect.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
+
+<body class="halloween halloween-screen-left-top halloween-eyes">
+  ...
+</body>
 ```
 
-After the script tag, the same imperative API is available as `Halloween.pageEffects.start("eyes")` etc. Always pin an exact released version (like `@1.0.3` above) — jsDelivr caches an npm version forever, so it can never change under you.
+This shows a spider web in the top-left corner and blinking eyes at random spots, from 18 October to 2 November. On every other day the page looks unchanged.
 
-## The master switch
+## What each part does
 
-`<body class="halloween">` turns the library on. Without it, nothing runs at all — no ambient effects, no screen corners. Additional body classes opt in to specific ambient effects and screen corners; the library automatically re-syncs itself whenever `<body>`'s classes change.
+- `halloween` is the [master switch](/docs/options/master-switch/). Without it nothing runs.
+- `halloween-screen-left-top` adds a web to a [screen corner](/docs/options/screen-corners/).
+- `halloween-eyes` starts an [ambient effect](/docs/options/effects/).
+- The [season window](/docs/options/season/) decides on which days all of this is active.
 
-## Page-level: ambient effects
+## A full example
 
-Add any of these on `<body>`, alongside the master `halloween` class:
+Four effects, two corners, a calmer intensity, the season written out and a custom color.
 
 ```html
-<body class="halloween halloween-eyes halloween-witches halloween-spider-drop halloween-tombstones halloween-screen-left-top">
+<body
+  class="halloween halloween-eyes halloween-witches halloween-spider-drop halloween-tombstones halloween-screen-left-top halloween-screen-right-bottom halloween-intensity-subtle"
+  data-halloween-start="18-10"
+  data-halloween-end="02-11"
+  style="--halloween-color: #ff6b00"
+>
 ```
 
-| Class | Effect |
-| --- | --- |
-| `halloween-eyes` | Blinking eyes fade in/out at random spots |
-| `halloween-witches` | Witches fly across at a random angle and direction |
-| `halloween-spider-drop` | A spider drops from the top to 75% of viewport height, then climbs back up, at a random horizontal position each time |
-| `halloween-tombstones` | A tombstone rises ~80–120px out of a random horizontal spot at the bottom of the viewport, holds briefly, then sinks back down |
-| `halloween-screen-left-top` / `halloween-screen-right-top` / `halloween-screen-left-bottom` / `halloween-screen-right-bottom` | A static spider web fixed to that viewport corner — any combination |
+Every option is described on its own page: [intensity](/docs/options/intensity/), [color](/docs/options/color/), [size and opacity](/docs/options/size-and-opacity/) and the optional [badge](/docs/options/badge/).
 
-Or toggle it from JS, e.g. for SPA routing:
+## When you cannot edit the body tag
+
+Site builders and CMSs often hide the `<body>` tag. This snippet loads the library and adds the classes from a script, so it works whether it is pasted in the head, in the footer or injected later by a tag manager. It adds to the existing body classes instead of replacing them.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js"></script>
+<script>
+(function () {
+  function apply() {
+    document.body.classList.add(
+       "halloween",
+       "halloween-screen-left-top",
+       "halloween-screen-right-bottom",
+       "halloween-eyes",
+       "halloween-witches",
+       "halloween-spider-drop",
+       "halloween-tombstones"
+    );
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>
+```
+
+Step-by-step guides with the exact menu path for each builder are in [platforms](/platforms/). To build the classes for your own setup, use the [playground](/#playground).
+
+## Turn effects on and off from code
+
+Because the library re-syncs whenever the body classes change, toggling a class is enough. This works in single-page apps and in any framework.
 
 ```js
 document.body.classList.toggle("halloween-eyes", someCondition);
 ```
 
-At most one instance of each ambient effect is on screen at a time (more with `halloween-intensity-party`). While the tab is in the background, no new ambient nodes are created.
+Removing a class clears the matching effect from the screen immediately. It does not wait for the effect to finish fading out.
 
-### Intensity presets
+---
 
-Add one intensity class alongside the effect classes to control spawn rate, max concurrent nodes, size and page-layer opacity.
+# Master switch
 
-| Class | Spawn delay | Max concurrent per effect | Size | Page opacity |
-| --- | --- | --- | --- | --- |
-| `halloween-intensity-subtle` | 2.5x slower | 1 | ~75% | 0.65 |
-| `halloween-intensity-normal` (default) | 1x | 1 | 100% | 1 |
-| `halloween-intensity-party` | 2x faster | 2 | ~115% | 1 |
+https://halloween.js.org/docs/options/master-switch/
 
-## Season window
+The halloween body class turns the whole library on. Without it nothing runs. How it combines with the season window.
 
-By default the library only does anything within a ~2 week window around Halloween (18 Oct – 2 Nov). Override with `data-halloween-start`/`data-halloween-end` attributes on `<body>` (format `DD-MM`):
+`<body class="halloween">` turns the library on. Without this class nothing runs at all: no ambient effects, no screen corners, no badge. Every other class is only a modifier.
 
 ```html
-<body class="halloween halloween-eyes" data-halloween-start="18-10" data-halloween-end="02-11">
+<body class="halloween">
 ```
 
-Outside the season window, the master switch stays off entirely. A non-empty but malformed value fails open (runs as if there were no season restriction).
+## Values
 
-For the plain script tag, `?s=DD-MM&e=DD-MM` on the script's own `src` is also supported as a shorthand. Precedence: `data-halloween-start`/`data-halloween-end` attribute > script `?s=`/`?e=` query param > library default.
+| Class | Effect |
+| --- | --- |
+| `halloween` | On. The other classes and attributes take effect. |
+| not present | Off. Everything is removed from the page, including effects already on screen. |
 
-## Color
+## What it affects
 
-Spiders, threads, webs and the witch silhouette read `color: var(--halloween-color, currentColor)`, inheriting the page's text color by default. Override with:
+- Every [ambient effect](/docs/options/effects/), every [screen corner](/docs/options/screen-corners/) and the [badge](/docs/options/badge/) are gated by it.
+- It is the first of two gates. The second is the [season window](/docs/options/season/): the library does anything only when the class is present and today is inside the season. Both are checked together each time something changes.
+
+## Changing it at runtime
+
+Adding or removing the class is picked up automatically. Removing it removes the web corners, the badge and every effect on screen immediately, and stops the timers that create new effects.
+
+```js
+document.body.classList.add("halloween");
+document.body.classList.remove("halloween");
+```
+
+`<body>` is the only element that is watched. The class on `<html>` or on any other element has no effect.
+
+---
+
+# Ambient effects
+
+https://halloween.js.org/docs/options/effects/
+
+The four ambient effects (eyes, witches, spider-drop, tombstones). The class for each, how it behaves, how often it appears and what limits it.
+
+Ambient effects are decorations that appear at random places, stay for a few seconds and go away again. Each one is a separate class on `<body>`, used together with the [master switch](/docs/options/master-switch/).
+
+```html
+<body class="halloween halloween-eyes halloween-witches halloween-spider-drop halloween-tombstones">
+```
+
+## The four effects
+
+| Class | What you see |
+| --- | --- |
+| `halloween-eyes` | A pair of amber eyes fades in at a random spot, blinks, and fades out. |
+| `halloween-witches` | A witch silhouette flies across the screen at a random angle and direction. |
+| `halloween-spider-drop` | A spider lowers itself on a thread from the top of the screen, hangs, and climbs back up. |
+| `halloween-tombstones` | A tombstone rises out of the bottom of the screen, holds, and sinks back down. |
+
+Use any combination. Effects that are not listed are not started, and removing a class clears that effect from the screen at once.
+
+## How each effect behaves
+
+| Effect | Where it appears | How long it lasts | Wait between appearances |
+| --- | --- | --- | --- |
+| Eyes | Random spot, 5 to 90 percent from the left and 10 to 80 percent from the top | Visible for 2.4 to 4 seconds, plus a 0.7 second fade each way | 5 seconds |
+| Witches | Enters at the left or the right edge, at a height of 5 to 40 percent from the top | Crosses the screen in 7 to 12 seconds, tilted up to 30 degrees either way, growing and shrinking as it flies | 6 to 14 seconds |
+| Spider drop | Random horizontal position, 2 to 94 percent from the left | Drops in 1.8 to 3 seconds to 75 percent of the viewport height, hangs 1.2 to 2.8 seconds, climbs back in 1.4 to 2.4 seconds | 4 to 9 seconds |
+| Tombstones | Random horizontal position, 4 to 88 percent from the left | Rises 80 to 120 pixels in 1.2 to 1.8 seconds, holds 2 to 3 seconds, sinks in 1.2 to 1.8 seconds. Slightly tilted and scaled each time | 8 to 16 seconds |
+
+The first appearance happens right after the effect starts. These timings, positions and ranges are fixed inside the library. They are not options. What you can change is how often effects appear and how large they are: see [intensity](/docs/options/intensity/) and [size and opacity](/docs/options/size-and-opacity/).
+
+## How many appear at once
+
+By default at most one instance of each effect is on screen at a time. The `halloween-intensity-party` class raises that to two. Effects are independent of each other, so with all four on you can see up to four decorations together.
+
+## Background tabs
+
+While the browser tab is in the background no new effects are created. The timers keep running and the next scheduled attempt after the tab becomes visible again creates one. Effects do not pile up while you are away.
+
+## Colors
+
+The witch, the spider with its thread and the tombstone take their color from `--halloween-color`, which defaults to the surrounding text color. The eyes keep their own fixed amber and ignore it. See [color](/docs/options/color/).
+
+## Reduced motion
+
+When the visitor has asked their system for reduced motion, ambient effects do not start, and any that are on screen are removed immediately. See [accessibility](/docs/guides/accessibility/).
+
+---
+
+# Screen corners
+
+https://halloween.js.org/docs/options/screen-corners/
+
+Static spider webs fixed to the corners of the viewport. The four corner classes, size, color, opacity and how they differ from ambient effects.
+
+Screen corners are static spider webs fixed to the corners of the browser window. They do not move, so unlike the [ambient effects](/docs/options/effects/) they are not affected by reduced motion.
+
+```html
+<body class="halloween halloween-screen-left-top halloween-screen-right-bottom">
+```
+
+## Values
+
+| Class | Corner |
+| --- | --- |
+| `halloween-screen-left-top` | Top left |
+| `halloween-screen-right-top` | Top right |
+| `halloween-screen-left-bottom` | Bottom left |
+| `halloween-screen-right-bottom` | Bottom right |
+
+Use any combination, from none to all four. Each web is mirrored to fit its corner.
+
+## What you can change
+
+| What | How | Default |
+| --- | --- | --- |
+| Size | `--halloween-screen-corner-size` sets the width and height of each web, which is square | `120px` |
+| Color | `--halloween-color` | The page text color |
+| Opacity of all effects together | `--halloween-page-opacity` | `1` |
+
+The web itself is drawn at 75 percent opacity. That value is fixed inside the library. The [intensity](/docs/options/intensity/) classes change the default size: 90px for `subtle` and 140px for `party`. A value you set yourself always wins over the preset. See [size and opacity](/docs/options/size-and-opacity/).
+
+## Behavior
+
+- All four webs are created when the library switches on. A class only shows or hides one of them, with CSS, so toggling is instant.
+- The webs sit slightly outside the window edge, so the corner of the web is cut off by the viewport.
+- They are drawn in the same fixed layer as the ambient effects, which does not receive clicks and never shifts your layout.
+- The layer is placed at `z-index: 999` by default. Lower it with `--halloween-page-z-index` to keep a cookie banner or a modal above the webs.
+
+---
+
+# Intensity
+
+https://halloween.js.org/docs/options/intensity/
+
+The subtle and party intensity classes. How they change spawn rate, simultaneous effects, size and opacity, with the exact values.
+
+The intensity classes change how busy the page feels. They scale how often effects appear, how many can be on screen at once, how large they are and how opaque the whole layer is.
+
+```html
+<body class="halloween halloween-witches halloween-intensity-subtle">
+<body class="halloween halloween-eyes halloween-spider-drop halloween-intensity-party">
+```
+
+## Values
+
+| Class | Wait between appearances | At once per effect | Size | Layer opacity |
+| --- | --- | --- | --- | --- |
+| `halloween-intensity-subtle` | 2.5 times longer | 1 | About 75 percent | 0.65 |
+| no class (normal, the default) | As listed on [effects](/docs/options/effects/) | 1 | 100 percent | 1 |
+| `halloween-intensity-party` | 2 times shorter | 2 | About 115 percent | 1 |
+
+There is no `halloween-intensity-normal` class. Normal simply means that no intensity class is present.
+
+Use only one at a time. If both are on `<body>`, `halloween-intensity-party` wins.
+
+## Exact sizes
+
+Sizes in pixels, width by height.
+
+| Element | Subtle | Normal | Party |
+| --- | --- | --- | --- |
+| Eyes | 48 by 20 | 64 by 26 | 72 by 30 |
+| Witch | 78 by 98 | 104 by 130 | 120 by 150 |
+| Spider drop | 68 by 68 | 90 by 90 | 104 by 104 |
+| Tombstone | 58 by 73 | 76 by 96 | 88 by 112 |
+| Screen corner | 90 | 120 | 140 |
+
+## How changes are applied
+
+- Sizes and opacity change immediately on the elements already on screen, because they are plain CSS.
+- Timing changes apply from the next scheduled appearance. A timer that is already waiting is not restarted.
+- The preset only supplies defaults. A size or opacity that you set with the [public CSS variables](/docs/options/size-and-opacity/) always wins, whichever intensity is active.
+
+---
+
+# Season window
+
+https://halloween.js.org/docs/options/season/
+
+When halloween.js is active. The default 18 October to 2 November window, the start and end attributes, accepted date formats, year-wrapping ranges and the fail-open rule.
+
+By default the library does anything only between 18 October and 2 November, every year. Outside that window it stays off, as if the `halloween` class were not on the page. This is a feature: install the script once, leave it in the page, and it switches itself on and off.
+
+> Installed before 18 October? You will see nothing until the season starts. That is expected, not a bug, and there is nothing to hide or remove afterwards.
+
+## Attributes
+
+Change the window with two optional attributes on `<body>`.
+
+```html
+<body
+  class="halloween halloween-eyes halloween-screen-left-top"
+  data-halloween-start="18-10"
+  data-halloween-end="02-11"
+>
+```
+
+| Attribute | Meaning | Default |
+| --- | --- | --- |
+| `data-halloween-start` | First day of the season, written as `DD-MM` | `18-10` |
+| `data-halloween-end` | Last day of the season, written as `DD-MM`. The whole day is included | `02-11` |
+
+Both are optional and resolved independently. Set only the one you need to change.
+
+## Accepted values
+
+- The format is day, a dash, month: `18-10`, `02-11`. One digit is accepted as well, so `8-3` means 8 March.
+- Dates are checked against the real calendar. `31-04` is rejected because April has 30 days.
+- `29-02` is accepted in every year. In a year that is not a leap year it counts as 28 February.
+- The year is never written. The window repeats every year.
+- A single day is possible: use the same value for start and end.
+- A window can cross the new year. `25-12` to `05-01` is active from 25 December to the end of 5 January.
+
+## Which time is used
+
+The check uses the current date on the visitor's device, in the visitor's own time zone. Visitors in different time zones can see the season start and end at slightly different moments.
+
+## Precedence
+
+Each end of the window is resolved on its own, in this order:
+
+1. The `data-halloween-start` or `data-halloween-end` attribute on `<body>`.
+2. The `?s=` or `?e=` query parameter on the script URL. See [script URL parameters](/docs/options/script-url-parameters/).
+3. The library default, `18-10` and `02-11`.
+
+An attribute that is missing, empty, or only whitespace counts as not set and the next source is used. When the attribute and the query parameter disagree, the attribute wins.
+
+## Invalid values fail open
+
+A value that is not empty but cannot be read, such as `abc`, `31-04` or `18/10`, does not switch the library off. If either end is invalid, the library runs as if there were no season restriction at all, so a typo can never silently disable it. If the effects are showing outside the dates you wanted, check both values for typos.
+
+## When it is checked
+
+The season is checked when the page loads and again whenever the body classes or either season attribute change. It is not checked continuously. A page that stays open across midnight on the first or last day keeps its old state until something touches `<body>` or you call `halloween()` (see the [JS API](/docs/api/js-api/)). Changing either attribute from your own script triggers an immediate re-check.
+
+## Testing outside the season
+
+To see the effects today, set a window that includes today.
+
+```html
+<body class="halloween halloween-eyes" data-halloween-start="01-01" data-halloween-end="31-12">
+```
+
+Remove the override before you publish, or the effects will run all year. The [playground](/#playground) generates the snippet with your dates.
+
+---
+
+# Color
+
+https://halloween.js.org/docs/options/color/
+
+Change the color of webs, spiders, the witch and tombstones with --halloween-color. Which elements follow it, which do not, and how it combines with the script URL parameter.
+
+By default the decorations take the text color of your page, which looks right on both light and dark sites without any configuration. One CSS variable overrides that.
+
+## --halloween-color
+
+Any valid CSS color is accepted: a hex value, `rgb()`, `hsl()`, a named color or `var()` of your own token.
 
 ```css
 :root {
@@ -88,51 +431,420 @@ Spiders, threads, webs and the witch silhouette read `color: var(--halloween-col
 }
 ```
 
-For the plain script tag, `?color=` on the script's own `src` (URL-encoded) is also supported.
+| Value | Result |
+| --- | --- |
+| not set (default) | The color of the surrounding text, `currentColor` |
+| Any CSS color | All decorations listed below use it |
 
-Ambient effects render in a fixed full-page layer at `z-index: var(--halloween-page-z-index, 999)`.
+## What follows the variable
 
-## Advanced: JS API
+- The spider webs in the [screen corners](/docs/options/screen-corners/).
+- The spider and its thread (`halloween-spider-drop`).
+- The witch silhouette (`halloween-witches`).
+- The tombstone (`halloween-tombstones`).
 
-**`halloween()`** — an optional, immediate manual sync against `<body>`'s current classes and the season gate.
+## What does not follow it
 
-```js
-import halloween from "halloween.js";
-document.body.classList.add("halloween", "halloween-eyes");
-halloween();
+- The eyes (`halloween-eyes`) keep a fixed amber with a dark outline. They are a two-tone picture, not a single-color shape, so they look the same on every background.
+- The [badge](/docs/options/badge/) has its own color variables.
+
+## Where to set it
+
+Set it in your stylesheet on `:root` or `body`, or inline on `<body>`. If you load the script with a tag, you can also pass `?color=` on its URL (see [script URL parameters](/docs/options/script-url-parameters/)).
+
+```html
+<body class="halloween halloween-witches" style="--halloween-color: #ff6b00">
 ```
 
-**`pageEffects.start(name)` / `pageEffects.stop(name)`** — low-level, direct control over one ambient effect (`"eyes" | "witches" | "spider-drop" | "tombstones"`), bypassing the class-driven system entirely.
+When both a stylesheet value and `?color=` are present, the `?color=` value wins on pages where it is used. It is written inline on `<body>`, which sits closer to the decorations than `:root`.
+
+The library only ever sets the color. It never clears one that you set by another means, even when a body class changes later.
+
+## Related variable
+
+`--halloween-page-z-index` places the effects layer above or below other fixed elements. The default is `999`. Lower it to keep a modal or a cookie banner on top.
+
+```css
+:root {
+  --halloween-page-z-index: 500;
+}
+```
+
+---
+
+# Size and opacity
+
+https://halloween.js.org/docs/options/size-and-opacity/
+
+CSS variables that resize each effect and dim the whole effects layer. Every variable, its default and how it combines with the intensity classes.
+
+Each effect's size, the size of the screen-corner webs and the opacity of the whole effects layer are controlled with CSS custom properties. Set them on `:root`, on `body` or on any element above the effects.
+
+```css
+:root {
+  --halloween-witch-width: 140px;
+  --halloween-witch-height: 175px;
+  --halloween-page-opacity: 0.8;
+}
+```
+
+## Variables
+
+| Variable | Controls | Default |
+| --- | --- | --- |
+| `--halloween-eyes-width` | Width of the blinking eyes | `64px` |
+| `--halloween-eyes-height` | Height of the blinking eyes | `26px` |
+| `--halloween-witch-width` | Width of the flying witch | `104px` |
+| `--halloween-witch-height` | Height of the flying witch | `130px` |
+| `--halloween-spider-drop-width` | Width of the dropping spider | `90px` |
+| `--halloween-spider-drop-height` | Height of the dropping spider. The drop distance accounts for it | `90px` |
+| `--halloween-tombstone-width` | Width of the rising tombstone | `76px` |
+| `--halloween-tombstone-height` | Height of the rising tombstone | `96px` |
+| `--halloween-screen-corner-size` | Width and height of each corner web (square) | `120px` |
+| `--halloween-page-opacity` | Opacity of the entire effects layer: ambient effects and corner webs together | `1` |
+| `--halloween-page-z-index` | Stacking order of the effects layer | `999` |
+
+Lengths accept any CSS length. Opacity is a number from 0 to 1. Each size can be set independently of the others. The witch, for instance, can be wider without changing its height.
+
+## Order of precedence
+
+For each size and for the opacity, the library uses the first value that exists:
+
+1. Your own variable from the table.
+2. The value from the active [intensity](/docs/options/intensity/) class.
+3. The default from the table.
+
+So an explicit size is kept whichever intensity class is on the page. The intensity class sets internal variables that start with `--halloween-preset-`. Do not set those yourself. They are not a public interface.
+
+## Layer opacity and the corner webs
+
+`--halloween-page-opacity` multiplies with each element's own animation. Ambient effects fade in and out by themselves, and the corner webs are drawn at 75 percent. The layer value dims everything on top of that. The `subtle` intensity uses `0.65`.
+
+## Not configurable
+
+The timing, positions, movement ranges and the artwork of the effects are internal. Only the values above and the [classes](/docs/options/effects/) are public options.
+
+---
+
+# Badge
+
+https://halloween.js.org/docs/options/badge/
+
+The optional credit link. How to switch it on, align it left or right, place it inside your footer, restyle it with CSS variables and what it does on short pages.
+
+The badge is an optional small link to halloween.js: "🎃 Halloween effects by halloween.js". It is off by default. Use it if you want to credit the project.
+
+```html
+<body class="halloween halloween-badge">
+```
+
+The badge shows only when both gates are open: the `halloween` class is on `<body>` and today is inside the [season window](/docs/options/season/). Outside the season it is removed with everything else.
+
+## Classes
+
+| Class | Result |
+| --- | --- |
+| `halloween-badge` | Shows the badge. Required |
+| `halloween-badge-left` | Aligns it to the left, with a 16px margin |
+| `halloween-badge-right` | Aligns it to the right, with a 16px margin |
+| no alignment class | Centered |
+
+## Where it is placed
+
+By default the badge is a normal block at the very end of `<body>`, after your content. It is not part of the fixed effects layer, so it can never sit on top of a chat widget, a cookie banner, a toast or a modal.
+
+To put it somewhere else, for instance inside your own footer, add this attribute to the element that should hold it. The first matching element on the page is used.
+
+```html
+<footer data-halloween-badge-slot></footer>
+```
+
+The alignment classes apply to a badge in a slot as well.
+
+## Short pages
+
+When the page content is shorter than the window, a badge at the end of `<body>` would float up directly under the content. The library adds the missing height above it as a margin, so the badge sits at the bottom edge of the screen. It does not change `<body>`'s own layout. A tall page gets no extra space. This applies only when the badge is in `<body>`. A badge in a slot stays where your markup puts it.
+
+## Styling
+
+All variables are optional and can be set on `:root` or `body`.
+
+| Variable | Controls | Default |
+| --- | --- | --- |
+| `--halloween-badge-color` | Text color | Inherited from the page |
+| `--halloween-badge-border-color` | Border color | The text color at 30 percent |
+| `--halloween-badge-bg` | Background | `transparent` |
+| `--halloween-badge-font` | The whole `font` shorthand | `13px/1.4 system-ui, sans-serif` |
+| `--halloween-badge-opacity` | Opacity at rest. Hover and keyboard focus set it to 1 | `0.9` |
+| `--halloween-badge-z-index` | Stacking order | One above `--halloween-page-z-index`, so the corner webs never paint over it |
+
+The badge does not follow `--halloween-color`. It has the variables above.
+
+```css
+:root {
+  --halloween-badge-color: #ff6b00;
+  --halloween-badge-bg: #1a1a1a;
+}
+```
+
+## The link
+
+It points to `https://halloween.js.org/`, opens in a new tab and uses `rel="noopener nofollow"`. The element has the class `halloween-badge-link`. It is a pill with a 1px border, a 999px radius and a 6px by 14px padding, shown as a block no wider than the screen.
+
+---
+
+# Script URL parameters
+
+https://halloween.js.org/docs/options/script-url-parameters/
+
+The s, e and color query parameters on the script tag URL. When they work, when they do not, and how they rank against body attributes.
+
+When you load the library with a plain script tag, three optional query parameters on the script's own URL set the same values as the attributes and the CSS variable. They are a convenience for the script-tag install.
+
+```html
+<script
+  src="https://cdn.jsdelivr.net/npm/halloween.js@1.0.3/dist/halloween.iife.js?s=18-10&e=02-11&color=%23ff6b00"
+></script>
+```
+
+## Parameters
+
+| Parameter | Same as | Format | Default |
+| --- | --- | --- | --- |
+| `s` | `data-halloween-start` | `DD-MM` | `18-10` |
+| `e` | `data-halloween-end` | `DD-MM` | `02-11` |
+| `color` | `--halloween-color` | Any CSS color, URL-encoded. A hash sign is written as `%23` | not set |
+
+An empty parameter counts as not set.
+
+## Limits
+
+- They work only with a classic script tag. The library reads its own URL while that script is running. There is no script URL to read when you import the npm package, so the parameters do not exist there. Use the `<body>` attributes and CSS variables instead.
+- They are read once, when the script loads. Changing the URL afterwards does nothing.
+- Body attributes are re-read on every check and can change at runtime. Query parameters cannot.
+
+## Precedence
+
+For the season, each end is resolved on its own: `<body>` attribute first, then the query parameter, then the default. See [season window](/docs/options/season/).
+
+For the color, the query parameter is written as an inline `--halloween-color` on `<body>`, so it takes priority over a value from your stylesheet. See [color](/docs/options/color/).
+
+---
+
+# JS API
+
+https://halloween.js.org/docs/api/js-api/
+
+The halloween and pageEffects exports. What they do, when you need them, and what they do not bypass. Includes the Halloween global for script-tag installs.
+
+Most sites never call the API. The library already syncs itself with the classes and attributes on `<body>`: on load, on every class change and on every change to the season attributes. These exports cover the cases where that is not enough.
+
+With a script tag, the same functions are on the global `Halloween`, as `Halloween.halloween` and `Halloween.pageEffects`. With npm they are named imports.
 
 ```js
-import { pageEffects } from "halloween.js";
+import halloween, { pageEffects } from "halloween.js";
+```
+
+## halloween()
+
+An immediate manual sync against the current body classes, the season attributes and today's date. Takes no arguments and returns nothing.
+
+```js
+document.body.classList.add("halloween", "halloween-eyes"); // master class required
+halloween(); // sync now, instead of waiting for the next automatic check
+```
+
+It runs the same checks as the automatic sync. It does not skip the master switch or the season gate. Two reasons to call it:
+
+- To sync at once after you change the classes, without waiting for the browser to deliver the change notification.
+- To re-check the date. The season is only checked when something changes, so a page that stays open past the first or last day of the season keeps its old state until a sync runs. Calling `halloween()` from a timer is the way to refresh it.
+
+It is also exported as the default export, so `import halloween from "halloween.js"` and `import { halloween } from "halloween.js"` give the same function.
+
+## pageEffects.start(name)
+
+Starts one ambient effect directly, without a body class.
+
+```js
 pageEffects.start("eyes");
+```
+
+`name` is one of `"eyes"`, `"witches"`, `"spider-drop"` and `"tombstones"`. TypeScript accepts only these values through the exported type `PageEffectName`.
+
+What to know:
+
+- It skips the master switch and the season window for this call. It does still inject the library's styles and apply the color override first.
+- It does not last on its own. The next automatic sync, which runs on any change to the body classes, either season attribute or the reduced-motion preference, stops every effect whose `halloween-<name>` class is not on `<body>`. If you need an effect to stay, put its class on `<body>`.
+- It does nothing when the visitor prefers reduced motion.
+- Calling it again for an effect that is already running does nothing.
+- Intensity classes on `<body>` still apply to sizes and timing.
+
+## pageEffects.stop(name)
+
+Stops one effect. Its timer is cleared and every instance on screen is removed immediately, without waiting for a fade-out.
+
+```js
 pageEffects.stop("witches");
 ```
 
-## Accessibility
+## Types
 
-Every animation respects `prefers-reduced-motion: reduce`, and picks up live changes to it while the page stays open. Ambient effects don't spawn when reduced motion is on; any already on screen are removed immediately. Static screen-corner webs are unaffected — they're not animated to begin with. All decorative SVGs are `aria-hidden`.
+The package ships its own types. `PageEffectName` is exported for typing your own code.
 
-## Bundle
+```ts
+import type { PageEffectName } from "halloween.js";
 
-Single IIFE build (styles included) for drop-in use, plus ESM/CJS builds and TypeScript types. Under 10 KB gzipped, zero runtime dependencies.
+const name: PageEffectName = "eyes";
+```
 
-## License
+## What is not in the API
 
-MIT © Iurii Rogulia (https://iurii.rogulia.fi)
+There is no configuration object. The season, the color, sizes and intensity are all set with attributes, classes and CSS variables: see [options](/docs/options/master-switch/).
 
-<!-- platforms:start -->
+---
+
+# How it works
+
+https://halloween.js.org/docs/guides/how-it-works/
+
+What halloween.js does on your page. The two gates, what gets added to the DOM, when it re-checks, and why it never shifts your layout.
+
+## Two gates
+
+The library is active only when both are true:
+
+1. `<body>` has the `halloween` class (the [master switch](/docs/options/master-switch/)).
+2. Today is inside the [season window](/docs/options/season/).
+
+If either is false, every effect, the corner webs and the badge are removed.
+
+## When it checks
+
+It checks once the page is ready, and again whenever `<body>` changes in one of these ways:
+
+- Its `class` attribute changes.
+- Its `data-halloween-start` or `data-halloween-end` attribute changes.
+- The visitor changes the reduced-motion setting.
+
+There is no polling. A change of date while the page sits open is not noticed on its own: see [season window](/docs/options/season/) and `halloween()` in the [JS API](/docs/api/js-api/).
+
+## What it adds to the page
+
+- A single `<style>` element with the id `halloween-styles`, added to `<head>` once. All the CSS is inside the bundle.
+- One `div` with the class `halloween-page-layer` at the end of `<body>`. It is fixed to the window, covers it, ignores pointer events and is hidden from assistive technology. Effects and corner webs live inside it. It stays in the page when the library switches off. It is empty then.
+- The badge, only when you opt in. See [badge](/docs/options/badge/).
+
+It does not change your markup, does not move or resize anything, and does not change `<body>`'s layout.
+
+## What it never does
+
+- It never loads anything from the network. All artwork is inline.
+- It never changes your existing body classes. It only reads them.
+- It never sets a color unless you ask for one.
+
+## Timing
+
+Each effect has its own timer. The timer keeps running while the tab is in the background, but creates nothing until the tab is visible. Under reduced motion no timers run for ambient effects at all. See [ambient effects](/docs/options/effects/) and [accessibility](/docs/guides/accessibility/).
+
+---
+
+# Accessibility
+
+https://halloween.js.org/docs/guides/accessibility/
+
+How halloween.js handles reduced motion, assistive technology and pointer events, and what to do about contrast and layering.
+
+## Reduced motion
+
+Every animation respects the visitor's `prefers-reduced-motion: reduce` setting, and picks up changes while the page stays open. No reload is needed.
+
+| Element | With reduced motion on |
+| --- | --- |
+| Eyes, witches, spider drop, tombstones | Not created. Any already on screen are removed at once. |
+| Screen-corner webs | Unchanged. They do not move. |
+| Badge | Unchanged |
+| `pageEffects.start()` | Does nothing |
+
+## Assistive technology
+
+The effects layer and every decorative picture are marked `aria-hidden`, so screen readers skip them. The layer ignores pointer events, so it never blocks a click, a tap or text selection on your page. The only focusable thing the library can add is the optional [badge](/docs/options/badge/), which is a normal link.
+
+## Contrast and layering
+
+- The decorations take the text color of your page by default, which keeps them visible on both light and dark themes. If you override [the color](/docs/options/color/), check it against both.
+- The effects layer sits at `z-index: 999`. Lower `--halloween-page-z-index` if it has to stay under a cookie banner or a modal.
+- Lower `--halloween-page-opacity`, or use `halloween-intensity-subtle`, if the effects compete with content.
+
+---
+
+# Troubleshooting
+
+https://halloween.js.org/docs/guides/troubleshooting/
+
+Nothing shows up? A checklist of the usual causes with how to confirm each one, from the season window to content blockers.
+
+Work through the list from the top. The first one is the cause most of the time.
+
+## 1. It is outside the season
+
+The default window is 18 October to 2 November. Outside it nothing shows, by design. To test, set a window that includes today with the [season attributes](/docs/options/season/), then remove the override before you publish.
+
+## 2. The master class is missing
+
+Open the browser console on your site and run:
+
+```js
+document.body.classList.contains("halloween")
+```
+
+It must return `true`. Without the class the library does nothing. See [master switch](/docs/options/master-switch/).
+
+## 3. The script is not loaded
+
+In the network panel look for `halloween.iife.js` and check it loaded with status 200. A content blocker, an ad blocker or a Content Security Policy can stop a script from a CDN. Also check that you are looking at the live site and not at an editor preview, because many site builders do not run custom code in the editor.
+
+## 4. Reduced motion is on
+
+If your system asks for reduced motion, the ambient effects are not created. Only the screen-corner webs and the badge appear. Check your operating system setting. See [accessibility](/docs/guides/accessibility/).
+
+## 5. The date values are wrong
+
+Wrong date values do not turn the library off. They make it run all the time, because malformed values fail open. If effects appear on the wrong days, check every `data-halloween-start`, `data-halloween-end`, `?s=` and `?e=` value for the `DD-MM` format.
+
+## 6. You see a cached page
+
+Reload without cache, or open the site in a private window. Check that the snippet is on the live page and not only in a draft.
+
+## 7. The effects are hidden behind something
+
+The effects layer is at `z-index: 999`. A fixed header or a modal with a higher z-index covers it. Raise `--halloween-page-z-index` to move the effects above it, or lower it to move them below.
+
+## 8. The styles are blocked
+
+The library adds a `<style>` element with the id `halloween-styles`. A strict Content Security Policy that forbids inline styles blocks style elements added by scripts, unless it allows them with a nonce or `'unsafe-inline'`. If the element is missing from `<head>`, check the console for policy errors.
+
+## 9. A different version loads
+
+Pin an exact version in the script URL. See [installation](/docs/getting-started/installation/).
+
+## Still stuck
+
+Open an issue on [GitHub](https://github.com/rogulia/halloween.js/issues/new/choose) with the page URL, the classes on `<body>` and what the console says.
+
+---
+
 ## Install guides by platform
 
-- [WordPress](https://halloween.js.org/wordpress/): where to paste the snippet in WordPress and WooCommerce
-- [Shopify](https://halloween.js.org/shopify/): where to paste the snippet in Shopify
-- [Webflow](https://halloween.js.org/webflow/): where to paste the snippet in Webflow
-- [Squarespace](https://halloween.js.org/squarespace/): where to paste the snippet in Squarespace
-- [Wix](https://halloween.js.org/wix/): where to paste the snippet in Wix
-- [Tilda](https://halloween.js.org/tilda/): where to paste the snippet in Tilda
-- [Ghost](https://halloween.js.org/ghost/): where to paste the snippet in Ghost
-- [Blogger](https://halloween.js.org/blogger/): where to paste the snippet in Blogger
-- [Google Tag Manager](https://halloween.js.org/google-tag-manager/): where to paste the snippet in Google Tag Manager
-- [Framer](https://halloween.js.org/framer/): where to paste the snippet in Framer
-<!-- platforms:end -->
+- [All platforms](https://halloween.js.org/platforms/): index of the guides below
+- [WordPress](https://halloween.js.org/platforms/wordpress/): where to paste the snippet in WordPress and WooCommerce
+- [Shopify](https://halloween.js.org/platforms/shopify/): where to paste the snippet in Shopify
+- [Webflow](https://halloween.js.org/platforms/webflow/): where to paste the snippet in Webflow
+- [Squarespace](https://halloween.js.org/platforms/squarespace/): where to paste the snippet in Squarespace
+- [Wix](https://halloween.js.org/platforms/wix/): where to paste the snippet in Wix
+- [Tilda](https://halloween.js.org/platforms/tilda/): where to paste the snippet in Tilda
+- [Ghost](https://halloween.js.org/platforms/ghost/): where to paste the snippet in Ghost
+- [Blogger](https://halloween.js.org/platforms/blogger/): where to paste the snippet in Blogger
+- [Google Tag Manager](https://halloween.js.org/platforms/google-tag-manager/): where to paste the snippet in Google Tag Manager
+- [Framer](https://halloween.js.org/platforms/framer/): where to paste the snippet in Framer
+- [HTML website](https://halloween.js.org/platforms/html/): where to paste the snippet in HTML website
+- [AI assistant](https://halloween.js.org/platforms/ai-assistant/): let an AI coding assistant install it from SKILL.md

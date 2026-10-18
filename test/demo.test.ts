@@ -27,158 +27,167 @@ function byId<T extends Element = Element>(id: string): T {
   return node as unknown as T;
 }
 
+function pasteText(): string {
+  return byId('paste-example').textContent ?? '';
+}
+
 beforeEach(() => {
   vi.restoreAllMocks();
 });
 
-describe('demo install/body block structure', () => {
+describe('demo page structure', () => {
   it('has exactly one #install landmark', () => {
     loadDemo();
     expect(document.querySelectorAll('#install')).toHaveLength(1);
   });
 
-  it('has exactly one generated body output and it is a textarea', () => {
+  it('shows the generated snippet in a code block, not in a separate preview frame', () => {
     loadDemo();
-    const outputs = document.querySelectorAll('#body-example');
-    expect(outputs).toHaveLength(1);
-    expect(outputs[0].tagName).toBe('TEXTAREA');
+    expect(byId('paste-example').tagName).toBe('CODE');
+    expect(document.querySelector('iframe')).toBeNull();
+    expect(document.getElementById('body-example')).toBeNull();
   });
 
-  it('has exactly one Copy body button', () => {
+  it('has one Copy button per generated block', () => {
     loadDemo();
-    expect(document.querySelectorAll('#copy-body-btn')).toHaveLength(1);
+    for (const id of [
+      'copy-paste-btn',
+      'copy-npm-install-btn',
+      'copy-npm-import-btn',
+      'copy-npm-activate-btn',
+    ]) {
+      expect(document.querySelectorAll(`#${id}`)).toHaveLength(1);
+    }
   });
 
-  it('no longer has the old duplicate live-body output or its copy button', () => {
+  it('runs on a page with the season forced open', () => {
     loadDemo();
-    expect(document.getElementById('live-body-example')).toBeNull();
-    expect(document.getElementById('copy-live-body-btn')).toBeNull();
+    expect(document.body.classList.contains('halloween')).toBe(true);
+    expect(document.body.getAttribute('data-halloween-start')).toBe('01-01');
+    expect(document.body.getAttribute('data-halloween-end')).toBe('31-12');
   });
 
-  it('places the script/npm tabs and their panels before the body output in document order', () => {
+  it('keeps the color, credit link and season options behind disclosures', () => {
     loadDemo();
-    const tabs = document.querySelector('.tabs');
-    const bodyOutput = byId('body-example');
-    expect(tabs).not.toBeNull();
-    // DOCUMENT_POSITION_FOLLOWING means bodyOutput comes after tabs.
-    const relation = tabs!.compareDocumentPosition(bodyOutput);
-    expect(relation & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    for (const id of ['cfg-color-enabled', 'cfg-badge-enabled', 'cfg-season-start-day']) {
+      expect(byId(id).closest('details')).not.toBeNull();
+    }
   });
 
-  it('keeps the body output inside the same configurator card as the controls, not a bordered sub-block', () => {
+  it('lists the platform guides', () => {
     loadDemo();
-    const bodyOutput = byId('body-example');
-    const controlsCard = document.querySelector('.controls-card');
-    expect(controlsCard).not.toBeNull();
-    expect(controlsCard!.contains(bodyOutput)).toBe(true);
-    // The old bordered "Live <body> tag" fieldset is gone entirely.
-    expect(document.querySelector('fieldset.live-body-group')).toBeNull();
-  });
-
-  it('textarea is readonly, wraps softly, and does not allow spellcheck', () => {
-    loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
-    expect(textarea.readOnly).toBe(true);
-    expect(textarea.getAttribute('wrap')).toBe('soft');
-    expect(textarea.getAttribute('spellcheck')).toBe('false');
-  });
-
-  it('textarea has an accessible name via aria-labelledby pointing at a heading', () => {
-    loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
-    const labelId = textarea.getAttribute('aria-labelledby');
-    expect(labelId).toBeTruthy();
-    const label = document.getElementById(labelId!);
-    expect(label).not.toBeNull();
-    expect(label!.textContent?.trim()).toBeTruthy();
+    expect(document.querySelectorAll('#platforms .tile')).toHaveLength(12);
+    expect(
+      Array.from(document.querySelectorAll('#platforms .tile')).every((tile) =>
+        tile.getAttribute('href')?.startsWith('/platforms/'),
+      ),
+    ).toBe(true);
   });
 });
 
-describe('demo control -> body textarea reactivity', () => {
-  it('reflects tombstone toggle in the body textarea', () => {
+describe('demo controls drive the page and the code', () => {
+  it('reflects the tombstone toggle in the snippet and on the page body', () => {
     loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
     const tombstones = byId<HTMLInputElement>('cfg-tombstones');
-    expect(textarea.value).toContain('halloween-tombstones');
+    expect(pasteText()).toContain('halloween-tombstones');
+    expect(document.body.classList.contains('halloween-tombstones')).toBe(true);
     tombstones.checked = false;
     tombstones.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(textarea.value).not.toContain('halloween-tombstones');
+    expect(pasteText()).not.toContain('halloween-tombstones');
+    expect(document.body.classList.contains('halloween-tombstones')).toBe(false);
   });
 
-  it('reflects intensity changes in the body textarea', () => {
+  it('reflects intensity changes in the snippet and on the page body', () => {
     loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
     const party = byId<HTMLInputElement>('cfg-intensity-party');
     party.checked = true;
     party.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(textarea.value).toContain('halloween-intensity-party');
+    expect(pasteText()).toContain('halloween-intensity-party');
+    expect(document.body.classList.contains('halloween-intensity-party')).toBe(true);
   });
 
-  it('reflects corner changes in the body textarea', () => {
+  it('reflects corner changes in the snippet and on the page body', () => {
     loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
     const rt = byId<HTMLInputElement>('cfg-corner-rt');
     rt.checked = true;
     rt.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(textarea.value).toContain('halloween-screen-right-top');
+    expect(pasteText()).toContain('halloween-screen-right-top');
+    expect(document.body.classList.contains('halloween-screen-right-top')).toBe(true);
   });
 
-  it('reflects a valid custom color in the body textarea', () => {
+  it('reflects a valid custom color in the snippet and on the page body', () => {
     loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
     const colorEnabled = byId<HTMLInputElement>('cfg-color-enabled');
-    const colorText = byId<HTMLInputElement>('cfg-color');
+    byId<HTMLInputElement>('cfg-color').value = '#123abc';
     colorEnabled.checked = true;
-    colorText.value = '#123abc';
     colorEnabled.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(textarea.value).toContain('--halloween-color: #123abc');
+    expect(pasteText()).toContain(
+      'document.body.style.setProperty("--halloween-color", "#123abc");',
+    );
+    expect(document.body.style.getPropertyValue('--halloween-color')).toBe('#123abc');
   });
 
-  it('reflects a non-default season window in the body textarea', () => {
+  it('reflects a non-default season window in the snippet only, never on the page', () => {
     loadDemo();
-    const textarea = byId<HTMLTextAreaElement>('body-example');
     const sDay = byId<HTMLSelectElement>('cfg-season-start-day');
     sDay.value = '05';
     sDay.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(textarea.value).toContain('data-halloween-start="05-10"');
+    expect(pasteText()).toContain('document.body.setAttribute("data-halloween-start", "05-10");');
+    expect(document.body.getAttribute('data-halloween-start')).toBe('01-01');
+    expect(document.body.getAttribute('data-halloween-end')).toBe('31-12');
   });
 
-  it('never changes the script tag when controls change', () => {
+  it('never removes the master class from the page', () => {
     loadDemo();
-    const scriptExample = byId('script-example');
-    const before = scriptExample.textContent;
-    const tombstones = byId<HTMLInputElement>('cfg-tombstones');
-    tombstones.checked = false;
-    tombstones.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(scriptExample.textContent).toBe(before);
-    expect(before).toContain('halloween.iife.js');
+    for (const id of ['cfg-eyes', 'cfg-witches', 'cfg-spider-drop', 'cfg-tombstones']) {
+      const box = byId<HTMLInputElement>(id);
+      box.checked = false;
+      box.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    expect(document.body.classList.contains('halloween')).toBe(true);
+  });
+
+  it('lists the body classes one per line', () => {
+    loadDemo();
+    expect(pasteText()).toContain(
+      'document.body.classList.add(\n       "halloween",\n       "halloween-screen-left-top",',
+    );
+  });
+
+  it('uses the same activation code for the npm tab', () => {
+    loadDemo();
+    const npm = byId('npm-activate-example').textContent ?? '';
+    expect(npm.startsWith('document.body.classList.add(\n   "halloween",')).toBe(true);
+    expect(npm).toContain('"halloween-tombstones"\n);');
+    expect(pasteText()).toContain(npm.split('\n').join('\n    '));
   });
 });
 
-describe('demo copy body button', () => {
-  it("copies the textarea's current .value, not stale markup", () => {
+describe('demo copy buttons', () => {
+  it("copy the block's current text, not stale markup", () => {
     loadDemo();
     const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.assign(navigator, { clipboard: { writeText } });
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
 
-    const textarea = byId<HTMLTextAreaElement>('body-example');
     const tombstones = byId<HTMLInputElement>('cfg-tombstones');
     tombstones.checked = false;
     tombstones.dispatchEvent(new Event('input', { bubbles: true }));
 
-    byId<HTMLButtonElement>('copy-body-btn').click();
+    byId<HTMLButtonElement>('copy-paste-btn').click();
+    expect(writeText).toHaveBeenCalledWith(pasteText());
+    expect(pasteText()).not.toContain('halloween-tombstones');
 
-    expect(writeText).toHaveBeenCalledWith(textarea.value);
-    expect(textarea.value).not.toContain('halloween-tombstones');
+    byId<HTMLButtonElement>('copy-npm-activate-btn').click();
+    expect(writeText).toHaveBeenCalledWith(byId('npm-activate-example').textContent);
   });
 });
 
 describe('demo install tabs keyboard navigation', () => {
   it('moves selection and focus with ArrowRight/ArrowLeft and updates aria-selected/hidden', () => {
     loadDemo();
-    const tabScript = byId<HTMLButtonElement>('tab-script');
+    const tabScript = byId<HTMLButtonElement>('tab-paste');
     const tabNpm = byId<HTMLButtonElement>('tab-npm');
-    const panelScript = byId<HTMLElement>('panel-script');
+    const panelScript = byId<HTMLElement>('panel-paste');
     const panelNpm = byId<HTMLElement>('panel-npm');
 
     expect(tabScript.getAttribute('aria-selected')).toBe('true');
@@ -198,22 +207,14 @@ describe('demo install tabs keyboard navigation', () => {
   });
 });
 
-describe('demo paste-only snippet', () => {
+describe('demo snippet', () => {
   function pasteScriptBody(): string {
-    const value = byId<HTMLTextAreaElement>('paste-example').value;
+    const value = pasteText();
     const match = /^<script src="[^"]+"><\/script>\n<script>\n([\s\S]*)\n<\/script>$/.exec(value);
     if (!match)
       throw new Error('paste-only output is not the library tag plus one inline <script>');
     return match[1];
   }
-
-  it('mirrors the body classes of the <body> tag output', () => {
-    loadDemo();
-    const bodyTag = byId<HTMLTextAreaElement>('body-example').value;
-    const classes = /class="([^"]+)"/.exec(bodyTag)![1].split(' ');
-    const paste = byId<HTMLTextAreaElement>('paste-example').value;
-    for (const name of classes) expect(paste).toContain(`"${name}"`);
-  });
 
   it('applies classes, season attributes and color to <body> when it runs after load', () => {
     loadDemo();
@@ -247,14 +248,6 @@ describe('demo paste-only snippet', () => {
     expect(document.body.classList.contains('halloween')).toBe(true);
     delete (document as unknown as { readyState?: string }).readyState;
   });
-
-  it('copies the paste-only snippet value', () => {
-    loadDemo();
-    const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
-    byId<HTMLButtonElement>('copy-paste-btn').click();
-    expect(writeText).toHaveBeenCalledWith(byId<HTMLTextAreaElement>('paste-example').value);
-  });
 });
 
 describe('demo credit link controls', () => {
@@ -269,26 +262,25 @@ describe('demo credit link controls', () => {
     radio.dispatchEvent(new Event('input', { bubbles: true }));
   }
 
-  it('is off by default: no badge class in either output', () => {
+  it('is off by default: no badge class in the snippet or on the page', () => {
     loadDemo();
-    expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain('halloween-badge');
-    expect(byId<HTMLTextAreaElement>('paste-example').value).not.toContain('halloween-badge');
+    expect(pasteText()).not.toContain('halloween-badge');
+    expect(document.body.classList.contains('halloween-badge')).toBe(false);
   });
 
   it('adds halloween-badge when enabled, with no placement class for the default', () => {
     loadDemo();
     setBadge(true);
-    const body = byId<HTMLTextAreaElement>('body-example').value;
+    const body = pasteText();
     expect(body).toContain('halloween-badge');
     expect(body).not.toMatch(/halloween-badge-(left|right)/);
   });
 
-  it('adds the chosen placement class to both outputs', () => {
+  it('adds the chosen placement class to the snippet and the page', () => {
     loadDemo();
     setBadge(true, 'right');
-    for (const id of ['body-example', 'paste-example']) {
-      expect(byId<HTMLTextAreaElement>(id).value).toContain('halloween-badge-right');
-    }
+    expect(pasteText()).toContain('halloween-badge-right');
+    expect(document.body.classList.contains('halloween-badge-right')).toBe(true);
   });
 
   it('disables the placement radios while the badge is off and enables them when on', () => {
@@ -303,7 +295,7 @@ describe('demo credit link controls', () => {
   it('ignores the placement while the badge is off', () => {
     loadDemo();
     setBadge(false, 'left');
-    expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain('halloween-badge');
+    expect(pasteText()).not.toContain('halloween-badge');
   });
 
   describe('colors', () => {
@@ -329,34 +321,38 @@ describe('demo credit link controls', () => {
     it('adds no style for the badge by default or while the badge is off', () => {
       loadDemo();
       setColors({ text: '#112233' });
-      expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain('--halloween-badge');
+      expect(pasteText()).not.toContain('--halloween-badge');
       setBadge(true);
-      expect(byId<HTMLTextAreaElement>('body-example').value).toContain(
-        '--halloween-badge-color: #112233',
+      expect(pasteText()).toContain(
+        'document.body.style.setProperty("--halloween-badge-color", "#112233");',
       );
+      expect(document.body.style.getPropertyValue('--halloween-badge-color')).toBe('#112233');
     });
 
-    it('merges badge colors into the single style attribute with the spider color', () => {
+    it('writes all badge colors next to the spider color', () => {
       loadDemo();
       setBadge(true);
+      byId<HTMLInputElement>('cfg-color').value = '#123abc';
+      const colorEnabled = byId<HTMLInputElement>('cfg-color-enabled');
+      colorEnabled.checked = true;
+      colorEnabled.dispatchEvent(new Event('input', { bubbles: true }));
       setColors({ text: '#112233', border: '#445566', bg: '#778899' });
-      const body = byId<HTMLTextAreaElement>('body-example').value;
-      expect(body.match(/style="/g)).toHaveLength(1);
-      expect(body).toContain('--halloween-badge-color: #112233');
-      expect(body).toContain('--halloween-badge-border-color: #445566');
-      expect(body).toContain('--halloween-badge-bg: #778899');
+      const snippet = pasteText();
+      expect(snippet).toContain('"--halloween-color", "#123abc"');
+      expect(snippet).toContain('"--halloween-badge-color", "#112233"');
+      expect(snippet).toContain('"--halloween-badge-border-color", "#445566"');
+      expect(snippet).toContain('"--halloween-badge-bg", "#778899"');
     });
 
     it('leaves the background out by default and after "Transparent"', () => {
       loadDemo();
       setBadge(true);
       setColors({ text: '#112233' });
-      const body = () => byId<HTMLTextAreaElement>('body-example').value;
-      expect(body()).not.toContain('--halloween-badge-bg');
+      expect(pasteText()).not.toContain('--halloween-badge-bg');
       setColors({ bg: '#778899' });
-      expect(body()).toContain('--halloween-badge-bg: #778899');
+      expect(pasteText()).toContain('"--halloween-badge-bg", "#778899"');
       setColors({ transparent: true });
-      expect(body()).not.toContain('--halloween-badge-bg');
+      expect(pasteText()).not.toContain('--halloween-badge-bg');
       expect(byId<HTMLInputElement>('cfg-badge-bg').value).toBe('transparent');
       expect(byId('cfg-badge-bg-picker').classList.contains('is-transparent')).toBe(true);
     });
@@ -365,7 +361,7 @@ describe('demo credit link controls', () => {
       loadDemo();
       setBadge(true);
       setColors({ border: '#445566' });
-      expect(byId<HTMLTextAreaElement>('paste-example').value).toContain(
+      expect(pasteText()).toContain(
         'document.body.style.setProperty("--halloween-badge-border-color", "#445566");',
       );
     });
@@ -374,9 +370,7 @@ describe('demo credit link controls', () => {
       loadDemo();
       setBadge(true);
       setColors({ text: 'nope' });
-      expect(byId<HTMLTextAreaElement>('body-example').value).not.toContain(
-        '--halloween-badge-color',
-      );
+      expect(pasteText()).not.toContain('--halloween-badge-color');
       expect(byId<HTMLInputElement>('cfg-badge-text').getAttribute('aria-invalid')).toBe('true');
       expect(byId('cfg-badge-colors-error').textContent).not.toBe('');
     });

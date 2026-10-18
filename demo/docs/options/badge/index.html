@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Badge — halloween.js docs</title>
+    <meta
+      name="description"
+      content="The optional credit link. How to switch it on, align it left or right, place it inside your footer, restyle it with CSS variables and what it does on short pages."
+    />
+    <link rel="canonical" href="https://halloween.js.org/docs/options/badge/" />
+    <link rel="alternate" type="text/markdown" href="/docs/options/badge.md" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Badge — halloween.js docs" />
+    <meta
+      property="og:description"
+      content="The optional credit link. How to switch it on, align it left or right, place it inside your footer, restyle it with CSS variables and what it does on short pages."
+    />
+    <meta property="og:url" content="https://halloween.js.org/docs/options/badge/" />
+    <meta property="og:image" content="https://halloween.js.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Badge — halloween.js docs" />
+    <meta
+      name="twitter:description"
+      content="The optional credit link. How to switch it on, align it left or right, place it inside your footer, restyle it with CSS variables and what it does on short pages."
+    />
+    <meta name="twitter:image" content="https://halloween.js.org/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/demo.css" />
+    <script src="/site.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "halloween.js",
+            "item": "https://halloween.js.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Docs",
+            "item": "https://halloween.js.org/docs/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Options",
+            "item": "https://halloween.js.org/docs/options/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Badge",
+            "item": "https://halloween.js.org/docs/options/badge/"
+          }
+        ]
+      }
+    </script>
+    <script
+      defer
+      src="https://u.rogulia.fi/script.js"
+      data-website-id="51dd7656-1ec6-465a-8197-a40c58937507"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/">halloween<span>.js</span></a>
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="/#playground">Playground</a>
+          <a href="/platforms/">Platforms</a>
+          <a href="/docs/" aria-current="page">Docs</a>
+          <a href="/contribute/">Contribute</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3a9 9 0 1 0 9 9c0-.5-.05-1-.14-1.47A5.5 5.5 0 0 1 13.47 3.14 9.1 9.1 0 0 0 12 3z"
+              />
+            </svg>
+          </button>
+          <a class="icon-btn" href="https://www.npmjs.com/package/halloween.js" aria-label="npm"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"
+              /></svg
+          ></a>
+          <a class="icon-btn" href="https://github.com/rogulia/halloween.js" aria-label="GitHub"
+            ><svg viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              /></svg
+          ></a>
+          <button
+            class="icon-btn menu-btn"
+            type="button"
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">halloween.js</a> / <a href="/docs/">Docs</a> /
+          <a href="/docs/options/">Options</a> / Badge
+        </nav>
+        <div class="doc">
+          <article class="doc-main">
+            <header class="stack">
+              <p class="eyebrow" style="margin: 0">Options</p>
+              <h1 style="font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem)">Badge</h1>
+              <p class="lead">
+                The optional credit link. How to switch it on, align it left or right, place it
+                inside your footer, restyle it with CSS variables and what it does on short pages.
+              </p>
+              <div class="doc-tools">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn--sm"
+                  data-copy-md="/docs/options/badge.md"
+                  data-label="Copy for LLM"
+                >
+                  <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 6V3.5" />
+                    <circle cx="12" cy="3" r="1" />
+                    <rect x="4" y="6" width="16" height="13" rx="3.5" />
+                    <path d="M2 11.5v3M22 11.5v3M9.5 16h5" />
+                    <circle cx="9" cy="11.5" r=".6" />
+                    <circle cx="15" cy="11.5" r=".6" />
+                  </svg>
+                  <span data-copy-md-text>Copy for LLM</span>
+                </button>
+                <a class="btn btn-secondary btn--sm" href="/docs/options/badge.md"
+                  ><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2" y="5" width="20" height="14" rx="3.5" />
+                    <path d="M6 15V9l2.5 3L11 9v6M17 9v6m-2-2 2 2 2-2" />
+                  </svg>
+                  View as Markdown</a
+                >
+                <span
+                  class="copy-status"
+                  role="status"
+                  aria-live="polite"
+                  data-copy-md-status
+                ></span>
+              </div>
+            </header>
+            <p>
+              The badge is an optional small link to halloween.js: "🎃 Halloween effects by
+              halloween.js". It is off by default. Use it if you want to credit the project.
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>&lt;body class="halloween halloween-badge"&gt;</code></pre>
+            </div>
+            <p>
+              The badge shows only when both gates are open: the <code>halloween</code> class is on
+              <code>&lt;body&gt;</code> and today is inside the
+              <a href="/docs/options/season/">season window</a>. Outside the season it is removed
+              with everything else.
+            </p>
+            <h2 id="classes">
+              Classes<a class="anchor" href="#classes" aria-label="Link to this section">#</a>
+            </h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>halloween-badge</code></td>
+                    <td>Shows the badge. Required</td>
+                  </tr>
+                  <tr>
+                    <td><code>halloween-badge-left</code></td>
+                    <td>Aligns it to the left, with a 16px margin</td>
+                  </tr>
+                  <tr>
+                    <td><code>halloween-badge-right</code></td>
+                    <td>Aligns it to the right, with a 16px margin</td>
+                  </tr>
+                  <tr>
+                    <td>no alignment class</td>
+                    <td>Centered</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h2 id="where-it-is-placed">
+              Where it is placed<a
+                class="anchor"
+                href="#where-it-is-placed"
+                aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              By default the badge is a normal block at the very end of <code>&lt;body&gt;</code>,
+              after your content. It is not part of the fixed effects layer, so it can never sit on
+              top of a chat widget, a cookie banner, a toast or a modal.
+            </p>
+            <p>
+              To put it somewhere else, for instance inside your own footer, add this attribute to
+              the element that should hold it. The first matching element on the page is used.
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>&lt;footer data-halloween-badge-slot&gt;&lt;/footer&gt;</code></pre>
+            </div>
+            <p>The alignment classes apply to a badge in a slot as well.</p>
+            <h2 id="short-pages">
+              Short pages<a class="anchor" href="#short-pages" aria-label="Link to this section"
+                >#</a
+              >
+            </h2>
+            <p>
+              When the page content is shorter than the window, a badge at the end of
+              <code>&lt;body&gt;</code> would float up directly under the content. The library adds
+              the missing height above it as a margin, so the badge sits at the bottom edge of the
+              screen. It does not change <code>&lt;body&gt;</code>'s own layout. A tall page gets no
+              extra space. This applies only when the badge is in <code>&lt;body&gt;</code>. A badge
+              in a slot stays where your markup puts it.
+            </p>
+            <h2 id="styling">
+              Styling<a class="anchor" href="#styling" aria-label="Link to this section">#</a>
+            </h2>
+            <p>
+              All variables are optional and can be set on <code>:root</code> or <code>body</code>.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Controls</th>
+                    <th>Default</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--halloween-badge-color</code></td>
+                    <td>Text color</td>
+                    <td>Inherited from the page</td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-badge-border-color</code></td>
+                    <td>Border color</td>
+                    <td>The text color at 30 percent</td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-badge-bg</code></td>
+                    <td>Background</td>
+                    <td><code>transparent</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-badge-font</code></td>
+                    <td>The whole <code>font</code> shorthand</td>
+                    <td><code>13px/1.4 system-ui, sans-serif</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-badge-opacity</code></td>
+                    <td>Opacity at rest. Hover and keyboard focus set it to 1</td>
+                    <td><code>0.9</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--halloween-badge-z-index</code></td>
+                    <td>Stacking order</td>
+                    <td>
+                      One above <code>--halloween-page-z-index</code>, so the corner webs never
+                      paint over it
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              The badge does not follow <code>--halloween-color</code>. It has the variables above.
+            </p>
+            <div class="code-block code-block--wrap code-block--plain">
+              <pre><code>:root {
+  --halloween-badge-color: #ff6b00;
+  --halloween-badge-bg: #1a1a1a;
+}</code></pre>
+            </div>
+            <h2 id="the-link">
+              The link<a class="anchor" href="#the-link" aria-label="Link to this section">#</a>
+            </h2>
+            <p>
+              It points to <code>https://halloween.js.org/</code>, opens in a new tab and uses
+              <code>rel="noopener nofollow"</code>. The element has the class
+              <code>halloween-badge-link</code>. It is a pill with a 1px border, a 999px radius and
+              a 6px by 14px padding, shown as a block no wider than the screen.
+            </p>
+            <nav class="pager" aria-label="Previous and next page">
+              <a class="pager-prev" href="/docs/options/size-and-opacity/"
+                ><span>Previous</span>Size and opacity</a
+              ><a class="pager-next" href="/docs/options/script-url-parameters/"
+                ><span>Next</span>Script URL parameters</a
+              >
+            </nav>
+          </article>
+          <aside class="doc-aside" aria-label="Documentation">
+            <div class="card toc">
+              <h3>On this page</h3>
+              <ul>
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#where-it-is-placed">Where it is placed</a></li>
+                <li><a href="#short-pages">Short pages</a></li>
+                <li><a href="#styling">Styling</a></li>
+                <li><a href="#the-link">The link</a></li>
+              </ul>
+            </div>
+            <div class="card docs-nav">
+              <h3>Documentation</h3>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/getting-started/">Getting started</a></h4>
+                <ul>
+                  <li><a href="/docs/getting-started/installation/">Installation</a></li>
+                  <li><a href="/docs/getting-started/quick-start/">Quick start</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/options/">Options</a></h4>
+                <ul>
+                  <li><a href="/docs/options/master-switch/">Master switch</a></li>
+                  <li><a href="/docs/options/effects/">Ambient effects</a></li>
+                  <li><a href="/docs/options/screen-corners/">Screen corners</a></li>
+                  <li><a href="/docs/options/intensity/">Intensity</a></li>
+                  <li><a href="/docs/options/season/">Season window</a></li>
+                  <li><a href="/docs/options/color/">Color</a></li>
+                  <li><a href="/docs/options/size-and-opacity/">Size and opacity</a></li>
+                  <li><a href="/docs/options/badge/" aria-current="page">Badge</a></li>
+                  <li><a href="/docs/options/script-url-parameters/">Script URL parameters</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/api/">API</a></h4>
+                <ul>
+                  <li><a href="/docs/api/js-api/">JS API</a></li>
+                </ul>
+              </div>
+              <div class="docs-nav-group">
+                <h4><a href="/docs/guides/">Guides</a></h4>
+                <ul>
+                  <li><a href="/docs/guides/how-it-works/">How it works</a></li>
+                  <li><a href="/docs/guides/accessibility/">Accessibility</a></li>
+                  <li><a href="/docs/guides/troubleshooting/">Troubleshooting</a></li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>Built by <a href="https://iurii.rogulia.fi">Iurii Rogulia</a></p>
+        <ul class="footer-links">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/platforms/">Platforms</a></li>
+          <li><a href="/contribute/">Contribute</a></li>
+          <li><a href="/SKILL.md">SKILL.md</a></li>
+          <li><a href="https://github.com/rogulia/halloween.js">GitHub</a></li>
+          <li><a href="https://www.npmjs.com/package/halloween.js">npm</a></li>
+          <li>
+            <a href="https://codepen.io/Iurii-Rogulia/pen/01a04277-f24b-7dd1-b12c-aae1c436b168"
+              >CodePen</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <script src="/docs.js" defer></script>
+  </body>
+</html>
